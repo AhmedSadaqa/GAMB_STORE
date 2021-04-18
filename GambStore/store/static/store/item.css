@@ -1,0 +1,216 @@
+html {
+    margin: 0px;
+    background-color: #2b2b2b ;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav {
+    display: flex; 
+    border-bottom: #27995e solid 2px;  
+}
+
+#footer {
+    display: flex;
+    border-top: #27995e solid 2px;  
+    justify-content: space-around;
+}
+
+#footer ul {
+    color: #27995e;
+}
+
+#footer a {
+    color :#27995e ;
+    text-decoration: none;
+}
+
+#footer li {
+    list-style-type: none;
+}
+
+#menu-av {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+#avatar {
+    position: absolute;
+    right: 10px;
+}
+
+nav a {
+    color: #6de2a6;
+    text-decoration: none;
+    font-size: large;
+}
+
+nav li {
+    list-style-type:none;
+    display: inline-block;
+}
+
+#body {
+    width: 80%;
+    margin: auto;
+    border-left: solid #45b77d 2px;
+    border-right: solid #45b77d 2px;
+    background-color: #c0c0c0;
+}
+
+#Reviews td {
+    border:  #2b2b2b solid 2px;
+}
+
+#span span, #Reviews h5 {
+    color : #27995e;
+}
+
+#Reviews img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+}
+
+#Reviews h5 , #Reviews p , #span{
+    margin: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* #2b2b2b */
+#trailer, #cast-credit {
+    padding-top: 20px;
+    justify-content: space-around;
+    padding-left: 0px;
+}
+
+#trailer iframe {
+    width: 70%;
+    height: 400px;
+}
+
+.cc {
+    border: dashed 1px #45b77d;
+    padding: 10px;
+}
+
+.item, #trailer, #cast-credit, #Reviews , #others{
+    display: flex;
+    padding-top: 20px;
+}
+
+#others {
+    padding-bottom: 10px;
+}
+
+.card {
+    width : 250px ;
+    height: 410px ;
+    background-color : rgb(163, 160, 160) ;
+    text-align: center;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.card p {
+    margin: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.button {
+    background: #45b77d;
+    color: white;
+    display: inline-block;
+    border-radius: 3px;
+    padding: 4px;
+}
+
+.button-muted {
+    background: white;
+    color: #45b77d;
+    display: inline-block;
+    border-radius: 3px;
+    padding: 4px;
+}
+
+.card a {
+    text-decoration: none; 
+    font-size: small;
+}
+
+.card img {
+    margin-top: 10px;
+    width: 200px;
+    height: 250px;
+    border-radius: 4px;
+}
+
+.card h5 {
+    margin: 0px;
+    color :#27995e ;
+    margin-bottom: 4px;
+}
+
+.mini-images {
+    display: flex;
+    justify-content: space-around;
+}
+
+.description {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#images {
+    margin-left: 20px;
+}
+
+.checked {
+    color : orange;
+}
+
+#special {
+    padding-right: 10px;
+    margin: 0px;
+    display: flex; 
+    justify-content: space-between;
+}
+
+.title {
+    width: 140px;
+    vertical-align: top;
+}
+
+a {
+    color: inherit;
+}
+
+h2 {
+    color: #27995e;
+}
+
+#sim {
+    color: #27995e;
+    margin-left: 20px;
+}
+
+h3, h4 {
+    color: #59af83;
+}
+
+#rev {
+    color: black ;
+}
+
+
+.review {
+    display: flex;
+    justify-content: space-between;
+}
+
+.author {
+    display: flex;
+}
