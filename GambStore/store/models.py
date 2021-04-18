@@ -16,46 +16,58 @@ class Book(models.Model):
     Name        = models.CharField(max_length=120)
     Genre       = models.CharField(max_length=120)
     Rating      = models.IntegerField()
-    Date        = models.DateTimeField()
+    Date        = models.DateField()
     CopiesSold  = models.IntegerField()
     Price       = models.DecimalField(max_digits=5, decimal_places=2)
     Image       = models.ImageField(upload_to="Static/store/books", null=True, blank=True)
     Description = models.TextField()
     CreatedAt   = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.Name
+
 class Application(models.Model):
     Name        = models.CharField(max_length=120)
     Genre       = models.CharField(max_length=120)
     Rating      = models.IntegerField()
-    Date        = models.DateTimeField()
+    Date        = models.DateField()
     CopiesSold  = models.IntegerField()
     Price       = models.DecimalField(max_digits=5, decimal_places=2)
     Image       = models.ImageField(upload_to="Static/store/applications", null=True, blank=True)
     Description = models.TextField()
     CreatedAt   = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.Name
+
 class Game(models.Model):
     Name        = models.CharField(max_length=120)
     Genre       = models.CharField(max_length=120)
     Rating      = models.IntegerField()
-    Date        = models.DateTimeField()
+    Date        = models.DateField()
     CopiesSold  = models.IntegerField()
     Price       = models.DecimalField(max_digits=5, decimal_places=2)
     Image       = models.ImageField(upload_to="Static/store/games", null=True, blank=True)
     Description = models.TextField()
     CreatedAt   = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.Name
+
 class Movie(models.Model):
     Name        = models.CharField(max_length=120)
     Genre       = models.CharField(max_length=120)
     Rating      = models.IntegerField()
-    Date        = models.DateTimeField()
+    Date        = models.DateField()
     CopiesSold  = models.IntegerField()
     Price       = models.DecimalField(max_digits=5, decimal_places=2)
     Image       = models.ImageField(upload_to="Static/store/movies", null=True, blank=True)
     Trailer     = models.FileField()
     Description = models.TextField()
     CreatedAt   = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.Name
 
 class CastMember(models.Model):
     Name        = models.CharField(max_length=120)
