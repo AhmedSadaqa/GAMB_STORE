@@ -25,7 +25,7 @@ SECRET_KEY = '$$(2__i1*04adi%^ih2!3ba1uko4mo%t@k3lee76jx&wdr_)x%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,8 +79,8 @@ WSGI_APPLICATION = 'GambStore.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE':   'django.db.backends.sqlite3',
-        'NAME':     'gamb_store_db',
+        'ENGINE':   'django.db.backends.mysql',
+        'NAME':     'gambstoredb',
         'USER':     'root',
         'PASSWORD': 'Ahmsad!@12',
         'HOST':     'localhost',
