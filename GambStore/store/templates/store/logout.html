@@ -13,39 +13,42 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{% static 'store/main.css' %}">
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+
 </head>
 
-<body style="padding-bottom: 100px;">
-    <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-            <div class="container">
-                <a class="navbar-brand mr-4" href="{% url 'store-home' %}">GAMB Store</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarToggle">
-                    <div class="navbar-nav mr-auto">
-                        <a class="nav-item nav-link" href="{% url 'store-home' %}">Home</a>
-                    </div>
-                    <!-- Navbar Right Side -->
-                    <div class="navbar-nav">
-                        {% if user.is_authenticated %}
-                            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-                            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                        {% else %}
-                            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                        {% endif %}
-                    </div>
+<body>
+    <div class="site-header">
+        <div class="container">
+            <a href="{% url 'store-home' %}" id="branding">
+                <img src="images\logo-removebg-preview.png" alt="" class="logo">
+                <div class="logo-text">
+                    <h1 class="site-title">GAMB Store</h1>
+                    <small class="site-description">The right GAMBit, <br>the right site</small>
                 </div>
+            </a>
+            <!-- #branding -->
+
+            <div class="right-section pull-right">
+                <img src="images\photo.jpg.png" style="width:1.5em;height: 1.5em; border-radius: 10em;">
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
             </div>
-        </nav>
-    </header>
+            <!-- .right-section -->
+
+
+        </div>
+        <!-- .container -->
+    </div>
+    <br><br>
     <main role="main" class="container">
         <div class="row">
             <div class="col-md-8">
-
                 <h2>You have been logged out</h2>
                 <div class="border-top pt-3">
                     <small class="text-muted">
@@ -56,15 +59,68 @@
             
         </div>
     </main>
+    <div class="site-footer" style="width: 100%; height: 230px; bottom: 0; position: absolute;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="widget">
+                        <h3 class="widget-title">Information</h3>
+                        <ul class="no-bullet">
+                            <li><a href="#">Site map</a></li>
+                            <li><a href="ToS.html">Terms of Service</a></li>
+                            <li><a href="about.html">About us</a></li>
+                            <li><a href="#">FAQ</a></li>
+                            <!--check if we will keep this or we'll remove it later-->
+                            <li><a href="#">Contact</a></li>
+                            <!--check if we will keep this or we'll remove it later-->
+                        </ul>
+                    </div>
+                    <!-- .widget -->
+                </div>
+                <!-- column -->
+                <div class="col-md-2">
+                    <div class="widget">
+                        <h3 class="widget-title">My Account</h3>
+                        <ul class="no-bullet">
+                            <li><a href="login.html">Login/Register</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                    <!-- .widget -->
+                </div>
+                <!-- column -->
+                <div class="col-md-6">
+                    <div class="widget">
+                        <h3 class="widget-title">Join our newsletter</h3>
+                        <form action="#" class="newsletter-form">
+                            <input type="text" placeholder="Enter your email...">
+                            <input type="submit" value="Subsribe">
+                        </form>
+                    </div>
+                    <!-- .widget -->
+                </div>
+                <!-- column -->
+            </div>
+            <!-- .row -->
 
-    <footer id="footer" class="bg-steel text-center text-white fixed-bottom" style="width: 100%; height: 90px;">
+            <div>
+                <div class="copy">Copyright 2021 GAMB store. Designed by ABN team. All rights reserved.</div>
+            </div>
+            <!-- .colophon -->
+        </div>
+        <!-- .container -->
+    </div>
+
+    <!-- <footer id="footer" class="bg-steel text-center text-white fixed-bottom" style="width: 100%; height: 90px;">
         <div class="container p-4 pb-0">
           <section class="mb-4">
             <a class="btn btn-outline-light btn-floating m-1" href="{% url 'terms' %}" role="button">Terms of Service</a>
             <a class="btn btn-outline-light btn-floating m-1" href="{% url 'about' %}" role="button">About the website</a>
           </section>
         </div> 
-      </footer>
+      </footer> -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
