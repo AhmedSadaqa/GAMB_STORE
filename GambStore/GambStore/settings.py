@@ -80,10 +80,10 @@ WSGI_APPLICATION = 'GambStore.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':   'django.db.backends.mysql',
-        'NAME':     'gambstoredb',
-        'USER':     'root',
+        'NAME':     'gambstore',
+        'USER':     'AhmedSadaqa@onlinequeuedb',
         'PASSWORD': 'Ahmsad!@12',
-        'HOST':     'localhost',
+        'HOST':     'onlinequeuedb.mysql.database.azure.com',
         'PORT':     '3306',
     }
 }
