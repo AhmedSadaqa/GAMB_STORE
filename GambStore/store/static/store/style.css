@@ -168,17 +168,17 @@ figure {
     margin: 0;
 }
 
-/* fieldset {
+fieldset {
     border: 1px solid #c0c0c0;
     margin: 0 2px;
     padding: 0.35em 0.625em 0.75em;
-} */
+}
 
-/* legend {
+legend {
     border: 0;
     padding: 0;
     white-space: normal;
-} */
+}
 
 button,
 input,
@@ -302,7 +302,7 @@ p {
     margin-top: 0;
 }
 
-/* form input,
+form input,
 form textarea,
 form select {
     outline: none;
@@ -310,7 +310,7 @@ form select {
     background-color: transparent;
     padding: 10px;
     border-radius: 3px;
-} */
+}
 
 form select {
     -webkit-appearance: none;

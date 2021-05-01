@@ -1,69 +1,19 @@
+{% extends 'store/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% load crispy_forms_tags %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
-
-    <title>GAMB store</title>
-    <link rel="icon" type="image/gif/png" href="images\circle.png">
-    <link rel="stylesheet" href="{% static 'store/style.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" />
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-
-    <style>
-        .custom-select{
-            content: "\f0ac";
-        }
-    </style>
-
-</head>
-
-<body class="slider-collapse">
-    <div id=site-content>
-        <div class="site-header">
-            <div class="container">
-                <a href="GAMPindex.html" id="branding">
-                    <img src="images\logo-removebg-preview.png" alt="" class="logo">
-                    <div class="logo-text">
-                        <h1 class="site-title">GAMB Store</h1>
-                        <small class="site-description">The right GAMBit, <br>the right site</small>
-                    </div>
-                </a>
-                <!-- #branding -->
-                
-
-                <div class="right-section pull-right">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <!-- <img src="{% static 'store/globe-solid.svg' %}" style="width: 20px;" alt=""> -->
-                        <!-- <i class="fas fa-globe"></i> -->
-                        <select class="custom-select" style="width: 60px;" name="currency" id="" onchange="form.submit()">
-                            <option value="USD" selected>---</option>
-                            <option value="USD">USD</option>
-                            <option value="LBP">LBP</option>
-                        </select>
-                    </form>
-                    
-
-                    <img src="images\photo.jpg.png" style="width:1.5em;height: 1.5em; border-radius: 10em;">
-                    {% if user.is_authenticated %}
-                    <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
-                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
-                    {% else %}
-                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
-                    {% endif %}
-                </div>
-                <!-- .right-section -->
+{% block title %}
+  GAMB Store
+{% endblock %}
 
 
-            </div>
-            <!-- .container -->
-        </div>
-        <!-- .header -->
+{% block styles %} 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'store/main.css' %}">
+{% endblock %}
+
+{% block content %}
         <main class="main-content">
             <div class="container">
                 <div class="page">
@@ -84,525 +34,70 @@
                                     <small class="price">$19.00/ Free</small>
                                 </div>
                             </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                    </section>
+                        </section>
 
-                    <section>
-                        <header>
-                            <h2 class="section-title">Applications</h2>
-                            <a href="#" class="all">Show All</a>
-                        </header>
 
-                        <div class="product-list">
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                    </section>
-                    <section>
-                        <header>
-                            <h2 class="section-title">Movies</h2>
-                            <a href="#" class="all">Show All</a>
-                        </header>
+                <section>
+                    <header>
+                        <h2 class="section-title">Applications</h2>
+                        <a href="#" class="all">Show All</a>
+                    </header>
 
-                        <div class="product-list">
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
+                    <div class="product-list">
+                        <div class="product">
+                            <div class="inner-product">
+                                <div class="figure-image">
+                                    <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
                                 </div>
+                                <h3 class="product-title"><a href="#">Title</a></h3>
+                                <h3 class="product-category"><a href="#">Category</a></h3>
+                                <small class="price">$19.00/ Free</small>
                             </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                    </section>
-                    <section>
-                        <header>
-                            <h2 class="section-title">Books</h2>
-                            <a href="#" class="all">Show All</a>
-                        </header>
-
-                        <div class="product-list">
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                            <div class="product">
-                                <div class="inner-product">
-                                    <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
-                                    </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
-                                </div>
-                            </div>
-                            <!-- .product -->
-                    </section>
-                </div>
-            </div>
-            <!-- .container -->
-        </main>
-        <!-- .main-content -->
-        <div class="site-footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="widget">
-                            <h3 class="widget-title">Information</h3>
-                            <ul class="no-bullet">
-                                <li><a href="#">Site map</a></li>
-                                <li><a href="ToS.html">Terms of Service</a></li>
-                                <li><a href="about.html">About us</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <!--check if we will keep this or we'll remove it later-->
-                                <li><a href="#">Contact</a></li>
-                                <!--check if we will keep this or we'll remove it later-->
-                            </ul>
                         </div>
-                        <!-- .widget -->
-                    </div>
-                    <!-- column -->
-                    <div class="col-md-2">
-                        <div class="widget">
-                            <h3 class="widget-title">My Account</h3>
-                            <ul class="no-bullet">
-                                <li><a href="login.html">Login/Register</a></li>
-                                <li><a href="#">Settings</a></li>
-                                <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Logout</a></li>
-                            </ul>
+                </section>
+                  
+                <section>
+                    <header>
+                        <h2 class="section-title">Movies</h2>
+                        <a href="#" class="all">Show All</a>
+                    </header>
+
+                    <div class="product-list">
+                        <div class="product">
+                            <div class="inner-product">
+                                <div class="figure-image">
+                                    <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
+                                </div>
+                                <h3 class="product-title"><a href="#">Title</a></h3>
+                                <h3 class="product-category"><a href="#">Category</a></h3>
+                                <small class="price">$19.00/ Free</small>
+                            </div>
                         </div>
-                        <!-- .widget -->
-                    </div>
-                    <!-- column -->
-                    <div class="col-md-6">
-                        <div class="widget">
-                            <h3 class="widget-title">Join our newsletter</h3>
-                            <form action="#" class="newsletter-form">
-                                <input type="text" placeholder="Enter your email...">
-                                <input type="submit" value="Subsribe">
-                            </form>
+                </section>
+                <section>
+                    <header>
+                        <h2 class="section-title">Books</h2>
+                        <a href="#" class="all">Show All</a>
+                    </header>
+                        <div class="product-list">
+                        <div class="product">
+                            <div class="inner-product">
+                                <div class="figure-image">
+                                    <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
+                                </div>
+                                <h3 class="product-title"><a href="#">Title</a></h3>
+                                <h3 class="product-category"><a href="#">Category</a></h3>
+                                <small class="price">$19.00/ Free</small>
+                            </div>
                         </div>
-                        <!-- .widget -->
-                    </div>
-                    <!-- column -->
+                </section>
+
+
                 </div>
-                <!-- .row -->
-
-                <div class="colophon">
-                    <div class="copy">Copyright 2021 GAMB store. Designed by ABN team. All rights reserved.</div>
                 </div>
-                <!-- .colophon -->
-            </div>
-            <!-- .container -->
-        </div>
-        <!-- .site-footer -->
 
-    </div>
-    <!-- .content -->
-</body>
+                <!-- .container -->
+    </main>
+    <!-- .main-content -->
+{% endblock %}
 
-
-</html>

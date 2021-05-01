@@ -1,14 +1,15 @@
+{% extends 'store/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Item</title>
-        <meta charset="UTF-8">
-        <link href="{% static 'store/item.css' %}" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
 
-    <body>
+
+{% block title %} Books {% endblock %} 
+{% block styles %} 
+    <link rel="stylesheet" href="{% static 'store/item.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+    <div id="contain">
         <div id="body">
             <div class="item">
                 <div id="images">
@@ -22,10 +23,10 @@
                 </div>
                 
                 <div class="description">
-                    <h2>{{books.Name}}</h2>
-                    <div id="special">
-                        <h3>${{books.Price}}</h3>
-                        <h4><a href="">-> add to WishList</a></h4>
+                    <h2 style="color: #27995e;">The King of Drugs</h2>
+                    <div style="color: #27995e;" id="special">
+                        <h3>Free</h3>
+                        <h4><a href="" style="color: #27995e;">-> add to WishList</a></h4>
                     </div>
                     <table>
                         <tr>
@@ -236,43 +237,52 @@
             </div>
             
             <h3 id="sim">Similar Products: </h3>
-            <div id="others">
-                <div class="card">
-                    <img src="../../../media/Cover 1.jpg" alt="cover1">
-                    <h5>Wizard Girl</h5>
-                    <p>In a town where nothing happens, the new wizard king is born. This time, it is...</p>
-                    <h5>$15.99</h5>
-                    <a href="#" class="button">Add to WishList</a>
-                    <a href="#" class="button-muted">Read Details</a>
+            <div class="product-list">
+                <div class="product">
+                    <div class="inner-product">
+                        <div class="figure-image">
+                            <a href="single.html"><img src="../../../media/Cover 1.jpg" alt="cover1"></a>
+                        </div>
+                        <h3 class="product-title"><a href="#">Wizard Girl</a></h3>
+                        <h3 class="product-category"><a href="#">Adventure</a></h3>
+                        <small class="price">$15.99</small>
+                    </div>
+                </div>
+
+                <div class="product">
+                    <div class="inner-product">
+                        <div class="figure-image">
+                            <a href="single.html"><img src="../../../media/Cover 4.jpg" alt="cover4"></a>
+                        </div>
+                        <h3 class="product-title"><a href="#">Wizard Torrent</a></h3>
+                        <h3 class="product-category"><a href="#">Adventure</a></h3>
+                        <small class="price">$10.00</small>
+                    </div>
+                </div>
+
+                <div class="product">
+                    <div class="inner-product">
+                        <div class="figure-image">
+                            <a href="single.html"><img src="../../../media/Cover 3.jpg" alt="cover3"></a>
+                        </div>
+                        <h3 class="product-title"><a href="#">Travel Around the World</a></h3>
+                        <h3 class="product-category"><a href="#">Adventure</a></h3>
+                        <small class="price">Free</small>
+                    </div>
+                </div>
+
+                <div class="product">
+                    <div class="inner-product">
+                        <div class="figure-image">
+                            <a href="single.html"><img src="../../../media/Cover 2.jpg" alt="cover2"></a>
+                        </div>
+                        <h3 class="product-title"><a href="#">Sea Voyage</a></h3>
+                        <h3 class="product-category"><a href="#">Adventure</a></h3>
+                        <small class="price">$29.99</small>
+                    </div>
                 </div>
     
-                <div class="card">
-                    <img src="../../../media/Cover 2.jpg" alt="cover2">
-                    <h5>Sea Voyage</h5>
-                    <p>In a town where nothing happens, the new wizard king is born. This time, it is...</p>
-                    <h5>$29.99</h5>
-                    <a href="#" class="button">Add to WishList</a>
-                    <a href="#" class="button-muted">Read Details</a>
-                </div>
-    
-                <div class="card">
-                    <img src="../../../media/Cover 3.jpg" alt="cover3">
-                    <h5>Travel Around the World</h5>
-                    <p>In a town where nothing happens, the new wizard king is born. This time, it is...</p>
-                    <h5>Free</h5>
-                    <a href="#" class="button">Add to WishList</a>
-                    <a href="#" class="button-muted">Read Details</a>
-                </div>
-    
-                <div class="card">
-                    <img src="../../../media/Cover 4.jpg" alt="cover4">
-                    <h5>Wizard Torrent</h5>
-                    <p>In a town where nothing happens, the new wizard king is born. This time, it is...</p>
-                    <h5>$10.00</h5>
-                    <a href="#" class="button">Add to WishList</a>
-                    <a href="#" class="button-muted">Read Details</a>
-                </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+{% endblock %}
