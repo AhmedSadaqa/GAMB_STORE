@@ -24,16 +24,19 @@
                         </header>
 
                         <div class="product-list">
+                            {% for game in games %}
                             <div class="product">
                                 <div class="inner-product">
                                     <div class="figure-image">
-                                        <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
+                                        <a href="single.html"><img src="{{game.Image.url}}" alt="Game 1"></a>
                                     </div>
-                                    <h3 class="product-title"><a href="#">Title</a></h3>
-                                    <h3 class="product-category"><a href="#">Category</a></h3>
-                                    <small class="price">$19.00/ Free</small>
+                                    <h3 class="product-title"><a href="#">{{book.Name}}</a></h3>
+                                    <h3 class="product-category"><a href="#">{{book.Genre}}</a></h3>
+                                    <small class="price">{{book.Price}}</small>
                                 </div>
                             </div>
+                            {% endfor %}
+                        </div>
                         </section>
 
 
@@ -44,16 +47,19 @@
                     </header>
 
                     <div class="product-list">
+                        {% for application in applications %}
                         <div class="product">
                             <div class="inner-product">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
+                                    <a href="single.html"><img src="{{application.Image.url}}" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="#">Title</a></h3>
-                                <h3 class="product-category"><a href="#">Category</a></h3>
-                                <small class="price">$19.00/ Free</small>
+                                <h3 class="product-title"><a href="#">{{application.Name}}</a></h3>
+                                <h3 class="product-category"><a href="#">{{application.Genre}}</a></h3>
+                                <small class="price">{{application.Price}}</small>
                             </div>
                         </div>
+                        {% endfor %}
+                    </div>
                 </section>
                   
                 <section>
@@ -63,32 +69,47 @@
                     </header>
 
                     <div class="product-list">
+                        {% for movie in movies %}
                         <div class="product">
                             <div class="inner-product">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
+                                    <a href="single.html"><img src="{{movie.Image.url}}" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="#">Title</a></h3>
-                                <h3 class="product-category"><a href="#">Category</a></h3>
-                                <small class="price">$19.00/ Free</small>
+                                <h3 class="product-title"><a href="#">{{movie.Name}}</a></h3>
+                                <h3 class="product-category"><a href="#">{{movie.Genre}}</a></h3>
+                                <small class="price">{{movie.Price}}</small>
                             </div>
                         </div>
+                        {% endfor %}
+                    </div>
                 </section>
+
                 <section>
                     <header>
                         <h2 class="section-title">Books</h2>
                         <a href="#" class="all">Show All</a>
                     </header>
                         <div class="product-list">
-                        <div class="product">
-                            <div class="inner-product">
-                                <div class="figure-image">
-                                    <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
+                            {% for book in books %}
+                            <div class="product">
+                                <div class="inner-product">
+                                    <div class="figure-image">
+                                        <a href="single.html"><img src="{{book.Image.url}}" alt="Game 1"></a>
+                                    </div>
+                                    <h3 class="product-title"><a href="#">{{book.Name}}</a></h3>
+                                    <h3 class="product-category"><a href="#">{{book.Genre}}</a></h3>
+                                    <small class="price">
+                                        {% ifequal currency "LBP" %}
+                                        LBP {{book.PriceLBP}}
+                                        {% endifequal %}
+
+                                        {% ifequal currency "USD" %}
+                                        USD {{book.PriceUSD}}
+                                        {% endifequal %}
+                                    </small>
                                 </div>
-                                <h3 class="product-title"><a href="#">Title</a></h3>
-                                <h3 class="product-category"><a href="#">Category</a></h3>
-                                <small class="price">$19.00/ Free</small>
                             </div>
+                            {% endfor %}
                         </div>
                 </section>
 
