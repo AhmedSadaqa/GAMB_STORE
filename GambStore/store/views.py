@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from .models import Profile, Book, Application, Game, Movie, CastMember, CreditMemeber, Review
 from django.contrib.auth.decorators import login_required
 import re
 import datetime
 from django.db.models import Q
 from django.http import Http404
+from decimal import *
 
 
 
@@ -15,14 +16,22 @@ def home(request):
     applications = Application.objects.all()
     games = Game.objects.all()
     movies = Movie.objects.all()
+    currency = "USD"
+    context = {"books":books,
+               "applications":applications,
+               "games":games,
+               "movies":movies,
+               "currency": currency}
     if request.method == "POST":
         currency = request.POST.get('currency')
-        if currency == "LBP":
+        context = {"books":books,
+                "applications":applications,
+                "games":games,
+                "movies":movies, 
+                "currency": currency}
+        return render(request, "store/GAMBindex.html", context)
 
-            print("HII")
-        else:
-            print("BYE")
-    return render(request, "store/GAMBindex.html")
+    return render(request, "store/GAMBindex.html", context)
 
 
 def register(request):
@@ -40,7 +49,27 @@ def register(request):
 
 @login_required
 def profile(request):
-    return render(request, 'store/profile.html')
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST,
+                                   request.FILES,
+                                   instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+
+    return render(request, 'store/profile.html', context)
 
 
 def about(request):
