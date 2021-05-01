@@ -11,6 +11,17 @@ from django.http import Http404
 
 
 def home(request):
+    books = Book.objects.all()
+    applications = Application.objects.all()
+    games = Game.objects.all()
+    movies = Movie.objects.all()
+    if request.method == "POST":
+        currency = request.POST.get('currency')
+        if currency == "LBP":
+
+            print("HII")
+        else:
+            print("BYE")
     return render(request, "store/GAMBindex.html")
 
 
@@ -44,9 +55,13 @@ def item(request):
 
 def bookCategory(request):
 
-    #Top selling
-
-
+    # #Top selling
+    # booksOrdered = Book.objects.all().order_by('-CopiesSold')
+    # topSelling = []
+    # # this is the functionality for the top selling, you should have 10 books in your database to test it or it will give you an error list index out of range
+    # for i in range(10):
+    #     topSelling.append(booksOrdered[i])
+        
     # New Releases Books
     today = datetime.datetime.now()
     current_year = today.year
@@ -54,17 +69,35 @@ def bookCategory(request):
     
     newReleasesBooks = Book.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
 
-
+    tenNewReleasesBooks = []
+    # for i in range(10):
+    #     tenNewReleasesBooks.append(newReleasesBooks[i])
+    
     # All Books
     allBooks = Book.objects.all()
-
-
-
     context = {"newReleasesBooks" : newReleasesBooks,
                "allBooks": allBooks,
                }
     return render(request, 'store/bookCategory.html', context)
     
+
+def topSellingBooks(request):
+    booksOrdered = Book.objects.all().order_by('-CopiesSold')
+    context = {"booksOrdered" : booksOrdered}
+    return render(request, 'store/topSellingBooks.html', context)
+
+def newReleases(request):
+    today = datetime.datetime.now()
+    current_year = today.year
+    last_year = current_year - 1
+    
+    newReleasesBooks = Book.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
+
+    context = {"newReleasesBooks" : newReleasesBooks}
+    return render(request, 'store/newReleasesBooks.html', context)
+
+def recommendations(request):
+    return render(request, 'store/booksRecommendations.html')
 
 def applicationCategory(request):
     applications = Application.objects.all()
