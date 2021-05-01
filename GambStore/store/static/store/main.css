@@ -33,6 +33,11 @@ ul {
   font-weight: 500;
 }
 
+.center {
+  width: 60%;
+  margin : 20px auto ;
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;

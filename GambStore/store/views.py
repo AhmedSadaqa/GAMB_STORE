@@ -40,7 +40,7 @@ def termOfServices(request):
     return render(request, 'store/ToS.html')
     
 def item(request):
-    return render(request , 'store/item.html')
+    return render(request , 'store/bookItem.html')
 
 def bookCategory(request):
 
