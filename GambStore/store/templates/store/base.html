@@ -2,13 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Hello Ahmed -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
     {% block styles %} {% endblock %}
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'store/style.css' %}">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
   </head>
 
   <body class="slider-collapse">
@@ -16,7 +17,7 @@
       <div class="site-header">
           <div class="container">
               <a href="GAMPindex.html" id="branding">
-                  <img src="images\logo-removebg-preview.png" alt="" class="logo">
+                  <img src="{% static 'store/4.png' %}" alt="Logo" class="logo">
                   <div class="logo-text">
                       <h1 class="site-title">GAMB Store</h1>
                       <small class="site-description">The right GAMBit, <br>the right site</small>
@@ -25,8 +26,14 @@
               <!-- #branding -->
 
               <div class="right-section pull-right">
-                  <img src="images\photo.jpg.png" style="width:1.5em;height: 1.5em; border-radius: 10em;">
-                  <a href="login.html" class="login-button">Login/Register</a>
+                {% if user.is_authenticated %}
+                  <img src="{% static 'store/defaultPic.png' %}" style="width:1.5em;height: 1.5em; border-radius: 10em;">
+                  <a href="{% url 'logout' %}" class="login-button">Log out</a>
+                  <a href="{% url 'profile' %}" class="login-button">Profile</a>
+                {% else %}
+                  <a href="{% url 'login' %}" class="login-button">Login</a>
+                  <a href="{% url 'register' %}" class="login-button">Register</a>
+                {% endif %}
               </div>
               <!-- .right-section -->
 

@@ -36,5 +36,6 @@ def about(request):
 def termOfServices(request):
     return render(request, 'store/termOfServices.html')
     
-
+def item(request):
+    return render(request , 'store/item.html')
 
