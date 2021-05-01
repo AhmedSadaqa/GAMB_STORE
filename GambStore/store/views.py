@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm
+from .models import Profile, Book, Application, Game, Movie, CastMember, CreditMemeber, Review
 from django.contrib.auth.decorators import login_required
 import re
+import datetime
+from django.db.models import Q
+from django.http import Http404
 
 
-#This is the views
 
 def home(request):
-    return render(request, "store/home.html")
+    return render(request, "store/GAMBindex.html")
 
 
 def register(request):
@@ -34,8 +37,77 @@ def about(request):
 
 
 def termOfServices(request):
-    return render(request, 'store/termOfServices.html')
+    return render(request, 'store/ToS.html')
     
 def item(request):
     return render(request , 'store/item.html')
 
+def bookCategory(request):
+
+    #Top selling
+
+
+    # New Releases Books
+    today = datetime.datetime.now()
+    current_year = today.year
+    last_year = current_year - 1
+    
+    newReleasesBooks = Book.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
+
+
+    # All Books
+    allBooks = Book.objects.all()
+
+
+
+    context = {"newReleasesBooks" : newReleasesBooks,
+               "allBooks": allBooks,
+               }
+    return render(request, 'store/bookCategory.html', context)
+    
+
+def applicationCategory(request):
+    applications = Application.objects.all()
+    context = {"applications" : applications}
+    return render(request, 'store/bookCategory.html', context)
+    
+
+def gameCategory(request):
+    games = Game.objects.all()
+    context = {"games" : games}
+    return render(request, 'store/bookCategory.html', context)
+    
+
+def movieCategory(request):
+    movies = Movie.objects.all()
+    context = {"movies" : movies}
+    return render(request, 'store/bookCategory.html', context)
+    
+
+def bookItem(request, book_id):
+    try:
+        books = Book.objects.get(id=book_id)
+        print(books)
+    except Book.DoesNotExist:
+        return render(request, 'store/error.html')
+    
+    context = {"books" : books}
+    return render(request, 'store/bookItem.html', context)
+
+
+def applicationItem(request):
+    applications = Application.objects.all()
+    context = {"applications" : applications}
+    return render(request, 'store/bookItem.html', context)
+    
+
+def gameItem(request):
+    games = Game.objects.all()
+    context = {"games" : games}
+    return render(request, 'store/bookItem.html', context)
+
+
+def movieItem(request):
+    movies = Movie.objects.all()
+    context = {"movies" : movies}
+    return render(request, 'store/bookItem.html', context)
