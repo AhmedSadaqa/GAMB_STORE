@@ -16,7 +16,7 @@
     <div id=site-content>
       <div class="site-header">
           <div class="container">
-              <a href="GAMPindex.html" id="branding">
+              <a href="{% url 'home' %}" id="branding">
                   <img src="{% static 'store/4.png' %}" alt="Logo" class="logo">
                   <div class="logo-text">
                       <h1 class="site-title">GAMB Store</h1>
@@ -40,11 +40,11 @@
               <div class="main-navigation">
                   <button class="toggle-menu"><i class="fa fa-bars"></i></button>
                   <ul class="menu">
-                      <li class="menu-item home current-menu-item"><a href="index.html"><i class="icon-home"></i></a></li>
+                      <li class="menu-item home current-menu-item"><a href="{% url 'home' %}"><i class="icon-home"></i></a></li>
                       <li class="menu-item"><a href="x.html">Games</a></li>
                       <li class="menu-item"><a href="y.html">Applications</a></li>
                       <li class="menu-item"><a href="x.html">Movies</a></li>
-                      <li class="menu-item"><a href="w.html">Books</a></li>
+                      <li class="menu-item"><a href="{% url 'bookCategory' %}">Books</a></li>
                   </ul>
                   <!-- .menu -->
                   <div class="search-form">
@@ -60,50 +60,12 @@
           </div>
           <!-- .container -->
       </div>
-      <!-- .header -->
-      <!-- <header class="site-header">
-        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-          <div class="container">
-            <a class="navbar-brand mr-4" href="{% url 'store-home' %}">GAMB Store</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-              <div class="navbar-nav mr-auto">
-                <a class="nav-item nav-link" href="{% url 'store-home' %}">Home</a>
-              </div>
-              Navbar Right Side -->
-              <!-- <div class="navbar-nav">
-                <a class="nav-item nav-link" href="#">Login</a>
-                <a class="nav-item nav-link" href="#">Register</a>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header> -->
+      
 
       {% block content %}
       {% endblock %}
 
-      <!-- <main role="main" class="container">
-        <div class="row">
-          <div class="col-md-8">
-            
-          </div>
-          <div class="col-md-4">
-            <div class="content-section">          
-            </div>
-          </div>
-        </div>
-      </main> -->
-
-      <!-- <footer id="footer" class="bg-steel text-center text-white fixed-bottom" style="width: 100%; height: 90px;">
-        <div class="container p-4 pb-0">
-          <section class="mb-4">
-            <a class="btn btn-outline-light btn-floating m-1" href="{% url 'terms' %}" role="button">Terms of Service</a>
-            <a class="btn btn-outline-light btn-floating m-1" href="{% url 'about' %}" role="button">About the website</a>
-          </section>
-        </div> 
+      
       </footer> -->
       <div class="site-footer">
         <div class="container">
@@ -128,10 +90,11 @@
                     <div class="widget">
                         <h3 class="widget-title">My Account</h3>
                         <ul class="no-bullet">
-                            <li><a href="login.html">Login/Register</a></li>
+                            <li><a href="{% url 'login' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Register</a></li>
                             <li><a href="#">Settings</a></li>
                             <li><a href="#">Wishlist</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="{% url 'logout' %}">Logout</a></li>
                         </ul>
                     </div>
                     <!-- .widget -->
