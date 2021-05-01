@@ -1,7 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Hello Ahmed -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,126 +11,146 @@
     {% block styles %} {% endblock %}
     <link rel="stylesheet" href="{% static 'store/style.css' %}">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-  </head>
+</head>
 
-  <body class="slider-collapse">
+<body class="slider-collapse">
     <div id=site-content>
-      <div class="site-header">
-          <div class="container">
-              <a href="{% url 'home' %}" id="branding">
-                  <img src="{% static 'store/4.png' %}" alt="Logo" class="logo">
-                  <div class="logo-text">
-                      <h1 class="site-title">GAMB Store</h1>
-                      <small class="site-description">The right GAMBit, <br>the right site</small>
-                  </div>
-              </a>
-              <!-- #branding -->
-
-              <div class="right-section pull-right">
-                {% if user.is_authenticated %}
-                  <img src="{% static 'store/defaultPic.png' %}" style="width:1.5em;height: 1.5em; border-radius: 10em;">
-                  <a href="{% url 'logout' %}" class="login-button">Log out</a>
-                  <a href="{% url 'profile' %}" class="login-button">Profile</a>
-                {% else %}
-                  <a href="{% url 'login' %}" class="login-button">Login</a>
-                  <a href="{% url 'register' %}" class="login-button">Register</a>
-                {% endif %}
-              </div>
-              <!-- .right-section -->
-
-              <div class="main-navigation">
-                  <button class="toggle-menu"><i class="fa fa-bars"></i></button>
-                  <ul class="menu">
-                      <li class="menu-item home current-menu-item"><a href="{% url 'home' %}"><i class="icon-home"></i></a></li>
-                      <li class="menu-item"><a href="x.html">Games</a></li>
-                      <li class="menu-item"><a href="y.html">Applications</a></li>
-                      <li class="menu-item"><a href="x.html">Movies</a></li>
-                      <li class="menu-item"><a href="{% url 'bookCategory' %}">Books</a></li>
-                  </ul>
-                  <!-- .menu -->
-                  <div class="search-form">
-                      <label><img class="search" src="images\icon-search.png"></label>
-                      <input type="text" placeholder="Search...">
-                  </div>
-                  <!-- .search-form -->
-
-                  <div class="mobile-navigation"></div>
-                  <!-- .mobile-navigation -->
-              </div>
-              <!-- .main-navigation -->
-          </div>
-          <!-- .container -->
-      </div>
-      
-
-      {% block content %}
-      {% endblock %}
-
-      
-      </footer> -->
-      <div class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="widget">
-                        <h3 class="widget-title">Information</h3>
-                        <ul class="no-bullet">
-                            <li><a href="#">Site map</a></li>
-                            <li><a href="ToS.html">Terms of Service</a></li>
-                            <li><a href="about.html">About us</a></li>
-                            <li><a href="#">FAQ</a></li>
-                            <!--check if we will keep this or we'll remove it later-->
-                            <li><a href="#">Contact</a></li>
-                            <!--check if we will keep this or we'll remove it later-->
-                        </ul>
+        <div class="site-header">
+            <div class="container">
+                <a href="{% url 'home' %}" id="branding">
+                    <img src="{% static 'store/4.png' %}" alt="Logo" class="logo">
+                    <div class="logo-text">
+                        <h1 class="site-title">GAMB Store</h1>
+                        <small class="site-description">The right GAMBit, <br>the right site</small>
                     </div>
-                    <!-- .widget -->
+                </a>
+                <!-- #branding -->
+
+                <div class="right-section pull-right">
+
+                    {% if user.is_authenticated %}
+                    <img src="{{ user.profile.Image.url }}" style="width:1.5em;height: 1.5em; border-radius: 10em;">
+                    <a href="{% url 'profile' %}" class="login-button">Profile</a>
+                    <a href="{% url 'logout' %}" class="login-button">Log out</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="login-button">Login</a>
+                    <a href="{% url 'register' %}" class="login-button">Register</a>
+                    {% endif %}
                 </div>
-                <!-- column -->
-                <div class="col-md-2">
-                    <div class="widget">
-                        <h3 class="widget-title">My Account</h3>
-                        <ul class="no-bullet">
-                            <li><a href="{% url 'login' %}">Login</a></li>
-                            <li><a href="{% url 'register' %}">Register</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li><a href="#">Wishlist</a></li>
-                            <li><a href="{% url 'logout' %}">Logout</a></li>
-                        </ul>
+                <!-- .right-section -->
+
+                <div class="main-navigation">
+
+                    <button class="toggle-menu"><i class="fa fa-bars"></i></button>
+                    <ul class="menu">
+                        <li class="menu-item home current-menu-item"><a href="{% url 'home' %}"><i
+                                    class="icon-home"></i></a></li>
+                        <li class="menu-item"><a href="{% url 'bookCategory' %}">Games</a></li>
+                        <li class="menu-item"><a href="y.html">Applications</a></li>
+                        <li class="menu-item"><a href="x.html">Movies</a></li>
+                        <li class="menu-item"><a href="{% url 'bookCategory' %}">Books</a></li>
+                        <li>
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <select class="custom-select" style="width: 60px;" name="currency" id=""
+                                    onchange="form.submit()">
+                                    <option value="USD" selected>---</option>
+                                    <option value="USD">USD</option>
+                                    <option value="LBP">LBP</option>
+                                </select>
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- .menu -->
+                    <div class="search-form">
+                        <label><img class="search" src="images\icon-search.png"></label>
+                        <input type="text" placeholder="Search...">
                     </div>
-                    <!-- .widget -->
+                    <!-- .search-form -->
+
+                    <div class="mobile-navigation"></div>
+                    <!-- .mobile-navigation -->
                 </div>
-                <!-- column -->
-                <div class="col-md-6">
-                    <div class="widget">
-                        <h3 class="widget-title">Join our newsletter</h3>
-                        <form action="#" class="newsletter-form">
-                            <input type="text" placeholder="Enter your email...">
-                            <input type="submit" value="Subsribe">
-                        </form>
-                    </div>
-                    <!-- .widget -->
-                </div>
-                <!-- column -->
+                <!-- .main-navigation -->
             </div>
-            <!-- .row -->
-
-            <div class="colophon">
-                <div class="copy">Copyright 2021 GAMB store. Designed by ABN team. All rights reserved.</div>
-            </div>
-            <!-- .colophon -->
+            <!-- .container -->
         </div>
-        <!-- .container -->
-    </div>
-    <!-- .site-footer -->
+
+        {% block content %}
+        {% endblock %}
+
+
+        </footer> -->
+        <div class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="widget">
+                            <h3 class="widget-title">Information</h3>
+                            <ul class="no-bullet">
+                                <li><a href="#">Site map</a></li>
+                                <li><a href="ToS.html">Terms of Service</a></li>
+                                <li><a href="about.html">About us</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <!--check if we will keep this or we'll remove it later-->
+                                <li><a href="#">Contact</a></li>
+                                <!--check if we will keep this or we'll remove it later-->
+                            </ul>
+                        </div>
+                        <!-- .widget -->
+                    </div>
+                    <!-- column -->
+                    <div class="col-md-2">
+                        <div class="widget">
+                            <h3 class="widget-title">My Account</h3>
+                            <ul class="no-bullet">
+                                <li><a href="{% url 'login' %}">Login</a></li>
+                                <li><a href="{% url 'register' %}">Register</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li><a href="#">Wishlist</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </div>
+                        <!-- .widget -->
+                    </div>
+                    <!-- column -->
+                    <div class="col-md-6">
+                        <div class="widget">
+                            <h3 class="widget-title">Join our newsletter</h3>
+                            <form action="#" class="newsletter-form">
+                                <input type="text" placeholder="Enter your email...">
+                                <input type="submit" value="Subsribe">
+                            </form>
+                        </div>
+                        <!-- .widget -->
+                    </div>
+                    <!-- column -->
+                </div>
+                <!-- .row -->
+
+                <div class="colophon">
+                    <div class="copy">Copyright 2021 GAMB store. Designed by ABN team. All rights reserved.</div>
+                </div>
+                <!-- .colophon -->
+            </div>
+            <!-- .container -->
+        </div>
+        <!-- .site-footer -->
 
     </div>
     <!-- .content -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  </body>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
 </html>
