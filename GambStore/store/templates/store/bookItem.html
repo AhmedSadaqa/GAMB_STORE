@@ -1,6 +1,7 @@
 {% extends 'store/base.html' %}
 {% load static %}
 
+
 {% block title %} Books {% endblock %} 
 {% block styles %} 
     <link rel="stylesheet" href="{% static 'store/item.css' %}">
@@ -12,11 +13,11 @@
         <div id="body">
             <div class="item">
                 <div id="images">
-                    <img src="../../../media/test cover.jpg" width="200px" height="350px" alt="Book Cover">
+                    <img src="{{books.Image.url}}" width="200px" height="350px" alt="Book Cover">
                     <div class="mini-images">
-                        <a href=""><img src="../../../media/Cover 1.jpg" width="50px" height="70px" alt="Book Cover"></a>
-                        <a href=""><img src="../../../media/Cover 2.jpg" width="50px" height="70px" alt="Book Cover"></a>
-                        <a href=""><img src="../../../media/Cover 3.jpg" width="50px" height="70px" alt="Book Cover"></a>
+                        <a href=""><img src="{{books.Image.url}}" width="50px" height="70px" alt="Book Cover"></a>
+                        <a href=""><img src="{{books.Image.url}}" width="50px" height="70px" alt="Book Cover"></a>
+                        <a href=""><img src="{{books.Image.url}}" width="50px" height="70px" alt="Book Cover"></a>
                     </div>
     
                 </div>

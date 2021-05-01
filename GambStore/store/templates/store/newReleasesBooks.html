@@ -3,22 +3,22 @@
 <html lang="en">
 
 <head>
-    <!-- Hello Ahmed -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% block title %}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
-    {% block styles %} {% endblock %}
+
+    <title>GAMB store</title>
+    <link rel="icon" type="image/gif/png" href="images\circle.png">
     <link rel="stylesheet" href="{% static 'store/style.css' %}">
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+
 </head>
 
 <body class="slider-collapse">
     <div id=site-content>
         <div class="site-header">
             <div class="container">
-                <a href="{% url 'home' %}" id="branding">
-                    <img src="{% static 'store/4.png' %}" alt="Logo" class="logo">
+                <a href="GAMPindex.html" id="branding">
+                    <img src="images\logo-removebg-preview.png" alt="" class="logo">
                     <div class="logo-text">
                         <h1 class="site-title">GAMB Store</h1>
                         <small class="site-description">The right GAMBit, <br>the right site</small>
@@ -27,39 +27,20 @@
                 <!-- #branding -->
 
                 <div class="right-section pull-right">
-
-                    {% if user.is_authenticated %}
-                    <img src="{{ user.profile.Image.url }}" style="width:1.5em;height: 1.5em; border-radius: 10em;">
-                    <a href="{% url 'profile' %}" class="login-button">Profile</a>
-                    <a href="{% url 'logout' %}" class="login-button">Log out</a>
-                    {% else %}
-                    <a href="{% url 'login' %}" class="login-button">Login</a>
-                    <a href="{% url 'register' %}" class="login-button">Register</a>
-                    {% endif %}
+                    <img src="images\photo.jpg.png" style="width:1.5em;height: 1.5em; border-radius: 10em;">
+                    <a href="login.html" class="login-button">Login/Register</a>
                 </div>
                 <!-- .right-section -->
 
                 <div class="main-navigation">
-
                     <button class="toggle-menu"><i class="fa fa-bars"></i></button>
                     <ul class="menu">
-                        <li class="menu-item home current-menu-item"><a href="{% url 'home' %}"><i
-                                    class="icon-home"></i></a></li>
-                        <li class="menu-item"><a href="{% url 'bookCategory' %}">Games</a></li>
+                        <li class="menu-item home current-menu-item"><a href="index.html"><i class="icon-home"></i></a>
+                        </li>
+                        <li class="menu-item"><a href="x.html">Games</a></li>
                         <li class="menu-item"><a href="y.html">Applications</a></li>
                         <li class="menu-item"><a href="x.html">Movies</a></li>
-                        <li class="menu-item"><a href="{% url 'bookCategory' %}">Books</a></li>
-                        <li>
-                            <form action="" method="POST">
-                                {% csrf_token %}
-                                <select class="custom-select" style="width: 60px;" name="currency" id=""
-                                    onchange="form.submit()">
-                                    <option value="USD" selected>---</option>
-                                    <option value="USD">USD</option>
-                                    <option value="LBP">LBP</option>
-                                </select>
-                            </form>
-                        </li>
+                        <li class="menu-item"><a href="w.html">Books</a></li>
                     </ul>
                     <!-- .menu -->
                     <div class="search-form">
@@ -75,12 +56,36 @@
             </div>
             <!-- .container -->
         </div>
+        <!-- .header -->
+        <main class="main-content">
+            <div class="container">
+                <div class="page">
+                    <section>
+                        <header>
+                            <h2 class="section-title">New Releases</h2>
+                        </header>
 
-        {% block content %}
-        {% endblock %}
+                        <div class="product-list">
+                            {% for book in newReleasesBooks %}
+                            <div class="product">
+                                <div class="inner-product">
+                                    <div class="figure-image">
+                                        <a href="single.html"><img src="{{book.Image.url}}" alt="Game 1"></a>
+                                    </div>
+                                    <h3 class="product-title"><a href="#">{{book.Name}}</a></h3>
+                                    <h3 class="product-category"><a href="#">{{book.Genre}}</a></h3>
+                                    <small class="price">{{book.Price}}</small>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </section>
+                </div>
+            </div>
 
-
-        </footer> -->
+                    <!-- .container -->
+        </main>
+        <!-- .main-content -->
         <div class="site-footer">
             <div class="container">
                 <div class="row">
@@ -104,11 +109,10 @@
                         <div class="widget">
                             <h3 class="widget-title">My Account</h3>
                             <ul class="no-bullet">
-                                <li><a href="{% url 'login' %}">Login</a></li>
-                                <li><a href="{% url 'register' %}">Register</a></li>
+                                <li><a href="login.html">Login/Register</a></li>
                                 <li><a href="#">Settings</a></li>
                                 <li><a href="#">Wishlist</a></li>
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                                <li><a href="#">Logout</a></li>
                             </ul>
                         </div>
                         <!-- .widget -->
@@ -137,20 +141,7 @@
         </div>
         <!-- .site-footer -->
 
-    </div>
-    <!-- .content -->
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
 </body>
+
 
 </html>
