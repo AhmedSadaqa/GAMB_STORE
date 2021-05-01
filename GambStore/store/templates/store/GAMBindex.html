@@ -10,6 +10,14 @@
     <title>GAMB store</title>
     <link rel="icon" type="image/gif/png" href="images\circle.png">
     <link rel="stylesheet" href="{% static 'store/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" integrity="sha512-OdEXQYCOldjqUEsuMKsZRj93Ht23QRlhIb8E/X0sbwZhme8eUw6g8q7AdxGJKakcBbv7+/PX0Gc2btf7Ru8cZA==" crossorigin="anonymous" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
+    <style>
+        .custom-select{
+            content: "\f0ac";
+        }
+    </style>
 
 </head>
 
@@ -25,33 +33,33 @@
                     </div>
                 </a>
                 <!-- #branding -->
+                
 
                 <div class="right-section pull-right">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <!-- <img src="{% static 'store/globe-solid.svg' %}" style="width: 20px;" alt=""> -->
+                        <!-- <i class="fas fa-globe"></i> -->
+                        <select class="custom-select" style="width: 60px;" name="currency" id="" onchange="form.submit()">
+                            <option value="USD" selected>---</option>
+                            <option value="USD">USD</option>
+                            <option value="LBP">LBP</option>
+                        </select>
+                    </form>
+                    
+
                     <img src="images\photo.jpg.png" style="width:1.5em;height: 1.5em; border-radius: 10em;">
-                    <a href="login.html" class="login-button">Login/Register</a>
+                    {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                    <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                    {% endif %}
                 </div>
                 <!-- .right-section -->
 
-                <div class="main-navigation">
-                    <button class="toggle-menu"><i class="fa fa-bars"></i></button>
-                    <ul class="menu">
-                        <li class="menu-item home current-menu-item"><a href="index.html"><i class="icon-home"></i></a></li>
-                        <li class="menu-item"><a href="x.html">Games</a></li>
-                        <li class="menu-item"><a href="y.html">Applications</a></li>
-                        <li class="menu-item"><a href="x.html">Movies</a></li>
-                        <li class="menu-item"><a href="w.html">Books</a></li>
-                    </ul>
-                    <!-- .menu -->
-                    <div class="search-form">
-                        <label><img class="search" src="images\icon-search.png"></label>
-                        <input type="text" placeholder="Search...">
-                    </div>
-                    <!-- .search-form -->
 
-                    <div class="mobile-navigation"></div>
-                    <!-- .mobile-navigation -->
-                </div>
-                <!-- .main-navigation -->
             </div>
             <!-- .container -->
         </div>
@@ -532,9 +540,9 @@
                             </div>
                             <!-- .product -->
                     </section>
-                    </div>
-                    </div>
-                    <!-- .container -->
+                </div>
+            </div>
+            <!-- .container -->
         </main>
         <!-- .main-content -->
         <div class="site-footer">
@@ -592,8 +600,8 @@
         </div>
         <!-- .site-footer -->
 
-        </div>
-        <!-- .content -->
+    </div>
+    <!-- .content -->
 </body>
 
 
