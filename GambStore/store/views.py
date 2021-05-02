@@ -149,27 +149,50 @@ def movieCategory(request):
 def bookItem(request, book_id):
     try:
         books = Book.objects.get(id=book_id)
+        similarBooks = Book.objects.filter(Genre = books.Genre)
         print(books)
     except Book.DoesNotExist:
         return render(request, 'store/error.html')
     
-    context = {"books" : books}
-    return render(request, 'store/bookItem.html', context)
+    context = {"books" : books,
+                "similarBooks" : similarBooks}
+    return render(request, 'store/selectedBook.html', context)
 
 
-def applicationItem(request):
-    applications = Application.objects.all()
-    context = {"applications" : applications}
-    return render(request, 'store/bookItem.html', context)
+def applicationItem(request , app_id):
+    try:
+        app = Application.objects.get(id=app_id)
+        similarApps = Application.objects.filter(Genre = app.Genre)
+        print(app)
+    except app.DoesNotExist:
+        return render(request, 'store/error.html')
+    
+    context = {"app" : app,
+                "similarApps" : similarApps}
+    return render(request, 'store/selectedApp.html', context)
     
 
-def gameItem(request):
-    games = Game.objects.all()
-    context = {"games" : games}
-    return render(request, 'store/bookItem.html', context)
+def gameItem(request , game_id):
+    try:
+        game = Game.objects.get(id=game_id)
+        similarGames = Game.objects.filter(Genre = game.Genre)
+        print(game)
+    except game.DoesNotExist:
+        return render(request, 'store/error.html')
+    
+    context = {"game" : game,
+                "similarGames" : similarGames}
+    return render(request, 'store/selectedGame.html', context)
 
 
-def movieItem(request):
-    movies = Movie.objects.all()
-    context = {"movies" : movies}
-    return render(request, 'store/bookItem.html', context)
+def movieItem(request , movie_id):
+    try:
+        movie = Movie.objects.get(id=movie_id)
+        similarMovies = Movie.objects.filter(Genre = movie.Genre)
+        print(movie)
+    except movie.DoesNotExist:
+        return render(request, 'store/error.html')
+    
+    context = {"movie" : movie,
+                "similarMovies" : similarMovies}
+    return render(request, 'store/selectedMovie.html', context)
