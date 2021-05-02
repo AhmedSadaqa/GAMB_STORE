@@ -13,62 +13,74 @@ class Profile(models.Model):
     Image       = models.ImageField(default="defaultPic.png", upload_to="profile_pics")
 
 class Book(models.Model):
-    Name        = models.CharField(max_length=120)
-    Genre       = models.CharField(max_length=120)
-    Rating      = models.IntegerField()
-    Date        = models.DateField()
-    CopiesSold  = models.IntegerField()
-    PriceUSD    = models.DecimalField(max_digits=7, decimal_places=2)
-    PriceLBP    = models.BigIntegerField()
-    Image       = models.ImageField(upload_to="Static/store/books", null=True, blank=True)
-    Description = models.TextField()
-    CreatedAt   = models.DateTimeField(auto_now=True)
+    Name         = models.CharField(max_length=120)
+    Genre        = models.CharField(max_length=120)
+    Rating       = models.IntegerField()
+    Date         = models.DateField()
+    CopiesSold   = models.IntegerField()
+    PriceUSD     = models.DecimalField(max_digits=7, decimal_places=2)
+    PriceLBP     = models.BigIntegerField()
+    Image        = models.ImageField(upload_to="Static/store/books", null=True, blank=True)
+    Image1       = models.ImageField(upload_to="Static/store/books", null=True, blank=True)
+    Image2       = models.ImageField(upload_to="Static/store/books", null=True, blank=True)
+    Image3       = models.ImageField(upload_to="Static/store/books", null=True, blank=True)
+    Description  = models.TextField()
+    CreatedAt    = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.Name
 
 class Application(models.Model):
-    Name        = models.CharField(max_length=120)
-    Genre       = models.CharField(max_length=120)
-    Rating      = models.IntegerField()
-    Date        = models.DateField()
-    CopiesSold  = models.IntegerField()
-    PriceUSD    = models.DecimalField(max_digits=7, decimal_places=2)
-    PriceLBP    = models.BigIntegerField()
-    Image       = models.ImageField(upload_to="Static/store/applications", null=True, blank=True)
-    Description = models.TextField()
-    CreatedAt   = models.DateTimeField(auto_now=True)
+    Name         = models.CharField(max_length=120)
+    Genre        = models.CharField(max_length=120)
+    Rating       = models.IntegerField()
+    Date         = models.DateField()
+    CopiesSold   = models.IntegerField()
+    PriceUSD     = models.DecimalField(max_digits=7, decimal_places=2)
+    PriceLBP     = models.BigIntegerField()
+    Image        = models.ImageField(upload_to="Static/store/applications", null=True, blank=True)
+    Image1       = models.ImageField(upload_to="Static/store/applications", null=True, blank=True)
+    Image2       = models.ImageField(upload_to="Static/store/applications", null=True, blank=True)
+    Image3       = models.ImageField(upload_to="Static/store/applications", null=True, blank=True)
+    Description  = models.TextField()
+    CreatedAt    = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.Name
 
 class Game(models.Model):
-    Name        = models.CharField(max_length=120)
-    Genre       = models.CharField(max_length=120)
-    Rating      = models.IntegerField()
-    Date        = models.DateField()
-    CopiesSold  = models.IntegerField()
-    PriceUSD    = models.DecimalField(max_digits=7, decimal_places=2)
-    PriceLBP    = models.BigIntegerField()
-    Image       = models.ImageField(upload_to="Static/store/games", null=True, blank=True)
-    Description = models.TextField()
-    CreatedAt   = models.DateTimeField(auto_now=True)
+    Name         = models.CharField(max_length=120)
+    Genre        = models.CharField(max_length=120)
+    Rating       = models.IntegerField()
+    Date         = models.DateField()
+    CopiesSold   = models.IntegerField()
+    PriceUSD     = models.DecimalField(max_digits=7, decimal_places=2)
+    PriceLBP     = models.BigIntegerField()
+    Image        = models.ImageField(upload_to="Static/store/games", null=True, blank=True)
+    Image1       = models.ImageField(upload_to="Static/store/games", null=True, blank=True)
+    Image2       = models.ImageField(upload_to="Static/store/games", null=True, blank=True)
+    Image3       = models.ImageField(upload_to="Static/store/games", null=True, blank=True)
+    Description  = models.TextField()
+    CreatedAt    = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.Name
 
 class Movie(models.Model):
-    Name        = models.CharField(max_length=120)
-    Genre       = models.CharField(max_length=120)
-    Rating      = models.IntegerField()
-    Date        = models.DateField()
-    CopiesSold  = models.IntegerField()
-    PriceUSD    = models.DecimalField(max_digits=7, decimal_places=2)
-    PriceLBP    = models.BigIntegerField()
-    Image       = models.ImageField(upload_to="Static/store/movies", null=True, blank=True)
-    Trailer     = models.CharField(max_length=255)
-    Description = models.TextField()
-    CreatedAt   = models.DateTimeField(auto_now=True)
+    Name         = models.CharField(max_length=120)
+    Genre        = models.CharField(max_length=120)
+    Rating       = models.IntegerField()
+    Date         = models.DateField()
+    CopiesSold   = models.IntegerField()
+    PriceUSD     = models.DecimalField(max_digits=7, decimal_places=2)
+    PriceLBP     = models.BigIntegerField()
+    Image        = models.ImageField(upload_to="Static/store/movies", null=True, blank=True)
+    Image1       = models.ImageField(upload_to="Static/store/movies", null=True, blank=True)
+    Image2       = models.ImageField(upload_to="Static/store/movies", null=True, blank=True)
+    Image3       = models.ImageField(upload_to="Static/store/movies", null=True, blank=True)
+    Trailer      = models.CharField(max_length=255)
+    Description  = models.TextField()
+    CreatedAt    = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.Name
@@ -83,8 +95,25 @@ class CreditMemeber(models.Model):
     Movie       = models.ForeignKey(Movie, on_delete=models.CASCADE)
 
 class Review(models.Model):
-    user       = models.ForeignKey(User, on_delete=models.CASCADE)
-    Book       = models.ForeignKey(Book, on_delete=models.CASCADE)
-    Movie      = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    Game       = models.ForeignKey(Game, on_delete=models.CASCADE)
-    Application= models.ForeignKey(Application, on_delete=models.CASCADE)
+    user           = models.ForeignKey(User, on_delete=models.CASCADE)
+    book_id        = models.ForeignKey(Book, on_delete=models.CASCADE, null=True)
+    movie_id       = models.ForeignKey(Movie, on_delete=models.CASCADE, null=True)
+    game_id        = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
+    application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True)
+    likes          = models.IntegerField(null=True)
+    report         = models.IntegerField(null=True)
+
+class WishList(models.Model):
+    user              = models.ForeignKey(User, on_delete=models.CASCADE)
+    book_id           = models.ForeignKey(Book, on_delete=models.CASCADE, null=True)
+    movie_id          = models.ForeignKey(Movie, on_delete=models.CASCADE, null=True)
+    application_id    = models.ForeignKey(Application, on_delete=models.CASCADE, null=True)
+    game_id           = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
+
+
+class VisitedItems(models.Model):
+    user              = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    book_id           = models.ForeignKey(Book, on_delete=models.CASCADE, null=True)
+    movie_id          = models.ForeignKey(Movie, on_delete=models.CASCADE, null=True)
+    application_id    = models.ForeignKey(Application, on_delete=models.CASCADE, null=True)
+    game_id           = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
