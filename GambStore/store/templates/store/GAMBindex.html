@@ -23,15 +23,15 @@
                             <a href="#" class="all">Show All</a>
                         </header>
 
-                        <div class="product-list">
+                        <div class="test1-list">
                             {% for game in games %}
-                            <div class="product">
-                                <div class="inner-product">
+                            <div class="test1">
+                                <div class="inner-test1">
                                     <div class="figure-image">
                                         <a href="single.html"><img src="{{game.Image.url}}" alt="Game 1"></a>
                                     </div>
-                                    <h3 class="product-title"><a href="/gameItem/{{game.id}}">{{game.Name}}</a></h3>
-                                    <h3 class="product-category"><a href="/gameItem/{{game.id}}">{{game.Genre}}</a></h3>
+                                    <h3 class="test1-title"><a href="/gameItem/{{game.id}}">{{game.Name}}</a></h3>
+                                    <h3 class="test1-category"><a href="/gameItem/{{game.id}}">{{game.Genre}}</a></h3>
                                     <small class="price">
                                         {% ifequal currency "LBP" %}
                                         LBP {{game.PriceLBP}}
@@ -54,15 +54,15 @@
                         <a href="#" class="all">Show All</a>
                     </header>
 
-                    <div class="product-list">
+                    <div class="test1-list">
                         {% for application in applications %}
-                        <div class="product">
-                            <div class="inner-product">
+                        <div class="test1">
+                            <div class="inner-test1">
                                 <div class="figure-image">
                                     <a href="single.html"><img src="{{application.Image.url}}" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="/appItem/{{application.id}}">{{application.Name}}</a></h3>
-                                <h3 class="product-category"><a href="/appItem/{{application.id}}">{{application.Genre}}</a></h3>
+                                <h3 class="test1-title"><a href="/appItem/{{application.id}}">{{application.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="/appItem/{{application.id}}">{{application.Genre}}</a></h3>
                                 <small class="price">
                                     {% ifequal currency "LBP" %}
                                     LBP {{application.PriceLBP}}
@@ -84,15 +84,15 @@
                         <a href="#" class="all">Show All</a>
                     </header>
 
-                    <div class="product-list">
+                    <div class="test1-list">
                         {% for movie in movies %}
-                        <div class="product">
-                            <div class="inner-product">
+                        <div class="test1">
+                            <div class="inner-test1">
                                 <div class="figure-image">
                                     <a href="single.html"><img src="{{movie.Image.url}}" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="/movieItem/{{movie.id}}">{{movie.Name}}</a></h3>
-                                <h3 class="product-category"><a href="/movieItem/{{movie.id}}">{{movie.Genre}}</a></h3>
+                                <h3 class="test1-title"><a href="/movieItem/{{movie.id}}">{{movie.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="/movieItem/{{movie.id}}">{{movie.Genre}}</a></h3>
                                 <small class="price">
                                     {% ifequal currency "LBP" %}
                                     LBP {{movie.PriceLBP}}
@@ -113,15 +113,15 @@
                         <h2 class="section-title">Books</h2>
                         <a href="#" class="all">Show All</a>
                     </header>
-                        <div class="product-list">
+                        <div class="test1-list">
                             {% for book in books %}
-                            <div class="product">
-                                <div class="inner-product">
+                            <div class="test1">
+                                <div class="inner-test1">
                                     <div class="figure-image">
                                         <a href="single.html"><img src="{{book.Image.url}}" alt="Game 1"></a>
                                     </div>
-                                    <h3 class="product-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
-                                    <h3 class="product-category"><a href="/bookItem/{{book.id}}">{{book.Genre}}</a></h3>
+                                    <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
+                                    <h3 class="test1-category"><a href="/bookItem/{{book.id}}">{{book.Genre}}</a></h3>
                                     <small class="price">
                                         {% ifequal currency "LBP" %}
                                         LBP {{book.PriceLBP}}
@@ -131,8 +131,6 @@
                                         USD {{book.PriceUSD}}
                                         {% endifequal %}
                                     </small>
-                                    <a href="#" class="button">Add to Cart</a>
-									<a href="#" class="button muted">Read Details</a>
                                 </div>
                             </div>
                             {% endfor %}
