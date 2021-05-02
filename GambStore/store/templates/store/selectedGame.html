@@ -1,0 +1,234 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+
+{% block title %} {{game.Name}} {% endblock %} 
+{% block styles %} 
+    <link rel="stylesheet" href="{% static 'store/item.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+    <div id="contain">
+        <div id="body">
+            <div class="item">
+                <div id="images">
+                    <img src="{{game.Image.url}}" width="200px" height="350px" alt="Book Cover">
+                    <div class="mini-images">
+                        <a href=""><img src="{{game.Image.url}}" width="50px" height="70px" alt="Book Cover"></a>
+                        <a href=""><img src="{{game.Image.url}}" width="50px" height="70px" alt="Book Cover"></a>
+                        <a href=""><img src="{{game.Image.url}}" width="50px" height="70px" alt="Book Cover"></a>
+                    </div>
+    
+                </div>
+                
+                <div class="description">
+                    <h2 style="color: #27995e;">{{game.Name}}</h2>
+                    <div style="color: #27995e;" id="special">
+                        <h3>{{game.PriceUSD}}</h3>
+                        <h4><a href="" style="color: #27995e;">-> add to WishList</a></h4>
+                    </div>
+                    <table>
+                        <tr>
+                            <td class="title">Rating: </td>
+                            <td>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Average Reviews: </td>
+                            <td>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star checked"></span>
+                                <span class="fa fa-star"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="title">Reviewers #:</td>
+                            <td>1578</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Genre: </td>
+                            <td>{{game.Genre}}</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Release Date: </td>
+                            <td>{{ game.Date }}</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Sales (copies): </td>
+                            <td>{{ game.CopiesSold }}</td>
+                        </tr>
+                        <tr>
+                            <td class="title">Description: </td>
+                            <td>{{game.Description}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <br>
+            
+            <div id="Reviews">
+                <table>
+                    <thead>
+                        <th colspan="2"><h3 id="rev">Reviews: </h3></th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="../../../media/avatar1.jpg">
+                            </td>
+                            <td>
+                                <div class="review">
+                                    <div class="author">
+                                        <h5>Moh Abahlal</h5>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <div id="span">
+                                        <a href=""><span class="fa fa-thumbs-up">403  |  </span></a>
+                                        <a href=""><span class="fa fa-thumbs-down">12  |  </span></a>
+                                        <a href=""><span class="fa fa-flag"></span></a>
+                                    </div>
+                                </div>
+                                <p>I like this a lot although I haven't really seen it! I'm just commenting this because Nas needs my comment! 
+                                    I mean I don't even exist...
+                                </p>
+                            </td>
+                        </tr>
+    
+                        <tr>
+                            <td>
+                                <img src="../../../media/avatar2.png">
+                            </td>
+                            <td>
+                                <div class="review">
+                                    <div class="author">
+                                        <h5>Said Dada Hmad</h5>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <div id="span">
+                                        <a href=""><span class="fa fa-thumbs-up">120  |  </span></a>
+                                        <a href=""><span class="fa fa-thumbs-down">21  |  </span></a>
+                                        <a href=""><span class="fa fa-flag"></span></a>
+                                    </div>
+                                </div>
+                                <p>I like this a lot although I haven't really seen it! I'm just commenting this because Nas needs my comment! 
+                                    I mean I don't even exist...
+                                </p>
+                            </td>
+                        </tr>
+    
+                        <tr>
+                            <td>
+                                <img src="../../../media/avatar3.png">
+                            </td>
+                            <td>
+                                <div class="review">
+                                    <div class="author">
+                                        <h5>Boutfounaset</h5>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <div id="span">
+                                        <a href=""><span class="fa fa-thumbs-up">98  |  </span></a>
+                                        <a href=""><span class="fa fa-thumbs-down">12  |  </span></a>
+                                        <a href=""><span class="fa fa-flag"></span></a>
+                                    </div>
+                                </div>
+                                <p>I like this a lot although I haven't really seen it! I'm just commenting this because Nas needs my comment! 
+                                    I mean I don't even exist...
+                                </p>
+                            </td>
+                        </tr>
+    
+                        <tr>
+                            <td>
+                                <img src="../../../media/avatar4.png">
+                            </td>
+                            <td>
+                                <div class="review">
+                                    <div class="author">
+                                        <h5>Saida Inza</h5>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <div id="span">
+                                        <a href=""><span class="fa fa-thumbs-up">78  |  </span></a>
+                                        <a href=""><span class="fa fa-thumbs-down">2  |  </span></a>
+                                        <a href=""><span class="fa fa-flag"></span></a>
+                                    </div>
+                                </div>
+                                <p>I like this a lot although I haven't really seen it! I'm just commenting this because Nas needs my comment! 
+                                    I mean I don't even exist...
+                                </p>
+                            </td>
+                        </tr>
+    
+                        <tr>
+                            <td>
+                                <img src="../../../media/avatar5.png">
+                            </td>
+                            <td>
+                                <div class="review">
+                                    <div class="author">
+                                        <h5>Sana Sonbola</h5>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                    </div>
+                                    <div id="span">
+                                        <a href=""><span class="fa fa-thumbs-up">129  |  </span></a>
+                                        <a href=""><span class="fa fa-thumbs-down">19  |  </span></a>
+                                        <a href=""><span class="fa fa-flag"></span></a>
+                                    </div>
+                                </div>
+                                <p>I like this a lot although I haven't really seen it! I'm just commenting this because Nas needs my comment! 
+                                    I mean I don't even exist...
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <th colspan="2"><a href=""><p id="rev">See all Reviews... </p></a></th>
+                </table>
+            </div>
+            
+            <h3 id="sim">Similar Products: </h3>
+            <div class="product-list">
+                {% for game in similarGames %}
+                <div class="product">
+                    <div class="inner-product">
+                        <div class="figure-image">
+                            <a href="#"><img src="{{ game.Image.url }}" alt="cover1"></a>
+                        </div>
+                        <h3 class="product-title"><a href="#">{{ game.Name }}</a></h3>
+                        <h3 class="product-category"><a href="#">{{ game.Genre }}</a></h3>
+                        <small class="price">USD {{ game.PriceUSD }}</small>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
