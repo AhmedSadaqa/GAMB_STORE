@@ -1,7 +1,7 @@
 {% extends 'store/base.html' %}
 {% load static %}
 
-{% block title %} Books {% endblock %}
+{% block title %} Games {% endblock %}
 {% block styles %}
 {% endblock %}
 
@@ -32,33 +32,33 @@
                 <section>
                     <header>
                         <h2 class="section-title">Top Selling</h2>
-                        <a href="{% url 'topSellingBooks' %}" class="all">Show All</a>
+                        <a href="{% url 'topSellingGames' %}" class="all">Show All</a>
                     </header>
 
+
+
                     <div class="product-list">
-                        {% for book in tenTopSellingBooks %}
                         <div class="product">
                             <div class="inner-product">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{book.Image.url}}" alt="Game 1"></a>
+                                    <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="#">{{book.Name}}</a></h3>
-                                <h3 class="product-category"><a href="#">{{book.Genre}}</a></h3>
-                                <small class="price">{{book.Genre}}</small>
+                                <h3 class="product-title"><a href="#">Title</a></h3>
+                                <h3 class="product-category"><a href="#">Category</a></h3>
+                                <small class="price">$19.00/ Free</small>
                             </div>
                         </div>
-                        {% endfor %}
                     </div>
                 </section>
 
                 <section>
                     <header>
                         <h2 class="section-title">New Releases</h2>
-                        <a href="{% url 'newReleasesBooks' %}" class="all">Show All</a>
+                        <a href="{% url 'newReleasesGames' %}" class="all">Show All</a>
                     </header>
 
                     <div class="product-list">
-                        {% for book in tenNewReleasesBooks %}
+                        {% for book in newReleasesBooks %}
                         <div class="product">
                             <div class="inner-product">
                                 <div class="figure-image">
@@ -76,7 +76,7 @@
                 <section>
                     <header>
                         <h2 class="section-title">Recommendations</h2>
-                        <a href="{% url 'booksRecommendations' %}" class="all">Show All</a>
+                        <a href="{% url 'gamesRecommendations' %}" class="all">Show All</a>
                     </header>
                     <div class="product-list">
                         <div class="product">
