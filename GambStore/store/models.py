@@ -101,7 +101,11 @@ class Review(models.Model):
     game_id        = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
     application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True)
     likes          = models.IntegerField(null=True)
+    dislikes       = models.IntegerField(null=True)
+    content        = models.TextField()
     report         = models.IntegerField(null=True)
+    Rating         = models.IntegerField()
+
 
 class WishList(models.Model):
     user              = models.ForeignKey(User, on_delete=models.CASCADE)
