@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
-from .models import Profile, Book, Application, Game, Movie, CastMember, CreditMemeber, Review
+from .models import Profile, Book, Application, Game, Movie, CastMember, CreditMemeber, Review, WishList, VisitedItems
 from django.contrib.auth.decorators import login_required
 import re
 import datetime
@@ -30,7 +30,6 @@ def home(request):
                 "movies":movies, 
                 "currency": currency}
         return render(request, "store/GAMBindex.html", context)
-
     return render(request, "store/GAMBindex.html", context)
 
 
@@ -82,14 +81,22 @@ def termOfServices(request):
 def item(request):
     return render(request , 'store/bookItem.html')
 
+
+# BOOKS
+
 def bookCategory(request):
+    if request.method == "POST":
+        filtering = request.POST.get('filter')
+        filteredBooks = Book.objects.filter(Genre=filtering)
+        
+        return render(request, 'store/filteredBooks.html', {'filteredBooks' : filteredBooks, 'filtering' : filtering})
 
     # #Top selling
-    # booksOrdered = Book.objects.all().order_by('-CopiesSold')
-    # topSelling = []
+    topSellingbooks = Book.objects.all().order_by('-CopiesSold')
+    tenTopSellingBooks = []
     # # this is the functionality for the top selling, you should have 10 books in your database to test it or it will give you an error list index out of range
-    # for i in range(10):
-    #     topSelling.append(booksOrdered[i])
+    for i in range(5):
+        tenTopSellingBooks.append(topSellingbooks[i])
         
     # New Releases Books
     today = datetime.datetime.now()
@@ -97,54 +104,37 @@ def bookCategory(request):
     last_year = current_year - 1
     
     newReleasesBooks = Book.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
-
     tenNewReleasesBooks = []
-    # for i in range(10):
-    #     tenNewReleasesBooks.append(newReleasesBooks[i])
+    for i in range(5):
+        tenNewReleasesBooks.append(newReleasesBooks[i])
+
     
-    # All Books
-    allBooks = Book.objects.all()
-    context = {"newReleasesBooks" : newReleasesBooks,
-               "allBooks": allBooks,
-               }
+    #Recommendations
+
+    context = {"tenTopSellingBooks" : tenTopSellingBooks,
+               "tenNewReleasesBooks": tenNewReleasesBooks     
+            }
     return render(request, 'store/bookCategory.html', context)
     
 
 def topSellingBooks(request):
-    booksOrdered = Book.objects.all().order_by('-CopiesSold')
-    context = {"booksOrdered" : booksOrdered}
-    return render(request, 'store/topSellingBooks.html', context)
+    topSellingsBooks = Book.objects.all().order_by('-CopiesSold')
+    context = {"topSellingsBooks" : topSellingsBooks}
+    return render(request, 'store/allTopSellingBooks.html', context)
 
-def newReleases(request):
+def newReleasesBooks(request):
     today = datetime.datetime.now()
     current_year = today.year
     last_year = current_year - 1
     
-    newReleasesBooks = Book.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
+    newReleases = Book.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
 
-    context = {"newReleasesBooks" : newReleasesBooks}
-    return render(request, 'store/newReleasesBooks.html', context)
+    context = {"newReleases" : newReleases}
+    return render(request, 'store/allNewReleasesBooks.html', context)
 
-def recommendations(request):
-    return render(request, 'store/booksRecommendations.html')
+def booksRecommendations(request):
+    return render(request, 'store/allBooksRecommendations.html')
 
-def applicationCategory(request):
-    applications = Application.objects.all()
-    context = {"applications" : applications}
-    return render(request, 'store/bookCategory.html', context)
-    
-
-def gameCategory(request):
-    games = Game.objects.all()
-    context = {"games" : games}
-    return render(request, 'store/bookCategory.html', context)
-    
-
-def movieCategory(request):
-    movies = Movie.objects.all()
-    context = {"movies" : movies}
-    return render(request, 'store/bookCategory.html', context)
-    
 
 def bookItem(request, book_id):
     try:
@@ -159,6 +149,34 @@ def bookItem(request, book_id):
     return render(request, 'store/selectedBook.html', context)
 
 
+
+
+# APPLICATIONS
+
+def applicationCategory(request):
+    applications = Application.objects.all()
+    context = {"applications" : applications}
+    return render(request, 'store/applicationCategory.html', context)
+
+
+def topSellingApplications(request):
+    topSellingsApps = Application.objects.all().order_by('-CopiesSold')
+    context = {"topSellingsApps" : topSellingsApps}
+    return render(request, 'store/allTopSellingsApps.html', context)
+
+def newReleasesApplications(request):
+    today = datetime.datetime.now()
+    current_year = today.year
+    last_year = current_year - 1
+    
+    newReleasesApps = Application.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
+
+    context = {"newReleasesApps" : newReleasesApps}
+    return render(request, 'store/allNewReleasesApps.html', context)
+
+def applicationsRecommendations(request):
+    return render(request, 'store/allAppsRecommendations.html')
+
 def applicationItem(request , app_id):
     try:
         app = Application.objects.get(id=app_id)
@@ -172,6 +190,32 @@ def applicationItem(request , app_id):
     return render(request, 'store/selectedApp.html', context)
     
 
+
+# GAMES
+
+def gameCategory(request):
+    games = Game.objects.all()
+    context = {"games" : games}
+    return render(request, 'store/gameCategory.html', context)
+
+def topSellingGames(request):
+    topSellingsGames = Game.objects.all().order_by('-CopiesSold')
+    context = {"topSellingsGames" : topSellingsGames}
+    return render(request, 'store/allTopSellingsGames.html', context)
+
+def newReleasesGames(request):
+    today = datetime.datetime.now()
+    current_year = today.year
+    last_year = current_year - 1
+    
+    newReleases = Game.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
+
+    context = {"newReleases" : newReleases}
+    return render(request, 'store/allNewReleasesGames.html', context)
+
+def gamesRecommendations(request):
+    return render(request, 'store/allGamesRecommendations.html')
+
 def gameItem(request , game_id):
     try:
         game = Game.objects.get(id=game_id)
@@ -184,6 +228,32 @@ def gameItem(request , game_id):
                 "similarGames" : similarGames}
     return render(request, 'store/selectedGame.html', context)
 
+    
+# MOVIES
+
+def movieCategory(request):
+    movies = Movie.objects.all()
+    context = {"movies" : movies}
+    return render(request, 'store/movieCategory.html', context)
+    
+def topSellingmovies(request):
+    topSellingsMovies = Movie.objects.all().order_by('-CopiesSold')
+    context = {"topSellingsMovies" : topSellingsMovies}
+    return render(request, 'store/allTopSellingsMovies.html', context)
+
+def newReleasesmovies(request):
+    today = datetime.datetime.now()
+    current_year = today.year
+    last_year = current_year - 1
+    
+    newReleases = Movie.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
+
+    context = {"newReleases" : newReleases}
+    return render(request, 'store/allNewReleasesMovies.html', context)
+
+def moviesRecommendations(request):
+    return render(request, 'store/allMoviesRecommendations.html')
+    
 
 def movieItem(request , movie_id):
     try:
@@ -196,3 +266,10 @@ def movieItem(request , movie_id):
     context = {"movie" : movie,
                 "similarMovies" : similarMovies}
     return render(request, 'store/selectedMovie.html', context)
+
+
+
+def wishlist(request):
+    wishlist = WishList.objects.all()
+    context = {"wishlist" : wishlist}
+    return render(request, 'store/wishlist.html', context)
