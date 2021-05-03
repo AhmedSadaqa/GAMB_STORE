@@ -19,8 +19,9 @@
                 <div class="page">
                     <section>
                         <header>
-                            <h2 class="section-title">Games</h2>
-                            <a href="#" class="all">Show All</a>
+                            <a href="{% url 'gameCategory' %}">
+                                <h2 class="section-title">Games</h2>
+                            </a>
                         </header>
 
                         <div class="product-list">
@@ -50,8 +51,9 @@
 
                 <section>
                     <header>
-                        <h2 class="section-title">Applications</h2>
-                        <a href="#" class="all">Show All</a>
+                        <a href="{% url 'applicationCategory' %}">
+                            <h2 class="section-title">Applications</h2>
+                        </a>
                     </header>
 
                     <div class="product-list">
@@ -80,12 +82,13 @@
                   
                 <section>
                     <header>
-                        <h2 class="section-title">Movies</h2>
-                        <a href="#" class="all">Show All</a>
+                        <a href="{% url 'movieCategory' %}">
+                            <h2 class="section-title">Movies</h2>
+                        </a>
                     </header>
 
                     <div class="product-list">
-                        {% for movie in movies %}
+                        {% for movie in movies%}
                         <div class="product">
                             <div class="inner-product">
                                 <div class="figure-image">
@@ -110,7 +113,9 @@
 
                 <section>
                     <header>
-                        <h2 class="section-title">Books</h2>
+                        <a href="{% url 'bookCategory' %}">
+                            <h2 class="section-title">Books</h2>
+                        </a>
                         <a href="#" class="all">Show All</a>
                     </header>
                         <div class="product-list">

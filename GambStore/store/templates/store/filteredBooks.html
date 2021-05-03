@@ -1,0 +1,71 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %} Filtered Books {% endblock %} 
+{% block styles %} 
+{% endblock %}
+
+{% block content %}
+
+
+    <main class="main-content">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter">
+                    <form method="POSt">
+                        {% csrf_token %}
+                        <span>
+                            <label>Filter by:</label>
+                            <select name="filter" onchange="form.submit()">
+                                <option value="Action" selected>Genres</option>
+                                <option value="Action">Action</option>
+                                <option value="Fiction">Fiction</option>
+                                <option value="Comics">Comics</option>
+                                <option value="Horror">Horror</option>
+                                <option value="Romantic">Romantic</option>
+                                <option value="Top Selling">Top Selling</option>
+                                <option value="New Releases">New Releases</option>
+                            </select>
+                        </span>
+                    </form>
+                </div>
+            </div>
+            <div class="page">
+                <section>
+                    <header>
+                        <h2 class="section-title">{{filtering}}</h2>
+                    </header>
+                    <div class="product-list">
+                        {% for book in filteredBooks %}
+                        <div class="product">
+                            <div class="inner-product">
+                                <div class="figure-image">
+                                    <a href="/bookItem/{{book.id}}"><img src="{{book.Image.url}}" alt="Game 1"></a>
+                                </div>
+                                <h3 class="product-title"><a href="#">{{book.Name}}</a></h3>
+                                <small class="price">
+                                    {% ifequal currency "LBP" %}
+                                        LBP {{book.PriceLBP}}
+                                    {% endifequal %}
+
+                                    {% ifequal currency "USD" %}
+                                        USD {{book.PriceUSD}}
+                                    {% endifequal %}
+                                </small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    </section>
+
+                    
+
+                    
+                </div>
+            </div>
+    </main>
+
+
+
+
+{% endblock %}
