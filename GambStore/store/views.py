@@ -259,12 +259,27 @@ def movieItem(request , movie_id):
     try:
         movie = Movie.objects.get(id=movie_id)
         similarMovies = Movie.objects.filter(Genre = movie.Genre)
+        cast = CastMember.objects.filter(Movie=movie)
+        credit = CreditMemeber.objects.filter(Movie= movie)
+        reviews = Review.objects.filter(movie_id=movie)
+        average_rating = 0
+        if reviews:
+            for review in reviews:
+                average_rating += review.Rating
+
+            average_rating = average_rating/reviews.__len__()
+        else:
+            average_rating = 0
         print(movie)
     except movie.DoesNotExist:
         return render(request, 'store/error.html')
     
     context = {"movie" : movie,
-                "similarMovies" : similarMovies}
+                "similarMovies" : similarMovies,
+                "cast" : cast,
+                "credit": credit,
+                "reviews": reviews ,
+                "average": average_rating}
     return render(request, 'store/selectedMovie.html', context)
 
 
