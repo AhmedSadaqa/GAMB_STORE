@@ -96,10 +96,10 @@ class CreditMemeber(models.Model):
 
 class Review(models.Model):
     user           = models.ForeignKey(User, on_delete=models.CASCADE)
-    book_id        = models.ForeignKey(Book, on_delete=models.CASCADE, null=True)
-    movie_id       = models.ForeignKey(Movie, on_delete=models.CASCADE, null=True)
-    game_id        = models.ForeignKey(Game, on_delete=models.CASCADE, null=True)
-    application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True)
+    book_id        = models.ForeignKey(Book, on_delete=models.CASCADE, null=True, blank=True)
+    movie_id       = models.ForeignKey(Movie, on_delete=models.CASCADE, null=True, blank=True)
+    game_id        = models.ForeignKey(Game, on_delete=models.CASCADE, null=True, blank=True)
+    application_id = models.ForeignKey(Application, on_delete=models.CASCADE, null=True, blank=True)
     likes          = models.IntegerField(null=True)
     dislikes       = models.IntegerField(null=True)
     content        = models.TextField()
