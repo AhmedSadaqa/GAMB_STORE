@@ -211,15 +211,15 @@
             </div>
             
             <h3 id="sim">Similar Products: </h3>
-            <div class="product-list">
+            <div class="test1-list">
                 {% for book in similarBooks %}
-                <div class="product">
-                    <div class="inner-product">
+                <div class="test1">
+                    <div class="inner-test1">
                         <div class="figure-image">
                             <a href="#"><img src="{{ book.Image.url }}" alt="cover1"></a>
                         </div>
-                        <h3 class="product-title"><a href="#">{{ book.Name }}</a></h3>
-                        <h3 class="product-category"><a href="#">{{ book.Genre }}</a></h3>
+                        <h3 class="test1-title"><a href="#">{{ book.Name }}</a></h3>
+                        <h3 class="test1-category"><a href="#">{{ book.Genre }}</a></h3>
                         <small class="price">{{ book.PriceUSD }}</small>
                     </div>
                 </div>

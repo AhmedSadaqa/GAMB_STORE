@@ -241,15 +241,15 @@
             </div>
             
             <h3 id="sim">Similar Products: </h3>
-            <div class="product-list">
+            <div class="test1-list">
                 {% for movies in similarMovies %}
-                <div class="product">
-                    <div class="inner-product">
+                <div class="test1">
+                    <div class="inner-test1">
                         <div class="figure-image">
                             <a href="single.html"><img src="{{ movies.Image.url }}" alt="cover1"></a>
                         </div>
-                        <h3 class="product-title"><a href="#">{{ movies.Name }}</a></h3>
-                        <h3 class="product-category"><a href="#">{{ movies.Genre }}</a></h3>
+                        <h3 class="test1-title"><a href="#">{{ movies.Name }}</a></h3>
+                        <h3 class="test1-category"><a href="#">{{ movies.Genre }}</a></h3>
                         <small class="price">USD {{ movies.PriceUSD }}</small>
                     </div>
                 </div>
