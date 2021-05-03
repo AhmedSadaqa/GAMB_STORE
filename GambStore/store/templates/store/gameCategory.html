@@ -37,14 +37,14 @@
 
 
 
-                    <div class="product-list">
-                        <div class="product">
-                            <div class="inner-product">
+                    <div class="test1-list">
+                        <div class="test1">
+                            <div class="inner-test1">
                                 <div class="figure-image">
                                     <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="#">Title</a></h3>
-                                <h3 class="product-category"><a href="#">Category</a></h3>
+                                <h3 class="test1-title"><a href="#">Title</a></h3>
+                                <h3 class="test1-category"><a href="#">Category</a></h3>
                                 <small class="price">$19.00/ Free</small>
                             </div>
                         </div>
@@ -57,15 +57,15 @@
                         <a href="{% url 'newReleasesGames' %}" class="all">Show All</a>
                     </header>
 
-                    <div class="product-list">
+                    <div class="test1-list">
                         {% for book in newReleasesBooks %}
-                        <div class="product">
-                            <div class="inner-product">
+                        <div class="test1">
+                            <div class="inner-test1">
                                 <div class="figure-image">
                                     <a href="single.html"><img src="{{book.Image.url}}" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="#">{{book.Name}}</a></h3>
-                                <h3 class="product-category"><a href="#">{{book.Genre}}</a></h3>
+                                <h3 class="test1-title"><a href="#">{{book.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{book.Genre}}</a></h3>
                                 <small class="price">{{book.Price}}</small>
                             </div>
                         </div>
@@ -78,14 +78,14 @@
                         <h2 class="section-title">Recommendations</h2>
                         <a href="{% url 'gamesRecommendations' %}" class="all">Show All</a>
                     </header>
-                    <div class="product-list">
-                        <div class="product">
-                            <div class="inner-product">
+                    <div class="test1-list">
+                        <div class="test1">
+                            <div class="inner-test1">
                                 <div class="figure-image">
                                     <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="#">Title</a></h3>
-                                <h3 class="product-category"><a href="#">Category</a></h3>
+                                <h3 class="test1-title"><a href="#">Title</a></h3>
+                                <h3 class="test1-category"><a href="#">Category</a></h3>
                                 <small class="price">$19.00/ Free</small>
                             </div>
                         </div>

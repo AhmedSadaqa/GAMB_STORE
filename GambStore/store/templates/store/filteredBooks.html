@@ -35,14 +35,14 @@
                     <header>
                         <h2 class="section-title">{{filtering}}</h2>
                     </header>
-                    <div class="product-list">
+                    <div class="test1-list">
                         {% for book in filteredBooks %}
-                        <div class="product">
-                            <div class="inner-product">
+                        <div class="test1">
+                            <div class="inner-test1">
                                 <div class="figure-image">
                                     <a href="/bookItem/{{book.id}}"><img src="{{book.Image.url}}" alt="Game 1"></a>
                                 </div>
-                                <h3 class="product-title"><a href="#">{{book.Name}}</a></h3>
+                                <h3 class="test1-title"><a href="#">{{book.Name}}</a></h3>
                                 <small class="price">
                                     {% ifequal currency "LBP" %}
                                         LBP {{book.PriceLBP}}
