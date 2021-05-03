@@ -59,6 +59,11 @@ nav li {
     background-color: #c0c0c0;
 }
 
+table {
+    color: #646464;
+    font-weight: bold;
+}
+
 #Reviews td {
     border:  #2b2b2b solid 2px;
 }
@@ -92,12 +97,20 @@ nav li {
 }
 
 .cc {
-    border: dashed 1px #45b77d;
+    border: dashed 2px #45b77d;
     padding: 10px;
 }
 
+.cc h4 {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
 #cast-credit .cc ul li{
-    list-style-type: square;
+    list-style-type: none;
+    padding-left: 4px;
+    color: #646464;
+    font-weight: bold;
 }
 
 .item, #trailer, #cast-credit, #Reviews , #others{
@@ -218,4 +231,8 @@ h3, h4 {
 
 .author {
     display: flex;
+}
+
+.test1-list .test1:first-child {
+    margin-left: 10px;
 }
