@@ -158,7 +158,6 @@ def applicationCategory(request):
     context = {"applications" : applications}
     return render(request, 'store/applicationCategory.html', context)
 
-
 def topSellingApplications(request):
     topSellingsApps = Application.objects.all().order_by('-CopiesSold')
     context = {"topSellingsApps" : topSellingsApps}
@@ -256,21 +255,41 @@ def moviesRecommendations(request):
     
 
 def movieItem(request , movie_id):
+    movie = Movie.objects.get(id=movie_id)
+    if request.method == "POST":
+        if 'currency' in request.POST:
+            currency = request.POST.get('currency')
+        else:
+            if 'like' in request.POST:
+                like = request.POST.get('like')
+                review = Review.objects.get(id=like)
+                review.likes += 1
+                review.save()
+            elif 'dislike' in request.POST:
+                dislike = request.POST.get('dislike')
+                review = Review.objects.get(id=dislike)
+                review.dislikes += 1
+                review.save()
+            elif 'report' in request.POST:
+                report = request.POST.get('report')
+                review = Review.objects.get(id=report)
+                review.report += 1
+                if review.report >= 10:
+                    review.delete()   
+        
     try:
-        movie = Movie.objects.get(id=movie_id)
+        reviews = Review.objects.filter(movie_id=movie)
+        currency = "USD"
         similarMovies = Movie.objects.filter(Genre = movie.Genre)
         cast = CastMember.objects.filter(Movie=movie)
         credit = CreditMemeber.objects.filter(Movie= movie)
-        reviews = Review.objects.filter(movie_id=movie)
         average_rating = 0
         if reviews:
             for review in reviews:
                 average_rating += review.Rating
-
             average_rating = average_rating/reviews.__len__()
         else:
             average_rating = 0
-        print(movie)
     except movie.DoesNotExist:
         return render(request, 'store/error.html')
     
@@ -279,7 +298,10 @@ def movieItem(request , movie_id):
                 "cast" : cast,
                 "credit": credit,
                 "reviews": reviews ,
-                "average": average_rating}
+                "average": average_rating,
+                "currency" : currency
+                }
+    print(currency)
     return render(request, 'store/selectedMovie.html', context)
 
 

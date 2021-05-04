@@ -68,6 +68,11 @@ table {
     border:  #2b2b2b solid 2px;
 }
 
+#span button {
+    background-color: transparent;
+    padding:0px 3px;
+}
+
 #span span, #Reviews h5 {
     color : #27995e;
 }
@@ -76,6 +81,11 @@ table {
     width: 80px;
     height: 80px;
     border-radius: 5px;
+}
+
+#span {
+    display: flex;
+    margin-top: 0px;
 }
 
 #Reviews h5 , #Reviews p , #span{
@@ -146,7 +156,7 @@ table {
     padding: 4px;
 }
 
-.button-muted {
+#button {
     background: white;
     color: #45b77d;
     display: inline-block;
@@ -236,3 +246,4 @@ h3, h4 {
 .test1-list .test1:first-child {
     margin-left: 10px;
 }
+

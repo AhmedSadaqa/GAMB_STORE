@@ -4,7 +4,7 @@
 
 {% block title %} {{ movie.Name}} {% endblock %} 
 {% block styles %} 
-    <link rel="stylesheet" href="{% static 'store/spec_item.css' %}">
+    <link rel="stylesheet" href="{% static 'store/new_item_style.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
@@ -25,7 +25,15 @@
                 <div class="description">
                     <h2 style="color: #27995e;">{{ movie.Name }}</h2>
                     <div style="color: #27995e;" id="special">
-                        <h3>{{ movie.PriceUSD }}</h3>
+                        <h3>
+                            {% ifequal currency "LBP" %}
+                            LBP {{movie.PriceLBP}}
+                            {% endifequal %}
+
+                            {% ifequal currency "USD" %}
+                            $ {{movie.PriceUSD}}
+                            {% endifequal %}
+                        </h3>
                         <h4><a href="" style="color: #27995e;">-> add to WishList</a></h4>
                     </div>
                     <table>
@@ -107,10 +115,10 @@
                         <th colspan="2"><h3 id="rev">Reviews: </h3></th>
                     </thead>
                     <tbody>
-                        {% for review in reviews %}
+                        {% for review in reviews|slice:':5' %}
                             <tr>
                                 <td>
-                                    <img src="{{ review.user.Profile.Image.url }}">
+                                    <img src="{{ review.user.profile.Image.url }}">
                                 </td>
                                 <td>
                                     <div class="review">
@@ -125,9 +133,54 @@
                                             {% endfor %}
                                         </div>
                                         <div id="span">
-                                            <a href=""><span class="fa fa-thumbs-up">{{review.likes}}  |  </span></a>
-                                            <a href=""><span class="fa fa-thumbs-down">{{review.dislikes}}  |  </span></a>
-                                            <a href=""><span class="fa fa-flag"></span></a>
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <button name="like" value="{{review.id}}"><span class="fa fa-thumbs-up">{{review.likes}}  |</span></button>
+                                            </form>
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <button name="dislike" value="{{review.id}}"><span class="fa fa-thumbs-down">{{review.dislikes}}  |</span></button>
+                                            </form>
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <button name="report" value="{{review.id}}"><span class="fa fa-flag"></span></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <p>{{review.content}}</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% for review in reviews|slice:'5:' %}
+                            <tr style="display:none;">
+                                <td>
+                                    <img src="{{ review.user.profile.Image.url }}">
+                                </td>
+                                <td>
+                                    <div class="review">
+                                        <div class="author">
+                                            <h5>{{ review.user.username }}</h5>
+                                            {% for i in '12345' %}
+                                                {% if i|add:0 <= review.Rating %}
+                                                    <span class="fa fa-star checked"></span>
+                                                {% else %}
+                                                    <span class="fa fa-star"></span>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <div id="span">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <button name="like" value="{{review.id}}"><span class="fa fa-thumbs-up">{{review.likes}}  |</span></button>
+                                            </form>
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <button name="dislike" value="{{review.id}}"><span class="fa fa-thumbs-down">{{review.dislikes}}  |</span></button>
+                                            </form>
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <button name="report" value="{{review.id}}"><span class="fa fa-flag"></span></button>
+                                            </form>
                                         </div>
                                     </div>
                                     <p>{{review.content}}</p>
@@ -135,25 +188,44 @@
                             </tr>
                         {% endfor %}
                     </tbody>
-                    <th colspan="2"><a href=""><p id="rev">See all Reviews... </p></a></th>
+                    <th colspan="2" id="seeAll"><button id="button">See all Reviews...</button></th>
                 </table>
             </div>
             
             <h3 id="sim">Similar Products: </h3>
             <div class="test1-list">
                 {% for movies in similarMovies %}
-                <div class="test1">
-                    <div class="inner-test1">
-                        <div class="figure-image">
-                            <a href="single.html"><img src="{{ movies.Image.url }}" alt="cover1"></a>
+                    {% if movies.Name != movie.Name %}
+                    <div class="test1">
+                        <div class="inner-test1">
+                            <div class="figure-image">
+                                <a href="single.html"><img src="{{ movies.Image.url }}" alt="cover1"></a>
+                            </div>
+                            <h3 class="test1-title"><a href="#">{{ movies.Name }}</a></h3>
+                            <h3 class="test1-category"><a href="#">{{ movies.Genre }}</a></h3>
+                            <small class="price">USD {{ movies.PriceUSD }}</small>
                         </div>
-                        <h3 class="test1-title"><a href="#">{{ movies.Name }}</a></h3>
-                        <h3 class="test1-category"><a href="#">{{ movies.Genre }}</a></h3>
-                        <small class="price">USD {{ movies.PriceUSD }}</small>
                     </div>
-                </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
     </div>
+
+    <script>
+        window.onload = function() {
+            document.getElementById("button").onclick = displayReviews ;
+        }
+
+        function $(id) {return document.getElementById(id) ;} 
+
+        function displayReviews(){
+            let table = document.getElementById("Reviews") ;
+            let review_rows = table.getElementsByTagName("tr") ;
+            for(let i = 0 ; i < review_rows.length ; i++) {
+                review_rows[i].style.display = "table-row" ;
+            }
+            document.getElementById("seeAll").style.display = "none";
+        }
+    </script>
 {% endblock %}
