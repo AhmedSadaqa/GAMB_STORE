@@ -137,18 +137,49 @@ def booksRecommendations(request):
 
 
 def bookItem(request, book_id):
+    books = Book.objects.get(id=book_id)
+    if request.method == "POST":
+        if 'currency' in request.POST:
+            currency = request.POST.get('currency')
+        else:
+            if 'like' in request.POST:
+                like = request.POST.get('like')
+                review = Review.objects.get(id=like)
+                review.likes += 1
+                review.save()
+            elif 'dislike' in request.POST:
+                dislike = request.POST.get('dislike')
+                review = Review.objects.get(id=dislike)
+                review.dislikes += 1
+                review.save()
+            elif 'report' in request.POST:
+                report = request.POST.get('report')
+                review = Review.objects.get(id=report)
+                review.report += 1
+                if review.report >= 10:
+                    review.delete()   
+        
     try:
-        books = Book.objects.get(id=book_id)
+        reviews = Review.objects.filter(book_id=books)
+        currency = "USD"
         similarBooks = Book.objects.filter(Genre = books.Genre)
-        print(books)
-    except Book.DoesNotExist:
+        average_rating = 0
+        if reviews:
+            for review in reviews:
+                average_rating += review.Rating
+            average_rating = average_rating/reviews.__len__()
+        else:
+            average_rating = 0
+    except books.DoesNotExist:
         return render(request, 'store/error.html')
     
     context = {"books" : books,
-                "similarBooks" : similarBooks}
+                "similarBooks" : similarBooks,
+                "reviews": reviews ,
+                "average": average_rating,
+                "currency" : currency
+                }
     return render(request, 'store/selectedBook.html', context)
-
-
 
 
 # APPLICATIONS
@@ -177,18 +208,50 @@ def applicationsRecommendations(request):
     return render(request, 'store/allAppsRecommendations.html')
 
 def applicationItem(request , app_id):
+    app = Application.objects.get(id=app_id)
+    if request.method == "POST":
+        if 'currency' in request.POST:
+            currency = request.POST.get('currency')
+        else:
+            if 'like' in request.POST:
+                like = request.POST.get('like')
+                review = Review.objects.get(id=like)
+                review.likes += 1
+                review.save()
+            elif 'dislike' in request.POST:
+                dislike = request.POST.get('dislike')
+                review = Review.objects.get(id=dislike)
+                review.dislikes += 1
+                review.save()
+            elif 'report' in request.POST:
+                report = request.POST.get('report')
+                review = Review.objects.get(id=report)
+                review.report += 1
+                if review.report >= 10:
+                    review.delete()   
+        
     try:
-        app = Application.objects.get(id=app_id)
+        reviews = Review.objects.filter(application_id=app)
+        currency = "USD"
         similarApps = Application.objects.filter(Genre = app.Genre)
-        print(app)
+        average_rating = 0
+        if reviews:
+            for review in reviews:
+                average_rating += review.Rating
+            average_rating = average_rating/reviews.__len__()
+        else:
+            average_rating = 0
     except app.DoesNotExist:
         return render(request, 'store/error.html')
     
     context = {"app" : app,
-                "similarApps" : similarApps}
+                "similarApps" : similarApps,
+                "reviews": reviews ,
+                "average": average_rating,
+                "currency" : currency
+                }
     return render(request, 'store/selectedApp.html', context)
     
-
 
 # GAMES
 
@@ -216,15 +279,49 @@ def gamesRecommendations(request):
     return render(request, 'store/allGamesRecommendations.html')
 
 def gameItem(request , game_id):
+    game = Game.objects.get(id=game_id)
+    if request.method == "POST":
+        if 'currency' in request.POST:
+            currency = request.POST.get('currency')
+        else:
+            if 'like' in request.POST:
+                like = request.POST.get('like')
+                review = Review.objects.get(id=like)
+                review.likes += 1
+                review.save()
+            elif 'dislike' in request.POST:
+                dislike = request.POST.get('dislike')
+                review = Review.objects.get(id=dislike)
+                review.dislikes += 1
+                review.save()
+            elif 'report' in request.POST:
+                report = request.POST.get('report')
+                review = Review.objects.get(id=report)
+                review.report += 1
+                if review.report >= 10:
+                    review.delete()   
+        
     try:
-        game = Game.objects.get(id=game_id)
+        reviews = Review.objects.filter(game_id=game)
+        currency = "USD"
         similarGames = Game.objects.filter(Genre = game.Genre)
-        print(game)
+        average_rating = 0
+        if reviews:
+            for review in reviews:
+                average_rating += review.Rating
+            average_rating = average_rating/reviews.__len__()
+        else:
+            average_rating = 0
     except game.DoesNotExist:
         return render(request, 'store/error.html')
     
     context = {"game" : game,
-                "similarGames" : similarGames}
+                "similarGames" : similarGames,
+                "reviews": reviews ,
+                "average": average_rating,
+                "currency" : currency
+                }
+    print(currency)
     return render(request, 'store/selectedGame.html', context)
 
     
