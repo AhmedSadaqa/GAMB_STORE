@@ -13,16 +13,15 @@
                     <header>
                         <h2 class="section-title">New Releases Movies</h2>
                     </header>
-
                     <div class="test1-list">
                         {% for movie in newReleases %}
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{movie.Image.url}}" alt="Game 1"></a>
+                                    <img src="{{movie.Image.url}}" alt="Game 1">
                                 </div>
-                                <h3 class="test1-title"><a href="#">{{movie.Name}}</a></h3>
-                                <h3 class="test1-category"><a href="#">{{movie.Genre}}</a></h3>
+                                <h3 class="test1-title"><a href="/movieItem/{{movie.id}}">{{movie.Name}}</a></h3>
+                                <h3 class="test1-category">{{movie.Genre}}</h3>
                                 <small class="price">LBP {{movie.PriceLBP}}</small>
                             </div>
                         </div>
