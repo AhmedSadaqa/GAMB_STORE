@@ -1,11 +1,13 @@
 {% extends 'store/base.html' %}
 {% load static %}
 
-{% block title %} Books {% endblock %}
-{% block styles %}
+{% block title %} Filtered Items {% endblock %} 
+{% block styles %} 
 {% endblock %}
 
 {% block content %}
+
+
     <main class="main-content">
         <div class="container">
             <div class="filter-bar">
@@ -50,70 +52,68 @@
             <div class="page">
                 <section>
                     <header>
-                        <h2 class="section-title">Top Selling</h2>
-                        <a href="{% url 'topSellingBooks' %}" class="all">Show All</a>
+                        <h2 class="section-title">{{filtering}}</h2>
                     </header>
-
                     <div class="test1-list">
-                        {% for book in tenTopSellingBooks %}
+                        {% for book in filteredBooks %}
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <img src="{{book.Image.url}}" alt="Game 1">
+                                    <a href="/bookItem/{{book.id}}"><img src="{{book.Image.url}}" alt="Game 1"></a>
                                 </div>
-                                <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
-                                <h3 class="test1-category">{{book.Genre}}</h3>
+                                <h3 class="test1-title"><a href="#">{{book.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{book.Genre}}</a></h3>
                                 <small class="price">LBP {{book.PriceLBP}}</small>
                             </div>
                         </div>
                         {% endfor %}
-                    </div>
-                </section>
-
-                <section>
-                    <header>
-                        <h2 class="section-title">New Releases</h2>
-                        <a href="{% url 'newReleasesBooks' %}" class="all">Show All</a>
-                    </header>
-
-                    <div class="test1-list">
-                        {% for book in tenNewReleasesBooks %}
+                        {% for movie in filteredMovies %}
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <img src="{{book.Image.url}}" alt="Game 1">
+                                    <a href="/movieItem/{{movie.id}}"><img src="{{movie.Image.url}}" alt="Game 1"></a>
                                 </div>
-                                <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
-                                <h3 class="test1-category">{{book.Genre}}</h3>
-                                <small class="price">LBP {{book.PriceLBP}}</small>
+                                <h3 class="test1-title"><a href="#">{{movie.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{movie.Genre}}</a></h3>
+                                <small class="price">LBP {{movie.PriceLBP}}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for game in filteredGames %}
+                        <div class="test1">
+                            <div class="inner-test1">
+                                <div class="figure-image">
+                                    <a href="/gameItem/{{game.id}}"><img src="{{game.Image.url}}" alt="Game 1"></a>
+                                </div>
+                                <h3 class="test1-title"><a href="#">{{game.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{game.Genre}}</a></h3>
+                                <small class="price">LBP {{game.PriceLBP}}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% for app in filteredApps %}
+                        <div class="test1">
+                            <div class="inner-test1">
+                                <div class="figure-image">
+                                    <a href="/appItem/{{app.id}}"><img src="{{app.Image.url}}" alt="Game 1"></a>
+                                </div>
+                                <h3 class="test1-title"><a href="#">{{app.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{app.Genre}}</a></h3>
+                                <small class="price">LBP {{app.PriceLBP}}</small>
                             </div>
                         </div>
                         {% endfor %}
                     </div>
-                </section>
+                    </section>
 
-                <section>
-                    <header>
-                        <h2 class="section-title">Recommendations</h2>
-                        <a href="{% url 'booksRecommendations' %}" class="all">Show All</a>
-                    </header>
-                    <div class="test1-list">
-                        {% for book in tenRecommendations %}
-                        <div class="test1">
-                            <div class="inner-test1">
-                                <div class="figure-image">
-                                    <img src="{{book.Image.url}}" alt="Game 1">
-                                </div>
-                                <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
-                                <h3 class="test1-category">{{book.Genre}}</h3>
-                                <small class="price">LBP {{book.PriceLBP}}</small>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </section>
+                    
+
+                    
+                </div>
             </div>
-        </div>
     </main>
+
+
+
 
 {% endblock %}
