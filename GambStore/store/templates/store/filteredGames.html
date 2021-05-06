@@ -1,0 +1,65 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %} Filtered Items {% endblock %} 
+{% block styles %} 
+{% endblock %}
+
+{% block content %}
+
+
+    <main class="main-content">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <span>
+                            <label>Filter by:</label>
+                            <select name="filter" onchange="form.submit()">
+                                <option value="Genres" selected disabled>Genres</option>
+                                <option value="Social Simulation">Social Simulation</option>
+                                <option value="Action">Action</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Racing">Racing</option>
+                                <option value="Sports">Sports</option>
+                                <option value="Battle Royale">Battle Royale</option>
+                                <option value="Shooting">Shooting</option>
+                                <option value="Role Playing">Role Playing</option>
+                            </select>
+                        </span>
+                    </form>
+                </div>
+            </div>
+            <div class="page">
+                <section>
+                    <header>
+                        <h2 class="section-title">{{filtering}}</h2>
+                    </header>
+                    <div class="test1-list">
+                        {% for game in filteredGames %}
+                        <div class="test1">
+                            <div class="inner-test1">
+                                <div class="figure-image">
+                                    <a href="/gameItem/{{game.id}}"><img src="{{game.Image.url}}" alt="Game 1"></a>
+                                </div>
+                                <h3 class="test1-title"><a href="#">{{game.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{game.Genre}}</a></h3>
+                                <small class="price">LBP {{game.PriceLBP}}</small>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    </section>
+
+                    
+
+                    
+                </div>
+            </div>
+    </main>
+
+
+
+
+{% endblock %}
