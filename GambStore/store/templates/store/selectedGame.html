@@ -13,11 +13,11 @@
         <div id="body">
             <div class="item">
                 <div id="images">
-                    <img src="{{game.Image.url}}" width="200px" height="350px" alt="Book Cover">
+                    <img src="{{game.Image.url}}" width="200px" height="350px" alt="Book Cover" id="mainImage">
                     <div class="mini-images">
-                        <a href=""><img src="{{game.Image1.url}}" width="50px" height="70px" alt="Book Cover"></a>
-                        <a href=""><img src="{{game.Image2.url}}" width="50px" height="70px" alt="Book Cover"></a>
-                        <a href=""><img src="{{game.Image3.url}}" width="50px" height="70px" alt="Book Cover"></a>
+                        <img src="{{game.Image1.url}}" id="im1" width="50px" height="70px" alt="Book Cover" onclick="swapImages(this.id)" onmouseover="changemouse(this.id)">
+                        <img src="{{game.Image2.url}}" id="im2" width="50px" height="70px" alt="Book Cover" onclick="swapImages(this.id)" onmouseover="changemouse(this.id)">
+                        <img src="{{game.Image3.url}}" id="im3" width="50px" height="70px" alt="Book Cover" onclick="swapImages(this.id)" onmouseover="changemouse(this.id)">
                     </div>
     
                 </div>
@@ -179,10 +179,10 @@
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{ games.Image.url }}" alt="cover1"></a>
+                                    <a href="/gameItem/{{games.id}}"><img src="{{ games.Image.url }}" alt="cover1"></a>
                                 </div>
-                                <h3 class="test1-title"><a href="#">{{ games.Name }}</a></h3>
-                                <h3 class="test1-category"><a href="#">{{ games.Genre }}</a></h3>
+                                <h3 class="test1-title"><a href="/gameItem/{{games.id}}">{{ games.Name }}</a></h3>
+                                <h3 class="test1-category"><a href="/gameItem/{{games.id}}">{{ games.Genre }}</a></h3>
                                 <small class="price">USD {{ games.PriceUSD }}</small>
                             </div>
                         </div>
@@ -193,6 +193,20 @@
     </div>
 
     <script>
+        
+        function changemouse(id){
+            let selected = document.getElementById(id) ;
+            selected.style.cursor = "pointer";
+        }
+
+        function swapImages(id){
+            let main = document.getElementById("mainImage") ;
+            let main_src = main.getAttribute("src") ;
+            let clicked = document.getElementById(id) ;
+            let new_main = clicked.getAttribute("src") ;
+            main.setAttribute("src" , new_main) ;
+            clicked.setAttribute("src" , main_src) ;
+        }
         window.onload = function() {
             document.getElementById("button").onclick = displayReviews ;
         }
