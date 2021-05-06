@@ -5,6 +5,7 @@
 {% block title %} {{ movie.Name}} {% endblock %} 
 {% block styles %} 
     <link rel="stylesheet" href="{% static 'store/new_item_style.css' %}">
+    <link rel="stylesheet" href="{% static 'store/reviews.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
@@ -26,13 +27,17 @@
                     <h2 style="color: #27995e;">{{ movie.Name }}</h2>
                     <div style="color: #27995e;" id="special">
                         <h3>
-                            {% ifequal currency "LBP" %}
-                            LBP {{movie.PriceLBP}}
-                            {% endifequal %}
+                            {% if movie.PriceUSD == 0 %}
+                                Free
+                            {% else %}
+                                {% ifequal currency "LBP" %}
+                                    LBP {{movie.PriceLBP}}
+                                {% endifequal %}
 
-                            {% ifequal currency "USD" %}
-                            $ {{movie.PriceUSD}}
-                            {% endifequal %}
+                                {% ifequal currency "USD" %}
+                                    $ {{movie.PriceUSD}}
+                                {% endifequal %}
+                            {% endif %}
                         </h3>
                         <form method="POST">
                             {%csrf_token%}
@@ -110,6 +115,19 @@
                         {% endfor %}
                     </ul>
                 </div>
+            </div>
+
+            <div id="ReviewAdd">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Give Personal Review:</legend>
+                        <label for="rating">Your Rating:</label>
+                        <input type="number" max="5" min="1" name="rating">
+                        <textarea id="review_content" name="rev"></textarea>
+                        <button name="review">Add Review</button>
+                    </fieldset>
+                </form>
             </div>
 
             <div id="Reviews">
@@ -206,7 +224,19 @@
                             </div>
                             <h3 class="test1-title"><a href="/movieItem/{{movies.id}}">{{ movies.Name }}</a></h3>
                             <h3 class="test1-category"><a href="/movieItem/{{movies.id}}">{{ movies.Genre }}</a></h3>
-                            <small class="price">USD {{ movies.PriceUSD }}</small>
+                            <small class="price">
+                                {% if movies.PriceUSD == 0 %}
+                                    Free
+                                {% else %}
+                                    {% ifequal currency "LBP" %}
+                                        LBP {{movies.PriceLBP}}
+                                    {% endifequal %}
+
+                                    {% ifequal currency "USD" %}
+                                        $ {{movies.PriceUSD}}
+                                    {% endifequal %}
+                                {% endif %}
+                            </small>
                         </div>
                     </div>
                     {% endif %}

@@ -148,6 +148,11 @@ def bookItem(request, book_id):
                 wishlist = WishList.objects.create(user= request.user,
                                                book_id= book)
         else:
+            if 'review' in request.POST:
+                review_content = request.POST.get('rev')
+                review_user = request.user
+                review_rating = request.POST.get('rating')
+                Review.objects.create(user=review_user , Rating=review_rating, book_id=books, likes=0, dislikes=0, report=0, content=review_content)
             if 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
@@ -260,7 +265,12 @@ def applicationItem(request , app_id):
                                                application_id= app)
 
         else:
-            if 'like' in request.POST:
+            if 'review' in request.POST:
+                review_content = request.POST.get('rev')
+                review_user = request.user
+                review_rating = request.POST.get('rating')
+                Review.objects.create(user=review_user , Rating=review_rating, game_id=game, likes=0, dislikes=0, report=0, content=review_content)
+            elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
@@ -372,7 +382,12 @@ def gameItem(request , game_id):
                 wishlist = WishList.objects.create(user= request.user,
                                                game_id= game)
         else:
-            if 'like' in request.POST:
+            if 'review' in request.POST:
+                review_content = request.POST.get('rev')
+                review_user = request.user
+                review_rating = request.POST.get('rating')
+                Review.objects.create(user=review_user , Rating=review_rating, game_id=game, likes=0, dislikes=0, report=0, content=review_content)
+            elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
@@ -483,7 +498,12 @@ def movieItem(request , movie_id):
                 wishlist = WishList.objects.create(user= request.user,
                                                movie_id= movie)
         else:
-            if 'like' in request.POST:
+            if 'review' in request.POST:
+                review_content = request.POST.get('rev')
+                review_user = request.user
+                review_rating = request.POST.get('rating')
+                Review.objects.create(user=review_user , Rating=review_rating, movie_id=movie, likes=0, dislikes=0, report=0, content=review_content)
+            elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
@@ -528,6 +548,8 @@ def movieItem(request , movie_id):
 
 
 
+
+    #WishList & Search Options
 def wishlist(request):
     wishlist = WishList.objects.distinct()
     print(wishlist)

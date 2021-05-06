@@ -5,6 +5,7 @@
 {% block title %} {{books.Name}} {% endblock %} 
 {% block styles %} 
     <link rel="stylesheet" href="{% static 'store/new_item_style.css' %}">
+    <link rel="stylesheet" href="{% static 'store/reviews.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
@@ -26,13 +27,17 @@
                     <h2 style="color: #27995e;">{{books.Name}}</h2>
                     <div style="color: #27995e;" id="special">
                         <h3>
-                            {% ifequal currency "LBP" %}
-                            LBP {{books.PriceLBP}}
-                            {% endifequal %}
+                            {% if books.PriceUSD == 0 %}
+                                Free
+                            {% else %}
+                                {% ifequal currency "LBP" %}
+                                    LBP {{books.PriceLBP}}
+                                {% endifequal %}
 
-                            {% ifequal currency "USD" %}
-                            $ {{books.PriceUSD}}
-                            {% endifequal %}
+                                {% ifequal currency "USD" %}
+                                    $ {{books.PriceUSD}}
+                                {% endifequal %}
+                            {% endif %}
                         </h3>
                         <form method="POST">
                             {%csrf_token%}
@@ -89,6 +94,19 @@
             </div>
             <br>
             
+            <div id="ReviewAdd">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Give Personal Review:</legend>
+                        <label for="rating">Your Rating:</label>
+                        <input type="number" max="5" min="1" name="rating">
+                        <textarea id="review_content" name="rev"></textarea>
+                        <button name="review">Add Review</button>
+                    </fieldset>
+                </form>
+            </div>
+
             <div id="Reviews">
                 <table>
                     <thead>
@@ -183,7 +201,19 @@
                                 </div>
                                 <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{ book.Name }}</a></h3>
                                 <h3 class="test1-category"><a href="/bookItem/{{book.id}}">{{ book.Genre }}</a></h3>
-                                <small class="price">$ {{ book.PriceUSD }}</small>
+                                <small class="price">
+                                    {% if book.PriceUSD == 0 %}
+                                        Free
+                                    {% else %}
+                                        {% ifequal currency "LBP" %}
+                                            LBP {{book.PriceLBP}}
+                                        {% endifequal %}
+
+                                        {% ifequal currency "USD" %}
+                                            $ {{book.PriceUSD}}
+                                        {% endifequal %}
+                                    {% endif %}
+                                </small>
                             </div>
                         </div>
                     {% endif %}
