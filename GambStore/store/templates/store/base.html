@@ -29,12 +29,12 @@
                 <div class="right-section pull-right">
 
                     {% if user.is_authenticated %}
-                    <img src="{{ user.profile.Image.url }}" style="width:1.5em;height: 1.5em; border-radius: 10em;">
-                    <a href="{% url 'profile' %}" class="login-button">Profile</a>
-                    <a href="{% url 'logout' %}" class="login-button">Log out</a>
+                        <img src="{{ user.profile.Image.url }}" style="width:1.5em;height: 1.5em; border-radius: 10em;">
+                        <a href="{% url 'profile' %}" class="login-button">Profile</a>
+                        <a href="{% url 'logout' %}" class="login-button">Log out</a>
                     {% else %}
-                    <a href="{% url 'login' %}" class="login-button">Login</a>
-                    <a href="{% url 'register' %}" class="login-button">Register</a>
+                        <a href="{% url 'login' %}" class="login-button">Login</a>
+                        <a href="{% url 'register' %}" class="login-button">Register</a>
                     {% endif %}
                 </div>
                 <!-- .right-section -->
@@ -53,7 +53,8 @@
                     <!-- .menu -->
                     <form action="{% url 'search' %}" method="GET">
                         <div class="search-form">
-                            <label><img class="search" src="images\icon-search.png"></label>
+                            <button style="background-color: black;"><label><img class="search" src="{% static 'store/icon-search.png' %}"></label></button>
+                            
                             <input type="text" placeholder="Search..." name="q">
                         </div>
                         <button style="position: relative; left:573px; top: 43px;">Search</button>
@@ -79,14 +80,11 @@
                                 <span>
                                     <label>Filter by:</label>
                                     <select name="filter" onchange="form.submit()">
-                                        <option value="Action" selected>Genres</option>
-                                        <option value="Action">Action</option>
-                                        <option value="Fiction">Fiction</option>
-                                        <option value="Comics">Comics</option>
-                                        <option value="Horror">Horror</option>
-                                        <option value="Romantic">Romantic</option>
-                                        <option value="Top Selling">Top Selling</option>
-                                        <option value="New Releases">New Releases</option>
+                                        <option value="Genre" selected disabled>Genres</option>
+                                        <option value="Book">Book</option>
+                                        <option value="Movie">Movie</option>
+                                        <option value="Game">Game</option>
+                                        <option value="Application">Application</option>
                                     </select>
                                 </span>
                             </form>
@@ -102,58 +100,10 @@
                                 <div class="test1">
                                     <div class="inner-test1">
                                         <div class="figure-image">
-                                            <a href="single.html"><img src="{{item.Image.url}}" alt="Game 1"></a>
+                                            <img src="{{item.Image.url}}" alt="Game 1">
                                         </div>
-                                        <h3 class="test1-title"><a href="#">{{item.Name}}</a></h3>
-                                        <h3 class="test1-category"><a href="#">{{item.Genre}}</a></h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                {% for item in filteredMovies %}
-                                <div class="test1">
-                                    <div class="inner-test1">
-                                        <div class="figure-image">
-                                            <a href="single.html"><img src="{{item.Image.url}}" alt="Game 1"></a>
-                                        </div>
-                                        <h3 class="test1-title"><a href="#">{{item.Name}}</a></h3>
-                                        <h3 class="test1-category"><a href="#">{{item.Genre}}</a></h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                {% for item in filteredGames %}
-                                <div class="test1">
-                                    <div class="inner-test1">
-                                        <div class="figure-image">
-                                            <a href="single.html"><img src="{{item.Image.url}}" alt="Game 1"></a>
-                                        </div>
-                                        <h3 class="test1-title"><a href="#">{{item.Name}}</a></h3>
-                                        <h3 class="test1-category"><a href="#">{{item.Genre}}</a></h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                {% for item in filteredApps %}
-                                <div class="test1">
-                                    <div class="inner-test1">
-                                        <div class="figure-image">
-                                            <a href="single.html"><img src="{{item.Image.url}}" alt="Game 1"></a>
-                                        </div>
-                                        <h3 class="test1-title"><a href="#">{{item.Name}}</a></h3>
-                                        <h3 class="test1-category"><a href="#">{{item.Genre}}</a></h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                {% for item in booksResult %}
-                                <div class="test1">
-                                    <div class="inner-test1">
-                                        <div class="figure-image">
-                                            <a href="single.html"><img src="{{item.Image.url}}" alt="Game 1"></a>
-                                        </div>
-                                        <h3 class="test1-title"><a href="#">{{item.Name}}</a></h3>
-                                        <h3 class="test1-category"><a href="#">{{item.Genre}}</a></h3>
+                                        <h3 class="test1-title"><a href="/bookItem/{{item.id}}">{{item.Name}}</a></h3>
+                                        <h3 class="test1-category">{{item.Genre}}</h3>
                                         <small class="price">LBP {{item.PriceLBP}}</small>
                                     </div>
                                 </div>
@@ -162,22 +112,10 @@
                                 <div class="test1">
                                     <div class="inner-test1">
                                         <div class="figure-image">
-                                            <a href="single.html"><img src="{{item.Image.url}}" alt="Game 1"></a>
+                                            <img src="{{item.Image.url}}" alt="Game 1">
                                         </div>
-                                        <h3 class="test1-title"><a href="#">{{item.Name}}</a></h3>
-                                        <h3 class="test1-category"><a href="#">{{item.Genre}}</a></h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                                {% for item in appsResult %}
-                                <div class="test1">
-                                    <div class="inner-test1">
-                                        <div class="figure-image">
-                                            <a href="single.html"><img src="{{item.Image.url}}" alt="Game 1"></a>
-                                        </div>
-                                        <h3 class="test1-title"><a href="#">{{item.Name}}</a></h3>
-                                        <h3 class="test1-category"><a href="#">{{item.Genre}}</a></h3>
+                                        <h3 class="test1-title"><a href="/movieItem/{{item.id}}">{{item.Name}}</a></h3>
+                                        <h3 class="test1-category">{{item.Genre}}</h3>
                                         <small class="price">LBP {{item.PriceLBP}}</small>
                                     </div>
                                 </div>
@@ -186,10 +124,22 @@
                                 <div class="test1">
                                     <div class="inner-test1">
                                         <div class="figure-image">
-                                            <a href="single.html"><img src="{{item.Image.url}}" alt="Game 1"></a>
+                                            <img src="{{item.Image.url}}" alt="Game 1">
                                         </div>
-                                        <h3 class="test1-title"><a href="#">{{item.Name}}</a></h3>
-                                        <h3 class="test1-category"><a href="#">{{item.Genre}}</a></h3>
+                                        <h3 class="test1-title"><a href="/gameItem/{{item.id}}">{{item.Name}}</a></h3>
+                                        <h3 class="test1-category">{{item.Genre}}</h3>
+                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% for item in appsResult %}
+                                <div class="test1">
+                                    <div class="inner-test1">
+                                        <div class="figure-image">
+                                            <img src="{{item.Image.url}}" alt="Game 1">
+                                        </div>
+                                        <h3 class="test1-title"><a href="/appItem/{{item.id}}">{{item.Name}}</a></h3>
+                                        <h3 class="test1-category">{{item.Genre}}</h3>
                                         <small class="price">LBP {{item.PriceLBP}}</small>
                                     </div>
                                 </div>

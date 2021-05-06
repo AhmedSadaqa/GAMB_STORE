@@ -34,7 +34,10 @@
                             $ {{movie.PriceUSD}}
                             {% endifequal %}
                         </h3>
-                        <h4><a href="" style="color: #27995e;">-> add to WishList</a></h4>
+                        <form method="POST">
+                            {%csrf_token%}
+                            <button name="wishlist" onclick="form.submit()"><b>Add to WishList</b></button>
+                        </form>
                     </div>
                     <table>
                         <tr>
