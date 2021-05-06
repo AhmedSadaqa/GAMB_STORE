@@ -37,4 +37,5 @@ urlpatterns = [
     
     path('wishlist/', views.wishlist, name='wishlist'),
     path('search/', views.search, name='search'),
+    path('visitedItems/', views.visitedItems, name='visitedItems')
 ]
