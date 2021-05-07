@@ -10,19 +10,17 @@
         <div class="container">
             <div class="filter-bar">
                 <div class="filter">
-                    <form method="POSt">
+                    <form method="POST">
                         {% csrf_token %}
                         <span>
                             <label>Filter by:</label>
                             <select name="filter" onchange="form.submit()">
-                                <option value="Action" selected>Genres</option>
+                                <option value="Genre" selected disabled>Genres</option>
                                 <option value="Action">Action</option>
                                 <option value="Fiction">Fiction</option>
                                 <option value="Comics">Comics</option>
                                 <option value="Horror">Horror</option>
                                 <option value="Romantic">Romantic</option>
-                                <option value="Top Selling">Top Selling</option>
-                                <option value="New Releases">New Releases</option>
                             </select>
                         </span>
                     </form>
@@ -40,11 +38,13 @@
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{book.Image.url}}" alt="Game 1"></a>
+                                    <img src="{{book.Image.url}}" alt="Game 1">
                                 </div>
-                                <h3 class="test1-title"><a href="#">{{book.Name}}</a></h3>
-                                <h3 class="test1-category"><a href="#">{{book.Genre}}</a></h3>
-                                <small class="price">{{book.Genre}}</small>
+                                <form action="{% url 'visitedItems' %}" method="POST">
+                                    <h3 class="test1-title"><a href="/bookItem/{{book.id}}" name="item", value="{{book.id}}" onclick="form.submit()">{{book.Name}}</a></h3>
+                                </form>
+                                <h3 class="test1-category">{{book.Genre}}</h3>
+                                <small class="price">LBP {{book.PriceLBP}}</small>
                             </div>
                         </div>
                         {% endfor %}
@@ -62,11 +62,11 @@
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{book.Image.url}}" alt="Game 1"></a>
+                                    <img src="{{book.Image.url}}" alt="Game 1">
                                 </div>
-                                <h3 class="test1-title"><a href="#">{{book.Name}}</a></h3>
-                                <h3 class="test1-category"><a href="#">{{book.Genre}}</a></h3>
-                                <small class="price">{{book.Price}}</small>
+                                <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
+                                <h3 class="test1-category">{{book.Genre}}</h3>
+                                <small class="price">LBP {{book.PriceLBP}}</small>
                             </div>
                         </div>
                         {% endfor %}
@@ -79,16 +79,18 @@
                         <a href="{% url 'booksRecommendations' %}" class="all">Show All</a>
                     </header>
                     <div class="test1-list">
+                        {% for book in tenRecommendations %}
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="dummy/game-1.jpg" alt="Game 1"></a>
+                                    <img src="{{book.Image.url}}" alt="Game 1">
                                 </div>
-                                <h3 class="test1-title"><a href="#">Title</a></h3>
-                                <h3 class="test1-category"><a href="#">Category</a></h3>
-                                <small class="price">$19.00/ Free</small>
+                                <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
+                                <h3 class="test1-category">{{book.Genre}}</h3>
+                                <small class="price">LBP {{book.PriceLBP}}</small>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </section>
             </div>

@@ -8,42 +8,24 @@
 {% block content %}
     <main class="main-content">
         <div class="container">
-            <div class="filter-bar">
-                <div class="filter">
-                    <form method="POSt">
-                        {% csrf_token %}
-                        <span>
-                            <label>Filter by:</label>
-                            <select name="filter" onchange="form.submit()">
-                                <option value="Action" selected>Genres</option>
-                                <option value="Action">Action</option>
-                                <option value="Fiction">Fiction</option>
-                                <option value="Comics">Comics</option>
-                                <option value="Horror">Horror</option>
-                                <option value="Romantic">Romantic</option>
-                                <option value="Top Selling">Top Selling</option>
-                                <option value="New Releases">New Releases</option>
-                            </select>
-                        </span>
-                    </form>
-                </div>
-            </div>
             <div class="page">
                 <section>
                     <header>
                         <h2 class="section-title">Game Recommendations</h2>
                     </header>
                     <div class="test1-list">
+                        {% for item in Recommendations %}
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="" alt="Game 1"></a>
+                                    <img src="{{item.Image.url}}" alt="Game 1">
                                 </div>
-                                <h3 class="test1-title"><a href="#"></a></h3>
-                                <h3 class="test1-category"><a href="#"></a></h3>
-                                <small class="price"></small>
+                                <h3 class="test1-title"><a href="/gameItem/{{game.id}}">{{item.Name}}</a></h3>
+                                <h3 class="test1-category">{{item.Genre}}</h3>
+                                <small class="price">LBP {{item.PriceLBP}}</small>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </section>
             </div>

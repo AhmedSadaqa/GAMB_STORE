@@ -16,20 +16,10 @@ def home(request):
     applications = Application.objects.all()
     games = Game.objects.all()
     movies = Movie.objects.all()
-    currency = "USD"
     context = {"books":books,
                "applications":applications,
                "games":games,
-               "movies":movies,
-               "currency": currency}
-    if request.method == "POST":
-        currency = request.POST.get('currency')
-        context = {"books":books,
-                "applications":applications,
-                "games":games,
-                "movies":movies, 
-                "currency": currency}
-        return render(request, "store/GAMBindex.html", context)
+               "movies":movies}
     return render(request, "store/GAMBindex.html", context)
 
 
@@ -95,7 +85,7 @@ def bookCategory(request):
     topSellingbooks = Book.objects.all().order_by('-CopiesSold')
     tenTopSellingBooks = []
     # # this is the functionality for the top selling, you should have 10 books in your database to test it or it will give you an error list index out of range
-    for i in range(5):
+    for i in range(10):
         tenTopSellingBooks.append(topSellingbooks[i])
         
     # New Releases Books
@@ -105,14 +95,19 @@ def bookCategory(request):
     
     newReleasesBooks = Book.objects.filter(Q(Date__year=current_year) | Q(Date__year = last_year))
     tenNewReleasesBooks = []
-    for i in range(5):
+    for i in range(10):
         tenNewReleasesBooks.append(newReleasesBooks[i])
 
     
     #Recommendations
+    Recommendations = Book.objects.filter(Rating__gte=7)
+    tenRecommendations = []
+    for i in range(10):
+        tenRecommendations.append(Recommendations[i])
 
     context = {"tenTopSellingBooks" : tenTopSellingBooks,
-               "tenNewReleasesBooks": tenNewReleasesBooks     
+               "tenNewReleasesBooks": tenNewReleasesBooks,
+               "tenRecommendations" : tenRecommendations     
             }
     return render(request, 'store/bookCategory.html', context)
     
@@ -133,15 +128,31 @@ def newReleasesBooks(request):
     return render(request, 'store/allNewReleasesBooks.html', context)
 
 def booksRecommendations(request):
-    return render(request, 'store/allBooksRecommendations.html')
+    Recommendations = Book.objects.filter(Rating__gte=7)
+    context = {"Recommendations" : Recommendations}
+    return render(request, 'store/allBooksRecommendations.html', context)
 
 
 def bookItem(request, book_id):
+    current_user = request.user
+    book = Book.objects.get(id=book_id)
+    itemVisited = VisitedItems.objects.create(user=current_user,
+                                              book_id=book)
     books = Book.objects.get(id=book_id)
     if request.method == "POST":
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+        elif 'wishlist' in request.POST:
+            count = WishList.objects.filter(book_id=book).count()
+            if count == 0:
+                wishlist = WishList.objects.create(user= request.user,
+                                               book_id= book)
         else:
+            if 'review' in request.POST:
+                review_content = request.POST.get('rev')
+                review_user = request.user
+                review_rating = request.POST.get('rating')
+                Review.objects.create(user=review_user , Rating=review_rating, book_id=books, likes=0, dislikes=0, report=0, content=review_content)
             if 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
@@ -157,8 +168,7 @@ def bookItem(request, book_id):
                 review = Review.objects.get(id=report)
                 review.report += 1
                 if review.report >= 10:
-                    review.delete()   
-        
+                    review.delete()
     try:
         reviews = Review.objects.filter(book_id=books)
         currency = "USD"
@@ -183,10 +193,40 @@ def bookItem(request, book_id):
 
 
 # APPLICATIONS
-
 def applicationCategory(request):
-    applications = Application.objects.all()
-    context = {"applications" : applications}
+    if request.method == "POST":
+        filtering = request.POST.get("filter")
+        filteredApps = Application.objects.filter(Genre=filtering)
+        return render(request, 'store/filteredApps.html', {'filteredApps' : filteredApps, 'filtering' : filtering})
+
+    #Top Selling
+    topSellingApps = Application.objects.all().order_by("-CopiesSold")
+    tenTopSellingApps = []
+    for i in range(10):
+        tenTopSellingApps.append(topSellingApps[i])
+
+    #New Releases
+    today = datetime.datetime.now()
+    current_year = today.year
+    last_year = current_year - 1
+
+    newReleasesApps = Application.objects.filter(Q(Date__year=current_year) | Q(Date__year=last_year))
+    tenNewReleasesApps = []
+    print(newReleasesApps)
+    for i in range(3):
+        tenNewReleasesApps.append(newReleasesApps[i])
+
+    #Recommendations
+    Recommendations = Application.objects.filter(Rating__gte=7)
+    tenRecommendations = []
+    for i in range(10):
+        tenRecommendations.append(Recommendations[i])
+    
+    context = {"tenTopSellingApps" : tenTopSellingApps,
+               "tenNewReleasesApps" : tenNewReleasesApps,
+               "tenRecommendations" : tenRecommendations}
+    
+
     return render(request, 'store/applicationCategory.html', context)
 
 def topSellingApplications(request):
@@ -205,15 +245,32 @@ def newReleasesApplications(request):
     return render(request, 'store/allNewReleasesApps.html', context)
 
 def applicationsRecommendations(request):
-    return render(request, 'store/allAppsRecommendations.html')
+    Recommendations = Application.objects.filter(Rating__gte=7)
+    context = {"Recommendations" : Recommendations}
+    return render(request, 'store/allAppsRecommendations.html', context)
 
 def applicationItem(request , app_id):
+    current_user = request.user
+    app = Application.objects.get(id=app_id)
+    itemVisited = VisitedItems.objects.create(user=current_user,
+                                              application_id=app)
     app = Application.objects.get(id=app_id)
     if request.method == "POST":
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+        elif 'wishlist' in request.POST:
+            count = WishList.objects.filter(application_id=app).count()
+            if count == 0:
+                wishlist = WishList.objects.create(user= request.user,
+                                               application_id= app)
+
         else:
-            if 'like' in request.POST:
+            if 'review' in request.POST:
+                review_content = request.POST.get('rev')
+                review_user = request.user
+                review_rating = request.POST.get('rating')
+                Review.objects.create(user=review_user , Rating=review_rating, game_id=game, likes=0, dislikes=0, report=0, content=review_content)
+            elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
@@ -256,8 +313,38 @@ def applicationItem(request , app_id):
 # GAMES
 
 def gameCategory(request):
-    games = Game.objects.all()
-    context = {"games" : games}
+    if request.method == "POST":
+        filtering = request.POST.get("filter")
+        filteredGames = Game.objects.filter(Genre=filtering)
+        return render(request, 'store/filteredGames.html', {'filteredGames' : filteredGames, 'filtering' : filtering})
+    
+    #Top Selling
+    topSellingGames = Game.objects.all().order_by('-CopiesSold')
+    tenTopSellingGames = []
+    for i in range(10):
+        tenTopSellingGames.append(topSellingGames[i])
+    
+    #New Releases Games
+    today = datetime.datetime.now()
+    current_year = today.year
+    last_year = current_year - 1
+
+    newReleasesGames = Game.objects.filter(Q(Date__year=current_year) | Q(Date__year=last_year))
+    tenNewReleasesGames = []
+    for i in range(5):
+        tenNewReleasesGames.append(newReleasesGames[i])
+    
+    #Recommendations
+    Recommendations = Game.objects.filter(Rating__gte=7)
+    print(Recommendations)
+    tenRecommendations = []
+    for i in range(10):
+        tenRecommendations.append(Recommendations[i])
+    
+
+    context = {"tenTopSellingGames" : tenTopSellingGames,
+               "tenNewReleasesGames": tenNewReleasesGames,
+               "tenRecommendations" : tenRecommendations} 
     return render(request, 'store/gameCategory.html', context)
 
 def topSellingGames(request):
@@ -276,15 +363,31 @@ def newReleasesGames(request):
     return render(request, 'store/allNewReleasesGames.html', context)
 
 def gamesRecommendations(request):
-    return render(request, 'store/allGamesRecommendations.html')
+    Recommendations = Game.objects.filter(Rating__gte=7)
+    context = {"Recommendations" : Recommendations}
+    return render(request, 'store/allGamesRecommendations.html', context)
 
 def gameItem(request , game_id):
+    current_user = request.user
+    game = Game.objects.get(id=game_id)
+    itemVisited = VisitedItems.objects.create(user=current_user,
+                                              game_id=game)
     game = Game.objects.get(id=game_id)
     if request.method == "POST":
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+        elif 'wishlist' in request.POST:
+            count = WishList.objects.filter(game_id=game).count()
+            if(count == 0):
+                wishlist = WishList.objects.create(user= request.user,
+                                               game_id= game)
         else:
-            if 'like' in request.POST:
+            if 'review' in request.POST:
+                review_content = request.POST.get('rev')
+                review_user = request.user
+                review_rating = request.POST.get('rating')
+                Review.objects.create(user=review_user , Rating=review_rating, game_id=game, likes=0, dislikes=0, report=0, content=review_content)
+            elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
@@ -321,15 +424,43 @@ def gameItem(request , game_id):
                 "average": average_rating,
                 "currency" : currency
                 }
-    print(currency)
     return render(request, 'store/selectedGame.html', context)
 
-    
 # MOVIES
 
 def movieCategory(request):
-    movies = Movie.objects.all()
-    context = {"movies" : movies}
+    if request.method == "POST":
+        filtering = request.POST.get("filter")
+        filteredMovies = Movie.objects.filter(Genre=filtering)
+        return render(request, 'store/filteredMovies.html', {'filteredMovies' : filteredMovies, 'filtering' : filtering})
+    
+    #Top Sellings
+    topSellingMovies = Movie.objects.all().order_by("-CopiesSold")
+    tenTopSellingMovies = []
+    for i in range(10):
+        tenTopSellingMovies.append(topSellingMovies[i])
+    
+    #New Releases
+    today = datetime.datetime.now()
+    current_year = today.year
+    last_year = current_year - 1
+
+    newReleasesMovies = Movie.objects.filter(Q(Date__year=current_year) | Q(Date__year=last_year))
+    tenNewReleasesMovies = []
+    for i in range(10):
+        tenNewReleasesMovies.append(newReleasesMovies[i])
+    
+    #Recommendations
+    Recommendations = Movie.objects.filter(Rating__gte=7)
+    print(Recommendations)
+    tenRecommendations = []
+    for i in range(10):
+        tenRecommendations.append(Recommendations[i])
+    
+    context = {"tenTopSellingMovies" : tenTopSellingMovies,
+               "tenNewReleasesMovies": tenNewReleasesMovies,
+               "tenRecommendations" : tenRecommendations     
+            }
     return render(request, 'store/movieCategory.html', context)
     
 def topSellingmovies(request):
@@ -348,16 +479,31 @@ def newReleasesmovies(request):
     return render(request, 'store/allNewReleasesMovies.html', context)
 
 def moviesRecommendations(request):
-    return render(request, 'store/allMoviesRecommendations.html')
+    Recommendations = Movie.objects.filter(Rating__gte=7)
+    context = {"Recommendations" : Recommendations}
+    return render(request, 'store/allMoviesRecommendations.html', context)
     
 
 def movieItem(request , movie_id):
+    current_user = request.user
     movie = Movie.objects.get(id=movie_id)
+    itemVisited = VisitedItems.objects.create(user=current_user,
+                                              movie_id=movie)
     if request.method == "POST":
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+        elif 'wishlist' in request.POST:
+            count = WishList.objects.filter(movie_id=movie).count()
+            if(count == 0):
+                wishlist = WishList.objects.create(user= request.user,
+                                               movie_id= movie)
         else:
-            if 'like' in request.POST:
+            if 'review' in request.POST:
+                review_content = request.POST.get('rev')
+                review_user = request.user
+                review_rating = request.POST.get('rating')
+                Review.objects.create(user=review_user , Rating=review_rating, movie_id=movie, likes=0, dislikes=0, report=0, content=review_content)
+            elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
@@ -398,12 +544,50 @@ def movieItem(request , movie_id):
                 "average": average_rating,
                 "currency" : currency
                 }
-    print(currency)
     return render(request, 'store/selectedMovie.html', context)
 
 
 
+
+    #WishList & Search Options
 def wishlist(request):
-    wishlist = WishList.objects.all()
+    wishlist = WishList.objects.distinct()
+    print(wishlist)
     context = {"wishlist" : wishlist}
     return render(request, 'store/wishlist.html', context)
+
+
+def search(request):
+    result = request.GET.get("q")
+    booksResult = Book.objects.filter(Q(Name=result) | Q(Description__icontains=result))
+    moviesResult = Movie.objects.filter(Q(Name=result) | Q(Description__icontains=result))
+    appsResult = Application.objects.filter(Q(Name=result) | Q(Description__icontains=result))
+    gamesResult = Game.objects.filter(Q(Name=result) | Q(Description__icontains=result))
+
+
+    if request.method == "POST":
+        filterResult = request.POST.get("filter")
+        if filterResult == "Book":
+            return render(request, 'store/base.html', {"booksResult" :booksResult })
+        elif filterResult == "Application":
+            return render(request, 'store/base.html', {"appsResult" : appsResult})
+        elif filterResult == "Game":
+            return render(request, 'store/base.html', {"gamesResult" : gamesResult})
+        else:
+            return render(request, 'store/base.html', {"moviesResult" : moviesResult})
+
+    context = {"booksResult" : booksResult,
+               "moviesResult" : moviesResult,
+               "appsResult" : appsResult,
+               "gamesResult" : gamesResult,
+               }
+
+    return render(request, 'store/base.html', context)
+
+def visitedItems(request):
+    items = VisitedItems.objects.all().order_by("-id")
+    lastVisited = []
+    for i in range(24):
+        lastVisited.append(items[i])
+    context = {"lastVisited" : lastVisited}
+    return render(request, 'store/visitedItems.html', context)

@@ -29,12 +29,12 @@
                 <div class="right-section pull-right">
 
                     {% if user.is_authenticated %}
-                    <img src="{{ user.profile.Image.url }}" style="width:1.5em;height: 1.5em; border-radius: 10em;">
-                    <a href="{% url 'profile' %}" class="login-button">Profile</a>
-                    <a href="{% url 'logout' %}" class="login-button">Log out</a>
+                        <img src="{{ user.profile.Image.url }}" style="width:1.5em;height: 1.5em; border-radius: 10em;">
+                        <a href="{% url 'profile' %}" class="login-button">Profile</a>
+                        <a href="{% url 'logout' %}" class="login-button">Log out</a>
                     {% else %}
-                    <a href="{% url 'login' %}" class="login-button">Login</a>
-                    <a href="{% url 'register' %}" class="login-button">Register</a>
+                        <a href="{% url 'login' %}" class="login-button">Login</a>
+                        <a href="{% url 'register' %}" class="login-button">Register</a>
                     {% endif %}
                 </div>
                 <!-- .right-section -->
@@ -49,23 +49,17 @@
                         <li class="menu-item"><a href="{% url 'applicationCategory' %}">Applications</a></li>
                         <li class="menu-item"><a href="{% url 'movieCategory' %}">Movies</a></li>
                         <li class="menu-item"><a href="{% url 'bookCategory' %}">Books</a></li>
-                        <li>
-                            <form action="" method="POST">
-                                {% csrf_token %}
-                                <select class="custom-select" style="width: 60px;" name="currency" id=""
-                                    onchange="form.submit()">
-                                    <option value="USD" selected>---</option>
-                                    <option value="USD">USD</option>
-                                    <option value="LBP">LBP</option>
-                                </select>
-                            </form>
-                        </li>
                     </ul>
                     <!-- .menu -->
-                    <div class="search-form">
-                        <label><img class="search" src="{% static 'store/icon-search.png' %}"></label>
-                        <input type="text" placeholder="Search...">
-                    </div>
+                    <form action="{% url 'search' %}" method="GET">
+                        <div class="search-form">
+                            
+                            <label><img class="search" src="{% static 'store/icon-search.png' %}"></label>
+                            <input type="text" placeholder="Search..." name="q">
+                        </div>
+                        <button style="position: relative; left:573px; top: 43px;">Search</button>
+                    </form>
+                    <button style="float: right;">Search</button>
                     <!-- .search-form -->
 
                     <div class="mobile-navigation"></div>
@@ -77,6 +71,84 @@
         </div>
 
         {% block content %}
+            <main class="main-content">
+                <div class="container">
+                    <div class="filter-bar">
+                        <div class="filter">
+                            <form method="POSt">
+                                {% csrf_token %}
+                                <span>
+                                    <label>Filter by:</label>
+                                    <select name="filter" onchange="form.submit()">
+                                        <option value="Genre" selected disabled>Genres</option>
+                                        <option value="Book">Book</option>
+                                        <option value="Movie">Movie</option>
+                                        <option value="Game">Game</option>
+                                        <option value="Application">Application</option>
+                                    </select>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="page">
+                        <section>
+                            <header>
+                                <h2 class="section-title">Results</h2>
+                            </header>
+                            <div class="test1-list">
+                                {% for item in filteredBooks %}
+                                <div class="test1">
+                                    <div class="inner-test1">
+                                        <div class="figure-image">
+                                            <img src="{{item.Image.url}}" alt="Game 1">
+                                        </div>
+                                        <h3 class="test1-title"><a href="/bookItem/{{item.id}}">{{item.Name}}</a></h3>
+                                        <h3 class="test1-category">{{item.Genre}}</h3>
+                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% for item in moviesResult %}
+                                <div class="test1">
+                                    <div class="inner-test1">
+                                        <div class="figure-image">
+                                            <img src="{{item.Image.url}}" alt="Game 1">
+                                        </div>
+                                        <h3 class="test1-title"><a href="/movieItem/{{item.id}}">{{item.Name}}</a></h3>
+                                        <h3 class="test1-category">{{item.Genre}}</h3>
+                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% for item in gamesResult %}
+                                <div class="test1">
+                                    <div class="inner-test1">
+                                        <div class="figure-image">
+                                            <img src="{{item.Image.url}}" alt="Game 1">
+                                        </div>
+                                        <h3 class="test1-title"><a href="/gameItem/{{item.id}}">{{item.Name}}</a></h3>
+                                        <h3 class="test1-category">{{item.Genre}}</h3>
+                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% for item in appsResult %}
+                                <div class="test1">
+                                    <div class="inner-test1">
+                                        <div class="figure-image">
+                                            <img src="{{item.Image.url}}" alt="Game 1">
+                                        </div>
+                                        <h3 class="test1-title"><a href="/appItem/{{item.id}}">{{item.Name}}</a></h3>
+                                        <h3 class="test1-category">{{item.Genre}}</h3>
+                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
         {% endblock %}
 
 

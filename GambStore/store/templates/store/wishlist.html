@@ -1,0 +1,76 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+
+{% block title %} {{books.Name}} {% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'store/item.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+<main class="main-content">
+    <div class="container">
+        <div class="page">
+            <section>
+                <header>
+                    <h2 class="section-title">WishList</h2>
+                </header>
+                <div class="test1-list">
+                    {% for item in wishlist %}
+                        {% ifnotequal item.movie_id None %}
+                        <div class="test1">
+                            <div class="inner-test1">
+                                <div class="figure-image">
+                                    <img src="{{item.movie_id.Image.url}}" alt="Game 1">
+                                </div>
+                                <h3 class="test1-title"><a href="#">{{item.movie_id.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{item.movie_id.Genre}}</a></h3>
+                                <small class="price">LBP {{item.movie_id.PriceLBP}}</small>
+                            </div>
+                        </div>
+                        {% endifnotequal %}
+                        {% ifnotequal item.book_id None %}
+                        <div class="test1">
+                            <div class="inner-test1">
+                                <div class="figure-image">
+                                    <img src="{{item.book_id.Image.url}}" alt="Game 1">
+                                </div>
+                                <h3 class="test1-title"><a href="#">{{item.book_id.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{item.book_id.Genre}}</a></h3>
+                                <small class="price">LBP {{item.book_id.PriceLBP}}</small>
+                            </div>
+                        </div>
+                        {% endifnotequal %}
+                        {% ifnotequal item.game_id None %}
+                        <div class="test1">
+                            <div class="inner-test1">
+                                <div class="figure-image">
+                                    <img src="{{item.movie_id.Image.url}}" alt="Game 1">
+                                </div>
+                                <h3 class="test1-title"><a href="#">{{item.game_id.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{item.game_id.Genre}}</a></h3>
+                                <small class="price">LBP {{item.game_id.PriceLBP}}</small>
+                            </div>
+                        </div>
+                        {% endifnotequal %}
+                        {% ifnotequal item.application_id None %}
+                        <div class="test1">
+                            <div class="inner-test1">
+                                <div class="figure-image">
+                                    <img src="{{item.application_id.Image.url}}" alt="Game 1">
+                                </div>
+                                <h3 class="test1-title"><a href="#">{{item.application_id.Name}}</a></h3>
+                                <h3 class="test1-category"><a href="#">{{item.application_id.Genre}}</a></h3>
+                                <small class="price">LBP {{item.application_id.PriceLBP}}</small>
+                            </div>
+                        </div>
+                        {% endifnotequal %}
+                    {% endfor %}
+            </section>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %} Filtered Items {% endblock %}
+{% block styles %}
+{% endblock %}
+
+{% block content %}
+
+
+<main class="main-content">
+    <div class="container">
+        <div class="filter-bar">
+            <div class="filter">
+                <form method="POST">
+                    {% csrf_token %}
+                    <span>
+                        <label>Filter by:</label>
+                        <select name="filter" onchange="form.submit()">
+                            <option value="Action" selected disabled>Genres</option>
+                            <option value="Communication">Communication</option>
+                            <option value="Video Players & Editors">Video Players & Editors</option>
+                            <option value="Education">Education</option>
+                            <option value="Social">Social</option>
+                            <option value="Entertainment, Music & video">Entertainment, Music & video</option>
+                            <option value="Business">Business</option>
+                            <option value="Beauty">Beauty</option>
+                            <option value="Productivity">Productivity</option>
+                            <option value="Music">Music</option>
+                            <option value="Tools">Tools</option>
+                            </select>
+                    </span>
+                </form>
+            </div>
+        </div>
+        <div class="page">
+            <section>
+                <header>
+                    <h2 class="section-title">{{filtering}}</h2>
+                </header>
+                <div class="test1-list">
+                    {% for app in filteredApps %}
+                    <div class="test1">
+                        <div class="inner-test1">
+                            <div class="figure-image">
+                                <a href="/appItem/{{app.id}}"><img src="{{app.Image.url}}" alt="Game 1"></a>
+                            </div>
+                            <h3 class="test1-title"><a href="#">{{app.Name}}</a></h3>
+                            <h3 class="test1-category"><a href="#">{{app.Genre}}</a></h3>
+                            <small class="price">LBP {{app.PriceLBP}}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+
+
+
+        </div>
+    </div>
+</main>
+
+
+
+
+{% endblock %}

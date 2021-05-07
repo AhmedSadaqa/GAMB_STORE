@@ -1,0 +1,34 @@
+#ReviewAdd {
+    width: 85%;
+    margin-left: 7%;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#ReviewAdd fieldset {
+    border: #45b77d solid 1px;
+}
+
+#ReviewAdd textarea {
+    width: 100%;
+}
+
+#review_content {
+    background-color: white;
+}
+
+#ReviewAdd button {
+    float: right ;
+    margin-top : 5px ;
+}
+
+#ReviewAdd label {
+    color: black;
+}
+
+#ReviewAdd input {
+    padding: 2px;
+    margin: 2px;
+    margin-left: 5px;
+    width: 50px;
+}

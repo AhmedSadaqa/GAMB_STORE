@@ -5,6 +5,7 @@
 {% block title %} {{app.Name}} {% endblock %} 
 {% block styles %} 
     <link rel="stylesheet" href="{% static 'store/new_item_style.css' %}">
+    <link rel="stylesheet" href="{% static 'store/reviews.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
@@ -13,11 +14,11 @@
         <div id="body">
             <div class="item">
                 <div id="images">
-                    <img src="{{app.Image.url}}" width="200px" height="350px" alt="Book Cover">
+                    <img src="{{app.Image.url}}" width="200px" height="350px" alt="Book Cover" id="mainImage">
                     <div class="mini-images">
-                        <a href=""><img src="{{app.Image1.url}}" width="50px" height="70px" alt="Book Cover"></a>
-                        <a href=""><img src="{{app.Image2.url}}" width="50px" height="70px" alt="Book Cover"></a>
-                        <a href=""><img src="{{app.Image3.url}}" width="50px" height="70px" alt="Book Cover"></a>
+                        <img src="{{app.Image1.url}}" id="im1" width="50px" height="70px" alt="Book Cover" onclick="swapImages(this.id)" onmouseover="changemouse(this.id)">
+                        <img src="{{app.Image2.url}}" id="im2" width="50px" height="70px" alt="Book Cover" onclick="swapImages(this.id)" onmouseover="changemouse(this.id)">
+                        <img src="{{app.Image3.url}}" id="im3" width="50px" height="70px" alt="Book Cover" onclick="swapImages(this.id)" onmouseover="changemouse(this.id)">
                     </div>
     
                 </div>
@@ -26,15 +27,22 @@
                     <h2 style="color: #27995e;">{{app.Name}}</h2>
                     <div style="color: #27995e;" id="special">
                         <h3>
-                            {% ifequal currency "LBP" %}
-                            LBP {{app.PriceLBP}}
-                            {% endifequal %}
+                            {% if app.PriceUSD == 0 %}
+                                Free
+                            {% else %}
+                                {% ifequal currency "LBP" %}
+                                    LBP {{app.PriceLBP}}
+                                {% endifequal %}
 
-                            {% ifequal currency "USD" %}
-                            $ {{app.PriceUSD}}
-                            {% endifequal %}
+                                {% ifequal currency "USD" %}
+                                    $ {{app.PriceUSD}}
+                                {% endifequal %}
+                            {% endif %}
                         </h3>
-                        <h4><a href="" style="color: #27995e;">-> add to WishList</a></h4>
+                        <form method="POST">
+                            {%csrf_token%}
+                            <button name="wishlist" style="color: #27995e;"  onclick="form.submit()">Add to WishList</button>
+                        </form>
                     </div>
                     <table>
                         <tr>
@@ -86,6 +94,19 @@
             </div>
             <br>
             
+            <div id="ReviewAdd">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset>
+                        <legend>Give Personal Review:</legend>
+                        <label for="rating">Your Rating:</label>
+                        <input type="number" max="5" min="1" name="rating">
+                        <textarea id="review_content" name="rev"></textarea>
+                        <button name="review">Add Review</button>
+                    </fieldset>
+                </form>
+            </div>
+
             <div id="Reviews">
                 <table>
                     <thead>
@@ -176,11 +197,23 @@
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{ apps.Image.url }}" alt="cover1"></a>
+                                    <a href="/appItem/{{apps.id}}"><img src="{{ apps.Image.url }}" alt="cover1"></a>
                                 </div>
-                                <h3 class="test1-title"><a href="#">{{ apps.Name }}</a></h3>
-                                <h3 class="test1-category"><a href="#">{{ apps.Genre }}</a></h3>
-                                <small class="price">$ {{ apps.PriceUSD }}</small>
+                                <h3 class="test1-title"><a href="/appItem/{{apps.id}}">{{ apps.Name }}</a></h3>
+                                <h3 class="test1-category"><a href="/appItem/{{apps.id}}">{{ apps.Genre }}</a></h3>
+                                <small class="price">
+                                    {% if apps.PriceUSD == 0 %}
+                                        Free
+                                    {% else %}
+                                        {% ifequal currency "LBP" %}
+                                            LBP {{apps.PriceLBP}}
+                                        {% endifequal %}
+
+                                        {% ifequal currency "USD" %}
+                                            $ {{apps.PriceUSD}}
+                                        {% endifequal %}
+                                    {% endif %}
+                                </small>
                             </div>
                         </div>
                     {% endif %}
@@ -190,6 +223,21 @@
     </div>
 
     <script>
+
+        function changemouse(id){
+            let selected = document.getElementById(id) ;
+            selected.style.cursor = "pointer";
+        }
+
+        function swapImages(id){
+            let main = document.getElementById("mainImage") ;
+            let main_src = main.getAttribute("src") ;
+            let clicked = document.getElementById(id) ;
+            let new_main = clicked.getAttribute("src") ;
+            main.setAttribute("src" , new_main) ;
+            clicked.setAttribute("src" , main_src) ;
+        }
+
         window.onload = function() {
             document.getElementById("button").onclick = displayReviews ;
         }
