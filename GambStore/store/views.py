@@ -591,3 +591,41 @@ def visitedItems(request):
         lastVisited.append(items[i])
     context = {"lastVisited" : lastVisited}
     return render(request, 'store/visitedItems.html', context)
+
+
+
+def addReviews(request, rating):
+    movies = Movie.objects.all()
+    books = Book.objects.all()
+    apps = Application.objects.all()
+    games = Game.objects.all()
+
+    review = "The website is a great source for affordable books and movies. I have shopped through the website for a few years now and am always pleased. If there is a problem, it is resolved quickly and satisfactorily. I plan to continue to buy books from this site regularly. "
+
+    count = 0
+
+    for movie in movies:
+        if count >= 6:
+            Review.objects.create(user=request.user , movie_id=movie, Rating=rating , content=review, likes=0, dislikes=0, report=0)
+        count += 1
+
+    for book in books:
+        if count >= 6:
+            Review.objects.create(user=request.user , book_id=book, Rating=rating , content=review, likes=0, dislikes=0, report=0)
+        count += 1
+
+    for app in apps:
+        if count >= 6:
+            Review.objects.create(user=request.user , application_id=app, Rating=rating , content=review, likes=0, dislikes=0, report=0)
+        count += 1
+
+    for game in games:
+        if count >= 6:
+            Review.objects.create(user=request.user , game_id=game, Rating=rating , content=review, likes=0, dislikes=0, report=0)
+        count += 1
+
+    context = {"books":books,
+               "applications":apps,
+               "games":games,
+               "movies":movies}
+    return render(request, "store/GAMBindex.html", context)
