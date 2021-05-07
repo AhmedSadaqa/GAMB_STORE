@@ -37,13 +37,7 @@
                                         {% if game.PriceUSD == 0 %}
                                             Free
                                         {% else %}
-                                            {% ifequal currency "LBP" %}
-                                                LBP {{game.PriceLBP}}
-                                            {% endifequal %}
-
-                                            {% ifequal currency "USD" %}
-                                                $ {{game.PriceUSD}}
-                                            {% endifequal %}
+                                            LBP {{game.PriceLBP}}
                                         {% endif %}
                                     </small>
                                 </div>
@@ -73,13 +67,7 @@
                                     {% if application.PriceUSD == 0 %}
                                         Free
                                     {% else %}
-                                        {% ifequal currency "LBP" %}
-                                            LBP {{application.PriceLBP}}
-                                        {% endifequal %}
-
-                                        {% ifequal currency "USD" %}
-                                            $ {{application.PriceUSD}}
-                                        {% endifequal %}
+                                        LBP {{application.PriceLBP}}
                                     {% endif %}
                                 </small>
                             </div>
@@ -108,13 +96,7 @@
                                     {% if movie.PriceUSD == 0 %}
                                         Free
                                     {% else %}
-                                        {% ifequal currency "LBP" %}
-                                            LBP {{movie.PriceLBP}}
-                                        {% endifequal %}
-
-                                        {% ifequal currency "USD" %}
-                                            $ {{movie.PriceUSD}}
-                                        {% endifequal %}
+                                        LBP {{movie.PriceLBP}}
                                     {% endif %}
                                 </small>
                             </div>
@@ -142,13 +124,7 @@
                                         {% if book.PriceUSD == 0 %}
                                             Free
                                         {% else %}
-                                            {% ifequal currency "LBP" %}
-                                                LBP {{book.PriceLBP}}
-                                            {% endifequal %}
-
-                                            {% ifequal currency "USD" %}
-                                                $ {{book.PriceUSD}}
-                                            {% endifequal %}
+                                            LBP {{book.PriceLBP}}
                                         {% endif %}
                                     </small>
                                 </div>
