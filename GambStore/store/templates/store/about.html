@@ -1,18 +1,26 @@
-{% extends 'store/base.html' %}
-{% load static %}
+{% extends 'store/base.html' %} {% load static %} {% block title %} About US {% endblock %} {% block styles %} {% endblock %} {% block content %}
+<div class="About" style="background-color:rgb(77, 71, 71); color:aliceblue; margin: 5em 10em 5em 10em; padding:2em 2em 2em 2em;">
+    <h1>About the website</h1>
+    <hr>
+    <p>GAMB store is a service provided by three students studying Computer Science at the American University of Beirut under the <b>CMPS 278 course</b> that is tought by <b>Dr. Saeed Raheel.</b>
+    </p>
+    <hr>
+    <h2>The team:</h2>
 
-{% block title %} About US {% endblock %} 
-{% block styles %} 
+    <!-- First member of the team -->
+    <img src="" width="50" height="60">
+    <h3>Ahmad Sadaqa</h3>
+    <hr>
+
+    <!-- Second member of the team -->
+    <img src="" width="50" height="60">
+    <h3>Nacer Boudad</h3>
+    <hr>
+
+    <!-- Third member of the team -->
+    <img src="" width="50" height="60">
+    <h3>Buthaina Alabrash</h3>
+    <hr>
+
+</div>
 {% endblock %}
-
-{% block content %}
-    <div class="About"
-        style="background-color:rgb(77, 71, 71); color:aliceblue; margin: 5em 10em 5em 10em; padding:2em 2em 2em 2em;">
-        <h1>About the website</h1>
-        <h3>XY</h3>
-        <p>I23</p>
-
-    </div>
-
-{% endblock %}
-            
