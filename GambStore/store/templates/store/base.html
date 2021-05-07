@@ -52,16 +52,14 @@
                     </ul>
                     <!-- .menu -->
                     <form action="{% url 'search' %}" method="GET">
-                        <div class="search-form">
-                            
-                            <label><img class="search" src="{% static 'store/icon-search.png' %}"></label>
-                            <input type="text" placeholder="Search..." name="q">
+                        <div style="float: right; height: 80px; border: none;">
+                            <!--  class="search-form" -->
+                            <input style="height: 80px;" type="text" placeholder="Search..." name="q">
+                            <button style="background-color: white;"><img class="search" src="{% static 'store/icon-search.png' %}"></button>
                         </div>
-                        <button style="position: relative; left:573px; top: 43px;">Search</button>
+                        <!-- <button style="position: relative; left:573px; top: 43px;">Search</button> -->
                     </form>
-                    <button style="float: right;">Search</button>
                     <!-- .search-form -->
-
                     <div class="mobile-navigation"></div>
                     <!-- .mobile-navigation -->
                 </div>
@@ -156,15 +154,13 @@
         <div class="site-footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-2">
+                    
+                    <div class="col-md-6">
                         <div class="widget">
                             <h3 class="widget-title">Information</h3>
                             <ul class="no-bullet">
-                                <li><a href="#">Site map</a></li>
                                 <li><a href="{% url 'terms' %}">Terms of Service</a></li>
                                 <li><a href="{% url 'about' %}">About us</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <!--check if we will keep this or we'll remove it later-->
                                 <li><a href="#">Contact</a></li>
                                 <!--check if we will keep this or we'll remove it later-->
                             </ul>
@@ -176,26 +172,20 @@
                         <div class="widget">
                             <h3 class="widget-title">My Account</h3>
                             <ul class="no-bullet">
-                                <li><a href="{% url 'login' %}">Login</a></li>
-                                <li><a href="{% url 'register' %}">Register</a></li>
-                                <li><a href="#">Settings</a></li>
-                                <li><a href="{% url 'wishlist' %}">Wishlist</a></li>
-                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                                {% if user.is_authenticated %}
+                                    <li><a href="{% url 'profile' %}">Settings</a></li>
+                                    <li><a href="{% url 'wishlist' %}">Wishlist</a></li>
+                                    <li><a href="{% url 'visitedItems' %}">Last Visited Items</a></li>
+                                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'login' %}">Login</a></li>
+                                    <li><a href="{% url 'register' %}">Register</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                         <!-- .widget -->
                     </div>
                     <!-- column -->
-                    <div class="col-md-6">
-                        <div class="widget">
-                            <h3 class="widget-title">Join our newsletter</h3>
-                            <form action="#" class="newsletter-form">
-                                <input type="text" placeholder="Enter your email...">
-                                <input type="submit" value="Subsribe">
-                            </form>
-                        </div>
-                        <!-- .widget -->
-                    </div>
                     <!-- column -->
                 </div>
                 <!-- .row -->
