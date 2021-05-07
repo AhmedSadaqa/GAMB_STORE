@@ -1,7 +1,7 @@
 {% extends 'store/base.html' %}
 {% load static %}
 
-{% block title %} Filtered Books {% endblock %} 
+{% block title %} Filtered Items {% endblock %} 
 {% block styles %} 
 {% endblock %}
 
@@ -12,19 +12,17 @@
         <div class="container">
             <div class="filter-bar">
                 <div class="filter">
-                    <form method="POSt">
+                    <form method="POST">
                         {% csrf_token %}
                         <span>
                             <label>Filter by:</label>
                             <select name="filter" onchange="form.submit()">
-                                <option value="Action" selected>Genres</option>
+                                <option value="Genre" selected disabled>Genres</option>
                                 <option value="Action">Action</option>
                                 <option value="Fiction">Fiction</option>
                                 <option value="Comics">Comics</option>
                                 <option value="Horror">Horror</option>
                                 <option value="Romantic">Romantic</option>
-                                <option value="Top Selling">Top Selling</option>
-                                <option value="New Releases">New Releases</option>
                             </select>
                         </span>
                     </form>
@@ -43,15 +41,8 @@
                                     <a href="/bookItem/{{book.id}}"><img src="{{book.Image.url}}" alt="Game 1"></a>
                                 </div>
                                 <h3 class="test1-title"><a href="#">{{book.Name}}</a></h3>
-                                <small class="price">
-                                    {% ifequal currency "LBP" %}
-                                        LBP {{book.PriceLBP}}
-                                    {% endifequal %}
-
-                                    {% ifequal currency "USD" %}
-                                        USD {{book.PriceUSD}}
-                                    {% endifequal %}
-                                </small>
+                                <h3 class="test1-category"><a href="#">{{book.Genre}}</a></h3>
+                                <small class="price">LBP {{book.PriceLBP}}</small>
                             </div>
                         </div>
                         {% endfor %}

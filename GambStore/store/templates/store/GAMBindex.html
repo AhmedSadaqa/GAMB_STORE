@@ -29,18 +29,16 @@
                             <div class="test1">
                                 <div class="inner-test1">
                                     <div class="figure-image">
-                                        <a href="single.html"><img src="{{game.Image.url}}" alt="Game 1"></a>
+                                        <img src="{{game.Image.url}}" alt="Game 1">
                                     </div>
                                     <h3 class="test1-title"><a href="/gameItem/{{game.id}}">{{game.Name}}</a></h3>
-                                    <h3 class="test1-category"><a href="/gameItem/{{game.id}}">{{game.Genre}}</a></h3>
+                                    <h3 class="test1-category">{{game.Genre}}</h3>
                                     <small class="price">
-                                        {% ifequal currency "LBP" %}
-                                        LBP {{game.PriceLBP}}
-                                        {% endifequal %}
-
-                                        {% ifequal currency "USD" %}
-                                        USD {{game.PriceUSD}}
-                                        {% endifequal %}
+                                        {% if game.Price == 0 %}
+                                            Free
+                                        {% else %}
+                                            LBP {{game.Price}}
+                                        {% endif %}
                                     </small>
                                 </div>
                             </div>
@@ -61,18 +59,16 @@
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{application.Image.url}}" alt="Game 1"></a>
+                                    <img src="{{application.Image.url}}" alt="Game 1">
                                 </div>
                                 <h3 class="test1-title"><a href="/appItem/{{application.id}}">{{application.Name}}</a></h3>
-                                <h3 class="test1-category"><a href="/appItem/{{application.id}}">{{application.Genre}}</a></h3>
+                                <h3 class="test1-category">{{application.Genre}}</h3>
                                 <small class="price">
-                                    {% ifequal currency "LBP" %}
-                                    LBP {{application.PriceLBP}}
-                                    {% endifequal %}
-
-                                    {% ifequal currency "USD" %}
-                                    USD {{application.PriceUSD}}
-                                    {% endifequal %}
+                                    {% if application.Price == 0 %}
+                                        Free
+                                    {% else %}
+                                        LBP {{application.Price}}
+                                    {% endif %}
                                 </small>
                             </div>
                         </div>
@@ -92,18 +88,16 @@
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{movie.Image.url}}" alt="Game 1"></a>
+                                    <img src="{{movie.Image.url}}" alt="Game 1">
                                 </div>
                                 <h3 class="test1-title"><a href="/movieItem/{{movie.id}}">{{movie.Name}}</a></h3>
-                                <h3 class="test1-category"><a href="/movieItem/{{movie.id}}">{{movie.Genre}}</a></h3>
+                                <h3 class="test1-category">{{movie.Genre}}</h3>
                                 <small class="price">
-                                    {% ifequal currency "LBP" %}
-                                    LBP {{movie.PriceLBP}}
-                                    {% endifequal %}
-
-                                    {% ifequal currency "USD" %}
-                                    USD {{movie.PriceUSD}}
-                                    {% endifequal %}
+                                    {% if movie.Price == 0 %}
+                                        Free
+                                    {% else %}
+                                        LBP {{movie.Price}}
+                                    {% endif %}
                                 </small>
                             </div>
                         </div>
@@ -116,25 +110,22 @@
                         <a href="{% url 'bookCategory' %}">
                             <h2 class="section-title">Books</h2>
                         </a>
-                        <a href="#" class="all">Show All</a>
                     </header>
                         <div class="test1-list">
                             {% for book in books %}
                             <div class="test1">
                                 <div class="inner-test1">
                                     <div class="figure-image">
-                                        <a href="single.html"><img src="{{book.Image.url}}" alt="Game 1"></a>
+                                        <img src="{{book.Image.url}}" alt="Game 1">
                                     </div>
                                     <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
-                                    <h3 class="test1-category"><a href="/bookItem/{{book.id}}">{{book.Genre}}</a></h3>
+                                    <h3 class="test1-category">{{book.Genre}}</h3>
                                     <small class="price">
-                                        {% ifequal currency "LBP" %}
-                                        LBP {{book.PriceLBP}}
-                                        {% endifequal %}
-
-                                        {% ifequal currency "USD" %}
-                                        USD {{book.PriceUSD}}
-                                        {% endifequal %}
+                                        {% if book.Price == 0 %}
+                                            Free
+                                        {% else %}
+                                            LBP {{book.Price}}
+                                        {% endif %}
                                     </small>
                                 </div>
                             </div>

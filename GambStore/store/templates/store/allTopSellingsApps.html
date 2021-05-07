@@ -8,26 +8,6 @@
 {% block content %}
     <main class="main-content">
         <div class="container">
-            <div class="filter-bar">
-                <div class="filter">
-                    <form method="POSt">
-                        {% csrf_token %}
-                        <span>
-                            <label>Filter by:</label>
-                            <select name="filter" onchange="form.submit()">
-                                <option value="Action" selected>Genres</option>
-                                <option value="Action">Action</option>
-                                <option value="Fiction">Fiction</option>
-                                <option value="Comics">Comics</option>
-                                <option value="Horror">Horror</option>
-                                <option value="Romantic">Romantic</option>
-                                <option value="Top Selling">Top Selling</option>
-                                <option value="New Releases">New Releases</option>
-                            </select>
-                        </span>
-                    </form>
-                </div>
-            </div>
             <div class="page">
                 <section>
                     <header>
@@ -38,10 +18,10 @@
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="single.html"><img src="{{app.Image.url}}" alt="Game 1"></a>
+                                    <img src="{{app.Image.url}}" alt="Game 1">
                                 </div>
-                                <h3 class="test1-title"><a href="#">{{app.Name}}</a></h3>
-                                <h3 class="test1-category"><a href="#">{{app.Genre}}</a></h3>
+                                <h3 class="test1-title"><a href="/appItem/{{application.id}}">{{app.Name}}</a></h3>
+                                <h3 class="test1-category">{{app.Genre}}</h3>
                                 <small class="price">LBP {{app.PriceLBP}}</small>
                             </div>
                         </div>

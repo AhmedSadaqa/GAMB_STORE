@@ -59,8 +59,18 @@ nav li {
     background-color: #c0c0c0;
 }
 
+table {
+    color: #646464;
+    font-weight: bold;
+}
+
 #Reviews td {
     border:  #2b2b2b solid 2px;
+}
+
+#span button {
+    background-color: transparent;
+    padding:0px 3px;
 }
 
 #span span, #Reviews h5 {
@@ -71,6 +81,11 @@ nav li {
     width: 80px;
     height: 80px;
     border-radius: 5px;
+}
+
+#span {
+    display: flex;
+    margin-top: 0px;
 }
 
 #Reviews h5 , #Reviews p , #span{
@@ -92,8 +107,20 @@ nav li {
 }
 
 .cc {
-    border: dashed 1px #45b77d;
+    border: dashed 2px #45b77d;
     padding: 10px;
+}
+
+.cc h4 {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
+#cast-credit .cc ul li{
+    list-style-type: none;
+    padding-left: 4px;
+    color: #646464;
+    font-weight: bold;
 }
 
 .item, #trailer, #cast-credit, #Reviews , #others{
@@ -129,7 +156,7 @@ nav li {
     padding: 4px;
 }
 
-.button-muted {
+#button {
     background: white;
     color: #45b77d;
     display: inline-block;
@@ -215,3 +242,8 @@ h3, h4 {
 .author {
     display: flex;
 }
+
+.test1-list .test1:first-child {
+    margin-left: 10px;
+}
+
