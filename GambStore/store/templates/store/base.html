@@ -116,7 +116,7 @@
                                         </div>
                                         <h3 class="test1-title"><a href="/movieItem/{{item.id}}">{{item.Name}}</a></h3>
                                         <h3 class="test1-category">{{item.Genre}}</h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                        <small class="price">LBP {{item.Price}}</small>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -128,7 +128,7 @@
                                         </div>
                                         <h3 class="test1-title"><a href="/gameItem/{{item.id}}">{{item.Name}}</a></h3>
                                         <h3 class="test1-category">{{item.Genre}}</h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                        <small class="price">LBP {{item.Price}}</small>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -140,7 +140,7 @@
                                         </div>
                                         <h3 class="test1-title"><a href="/appItem/{{item.id}}">{{item.Name}}</a></h3>
                                         <h3 class="test1-category">{{item.Genre}}</h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                        <small class="price">LBP {{item.Price}}</small>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -161,8 +161,8 @@
                             <h3 class="widget-title">Information</h3>
                             <ul class="no-bullet">
                                 <li><a href="#">Site map</a></li>
-                                <li><a href="ToS.html">Terms of Service</a></li>
-                                <li><a href="about.html">About us</a></li>
+                                <li><a href="{% url 'terms' %}">Terms of Service</a></li>
+                                <li><a href="{% url 'about' %}">About us</a></li>
                                 <li><a href="#">FAQ</a></li>
                                 <!--check if we will keep this or we'll remove it later-->
                                 <li><a href="#">Contact</a></li>
@@ -179,7 +179,7 @@
                                 <li><a href="{% url 'login' %}">Login</a></li>
                                 <li><a href="{% url 'register' %}">Register</a></li>
                                 <li><a href="#">Settings</a></li>
-                                <li><a href="#">Wishlist</a></li>
+                                <li><a href="{% url 'wishlist' %}">Wishlist</a></li>
                                 <li><a href="{% url 'logout' %}">Logout</a></li>
                             </ul>
                         </div>

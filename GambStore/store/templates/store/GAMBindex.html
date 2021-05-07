@@ -34,10 +34,10 @@
                                     <h3 class="test1-title"><a href="/gameItem/{{game.id}}">{{game.Name}}</a></h3>
                                     <h3 class="test1-category">{{game.Genre}}</h3>
                                     <small class="price">
-                                        {% if game.PriceUSD == 0 %}
+                                        {% if game.Price == 0 %}
                                             Free
                                         {% else %}
-                                            LBP {{game.PriceLBP}}
+                                            LBP {{game.Price}}
                                         {% endif %}
                                     </small>
                                 </div>
@@ -64,10 +64,10 @@
                                 <h3 class="test1-title"><a href="/appItem/{{application.id}}">{{application.Name}}</a></h3>
                                 <h3 class="test1-category">{{application.Genre}}</h3>
                                 <small class="price">
-                                    {% if application.PriceUSD == 0 %}
+                                    {% if application.Price == 0 %}
                                         Free
                                     {% else %}
-                                        LBP {{application.PriceLBP}}
+                                        LBP {{application.Price}}
                                     {% endif %}
                                 </small>
                             </div>
@@ -93,10 +93,10 @@
                                 <h3 class="test1-title"><a href="/movieItem/{{movie.id}}">{{movie.Name}}</a></h3>
                                 <h3 class="test1-category">{{movie.Genre}}</h3>
                                 <small class="price">
-                                    {% if movie.PriceUSD == 0 %}
+                                    {% if movie.Price == 0 %}
                                         Free
                                     {% else %}
-                                        LBP {{movie.PriceLBP}}
+                                        LBP {{movie.Price}}
                                     {% endif %}
                                 </small>
                             </div>
@@ -121,10 +121,10 @@
                                     <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
                                     <h3 class="test1-category">{{book.Genre}}</h3>
                                     <small class="price">
-                                        {% if book.PriceUSD == 0 %}
+                                        {% if book.Price == 0 %}
                                             Free
                                         {% else %}
-                                            LBP {{book.PriceLBP}}
+                                            LBP {{book.Price}}
                                         {% endif %}
                                     </small>
                                 </div>
