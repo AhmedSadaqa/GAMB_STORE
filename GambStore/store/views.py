@@ -68,8 +68,8 @@ def about(request):
 def termOfServices(request):
     return render(request, 'store/ToS.html')
     
-def item(request):
-    return render(request , 'store/bookItem.html')
+def error(request):
+    return render(request , 'store/error.html')
 
 
 # BOOKS
@@ -100,7 +100,7 @@ def bookCategory(request):
 
     
     #Recommendations
-    Recommendations = Book.objects.filter(Rating__gte=7)
+    Recommendations = Book.objects.filter(Rating__gte=3)
     tenRecommendations = []
     for i in range(10):
         tenRecommendations.append(Recommendations[i])
@@ -128,7 +128,7 @@ def newReleasesBooks(request):
     return render(request, 'store/allNewReleasesBooks.html', context)
 
 def booksRecommendations(request):
-    Recommendations = Book.objects.filter(Rating__gte=7)
+    Recommendations = Book.objects.filter(Rating__gte=3)
     context = {"Recommendations" : Recommendations}
     return render(request, 'store/allBooksRecommendations.html', context)
 
@@ -212,12 +212,11 @@ def applicationCategory(request):
 
     newReleasesApps = Application.objects.filter(Q(Date__year=current_year) | Q(Date__year=last_year))
     tenNewReleasesApps = []
-    print(newReleasesApps)
-    for i in range(3):
+    for i in range(10):
         tenNewReleasesApps.append(newReleasesApps[i])
 
     #Recommendations
-    Recommendations = Application.objects.filter(Rating__gte=7)
+    Recommendations = Application.objects.filter(Rating__gte=3)
     tenRecommendations = []
     for i in range(10):
         tenRecommendations.append(Recommendations[i])
@@ -245,7 +244,7 @@ def newReleasesApplications(request):
     return render(request, 'store/allNewReleasesApps.html', context)
 
 def applicationsRecommendations(request):
-    Recommendations = Application.objects.filter(Rating__gte=7)
+    Recommendations = Application.objects.filter(Rating__gte=3)
     context = {"Recommendations" : Recommendations}
     return render(request, 'store/allAppsRecommendations.html', context)
 
@@ -254,6 +253,7 @@ def applicationItem(request , app_id):
     app = Application.objects.get(id=app_id)
     itemVisited = VisitedItems.objects.create(user=current_user,
                                               application_id=app)
+
     app = Application.objects.get(id=app_id)
     if request.method == "POST":
         if 'currency' in request.POST:
@@ -269,7 +269,7 @@ def applicationItem(request , app_id):
                 review_content = request.POST.get('rev')
                 review_user = request.user
                 review_rating = request.POST.get('rating')
-                Review.objects.create(user=review_user , Rating=review_rating, game_id=game, likes=0, dislikes=0, report=0, content=review_content)
+                Review.objects.create(user=review_user , Rating=review_rating, app_id=app, likes=0, dislikes=0, report=0, content=review_content)
             elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
@@ -331,12 +331,11 @@ def gameCategory(request):
 
     newReleasesGames = Game.objects.filter(Q(Date__year=current_year) | Q(Date__year=last_year))
     tenNewReleasesGames = []
-    for i in range(5):
+    for i in range(10):
         tenNewReleasesGames.append(newReleasesGames[i])
     
     #Recommendations
-    Recommendations = Game.objects.filter(Rating__gte=7)
-    print(Recommendations)
+    Recommendations = Game.objects.filter(Rating__gte=3)
     tenRecommendations = []
     for i in range(10):
         tenRecommendations.append(Recommendations[i])
@@ -363,7 +362,7 @@ def newReleasesGames(request):
     return render(request, 'store/allNewReleasesGames.html', context)
 
 def gamesRecommendations(request):
-    Recommendations = Game.objects.filter(Rating__gte=7)
+    Recommendations = Game.objects.filter(Rating__gte=3)
     context = {"Recommendations" : Recommendations}
     return render(request, 'store/allGamesRecommendations.html', context)
 
@@ -372,6 +371,7 @@ def gameItem(request , game_id):
     game = Game.objects.get(id=game_id)
     itemVisited = VisitedItems.objects.create(user=current_user,
                                               game_id=game)
+
     game = Game.objects.get(id=game_id)
     if request.method == "POST":
         if 'currency' in request.POST:
@@ -451,8 +451,7 @@ def movieCategory(request):
         tenNewReleasesMovies.append(newReleasesMovies[i])
     
     #Recommendations
-    Recommendations = Movie.objects.filter(Rating__gte=7)
-    print(Recommendations)
+    Recommendations = Movie.objects.filter(Rating__gte=3)
     tenRecommendations = []
     for i in range(10):
         tenRecommendations.append(Recommendations[i])
@@ -479,7 +478,7 @@ def newReleasesmovies(request):
     return render(request, 'store/allNewReleasesMovies.html', context)
 
 def moviesRecommendations(request):
-    Recommendations = Movie.objects.filter(Rating__gte=7)
+    Recommendations = Movie.objects.filter(Rating__gte=3)
     context = {"Recommendations" : Recommendations}
     return render(request, 'store/allMoviesRecommendations.html', context)
     
@@ -492,6 +491,7 @@ def movieItem(request , movie_id):
     if request.method == "POST":
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+            
         elif 'wishlist' in request.POST:
             count = WishList.objects.filter(movie_id=movie).count()
             if(count == 0):
@@ -517,6 +517,7 @@ def movieItem(request , movie_id):
                 report = request.POST.get('report')
                 review = Review.objects.get(id=report)
                 review.report += 1
+                review.save()
                 if review.report >= 10:
                     review.delete()   
         
@@ -552,7 +553,6 @@ def movieItem(request , movie_id):
     #WishList & Search Options
 def wishlist(request):
     wishlist = WishList.objects.distinct()
-    print(wishlist)
     context = {"wishlist" : wishlist}
     return render(request, 'store/wishlist.html', context)
 
@@ -579,8 +579,7 @@ def search(request):
     context = {"booksResult" : booksResult,
                "moviesResult" : moviesResult,
                "appsResult" : appsResult,
-               "gamesResult" : gamesResult,
-               }
+               "gamesResult" : gamesResult,}
 
     return render(request, 'store/base.html', context)
 
