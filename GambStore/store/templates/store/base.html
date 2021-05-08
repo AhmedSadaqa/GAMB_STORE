@@ -95,7 +95,7 @@
                                 <h2 class="section-title">Results</h2>
                             </header>
                             <div class="test1-list">
-                                {% for item in filteredBooks %}
+                                {% for item in booksResult %}
                                 <div class="test1">
                                     <div class="inner-test1">
                                         <div class="figure-image">
@@ -103,7 +103,7 @@
                                         </div>
                                         <h3 class="test1-title"><a href="/bookItem/{{item.id}}">{{item.Name}}</a></h3>
                                         <h3 class="test1-category">{{item.Genre}}</h3>
-                                        <small class="price">LBP {{item.PriceLBP}}</small>
+                                        <small class="price">{{item.Price}}</small>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -115,7 +115,7 @@
                                         </div>
                                         <h3 class="test1-title"><a href="/movieItem/{{item.id}}">{{item.Name}}</a></h3>
                                         <h3 class="test1-category">{{item.Genre}}</h3>
-                                        <small class="price">LBP {{item.Price}}</small>
+                                        <small class="price">{{item.Price}}</small>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -127,7 +127,7 @@
                                         </div>
                                         <h3 class="test1-title"><a href="/gameItem/{{item.id}}">{{item.Name}}</a></h3>
                                         <h3 class="test1-category">{{item.Genre}}</h3>
-                                        <small class="price">LBP {{item.Price}}</small>
+                                        <small class="price">{{item.Price}}</small>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -139,7 +139,7 @@
                                         </div>
                                         <h3 class="test1-title"><a href="/appItem/{{item.id}}">{{item.Name}}</a></h3>
                                         <h3 class="test1-category">{{item.Genre}}</h3>
-                                        <small class="price">LBP {{item.Price}}</small>
+                                        <small class="price">{{item.Price}}</small>
                                     </div>
                                 </div>
                                 {% endfor %}

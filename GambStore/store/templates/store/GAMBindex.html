@@ -17,6 +17,15 @@
         <main class="main-content">
             <div class="container">
                 <div class="page">
+                    <form method="POST" style="float: right;">
+                        {%csrf_token%}
+                        <h3 style="display: inline;"><b>Currency:</b></h3>
+                        <select id="items" name="currency" onchange="form.submit()" >
+                            <option value="None" selected disabled>---</option>
+                            <option id="usd" {%ifnotequal currency LBP %} disabled {%endifnotequal%} value="USD">USD</option>
+                            <option id="lbp" {%ifnotequal currency USD %} disabled {%endifnotequal%} value="LBP">LBP</option>
+                        </select>
+                    </form>
                     <section>
                         <header>
                             <a href="{% url 'gameCategory' %}">
@@ -34,11 +43,7 @@
                                     <h3 class="test1-title"><a href="/gameItem/{{game.id}}">{{game.Name}}</a></h3>
                                     <h3 class="test1-category">{{game.Genre}}</h3>
                                     <small class="price">
-                                        {% if game.Price == 0 %}
-                                            Free
-                                        {% else %}
-                                            LBP {{game.Price}}
-                                        {% endif %}
+                                        {{game.Price}}
                                     </small>
                                 </div>
                             </div>
@@ -62,11 +67,7 @@
                                 <h3 class="test1-title"><a href="/appItem/{{application.id}}">{{application.Name}}</a></h3>
                                 <h3 class="test1-category">{{application.Genre}}</h3>
                                 <small class="price">
-                                    {% if application.Price == 0 %}
-                                        Free
-                                    {% else %}
-                                        LBP {{application.Price}}
-                                    {% endif %}
+                                    {{application.Price}}
                                 </small>
                             </div>
                         </div>
@@ -91,11 +92,7 @@
                                 <h3 class="test1-title"><a href="/movieItem/{{movie.id}}">{{movie.Name}}</a></h3>
                                 <h3 class="test1-category">{{movie.Genre}}</h3>
                                 <small class="price">
-                                    {% if movie.Price == 0 %}
-                                        Free
-                                    {% else %}
-                                        LBP {{movie.Price}}
-                                    {% endif %}
+                                    {{movie.Price}}
                                 </small>
                             </div>
                         </div>
@@ -119,11 +116,7 @@
                                     <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
                                     <h3 class="test1-category">{{book.Genre}}</h3>
                                     <small class="price">
-                                        {% if book.Price == 0 %}
-                                            Free
-                                        {% else %}
-                                            LBP {{book.Price}}
-                                        {% endif %}
+                                        {{book.Price}}
                                     </small>
                                 </div>
                             </div>

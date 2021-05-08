@@ -41,11 +41,11 @@
                         <div class="test1">
                             <div class="inner-test1">
                                 <div class="figure-image">
-                                    <a href="/gameItem/{{game.id}}"><img src="{{game.Image.url}}" alt="Game 1"></a>
+                                    <img src="{{game.Image.url}}" alt="Game 1">
                                 </div>
-                                <h3 class="test1-title"><a href="#">{{game.Name}}</a></h3>
-                                <h3 class="test1-category"><a href="#">{{game.Genre}}</a></h3>
-                                <small class="price">LBP {{game.PriceLBP}}</small>
+                                <h3 class="test1-title"><a href="/gameItem/{{game.id}}">{{game.Name}}</a></h3>
+                                <h3 class="test1-category">{{game.Genre}}</h3>
+                                <small class="price">{{game.Price}}</small>
                             </div>
                         </div>
                         {% endfor %}

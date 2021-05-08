@@ -44,7 +44,7 @@
                                     <h3 class="test1-title"><a href="/bookItem/{{book.id}}" name="item", value="{{book.id}}" onclick="form.submit()">{{book.Name}}</a></h3>
                                 </form>
                                 <h3 class="test1-category">{{book.Genre}}</h3>
-                                <small class="price">LBP {{book.PriceLBP}}</small>
+                                <small class="price">{{book.Price}}</small>
                             </div>
                         </div>
                         {% endfor %}
@@ -66,7 +66,7 @@
                                 </div>
                                 <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
                                 <h3 class="test1-category">{{book.Genre}}</h3>
-                                <small class="price">LBP {{book.PriceLBP}}</small>
+                                <small class="price">{{book.Price}}</small>
                             </div>
                         </div>
                         {% endfor %}
@@ -87,7 +87,7 @@
                                 </div>
                                 <h3 class="test1-title"><a href="/bookItem/{{book.id}}">{{book.Name}}</a></h3>
                                 <h3 class="test1-category">{{book.Genre}}</h3>
-                                <small class="price">LBP {{book.PriceLBP}}</small>
+                                <small class="price">{{book.Price}}</small>
                             </div>
                         </div>
                         {% endfor %}
