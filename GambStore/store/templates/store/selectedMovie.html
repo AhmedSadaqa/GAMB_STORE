@@ -28,17 +28,7 @@
                     <h2 style="color: #27995e;">{{ movie.Name }}</h2>
                     <div style="color: #27995e;" id="special">
                         <h3>
-                            {% if movie.PriceUSD == 0 %}
-                                Free
-                            {% else %}
-                                {% ifequal currency "LBP" %}
-                                    LBP {{movie.PriceLBP}}
-                                {% endifequal %}
-
-                                {% ifequal currency "USD" %}
-                                    $ {{movie.PriceUSD}}
-                                {% endifequal %}
-                            {% endif %}
+                            {{movie.Price}}
                         </h3>
                         <div style="display: inline-block;">
                             <form method="POST">
@@ -238,17 +228,7 @@
                             <h3 class="test1-title"><a href="/movieItem/{{movies.id}}">{{ movies.Name }}</a></h3>
                             <h3 class="test1-category"><a href="/movieItem/{{movies.id}}">{{ movies.Genre }}</a></h3>
                             <small class="price">
-                                {% if movies.PriceUSD == 0 %}
-                                    Free
-                                {% else %}
-                                    {% ifequal currency "LBP" %}
-                                        LBP {{movies.PriceLBP}}
-                                    {% endifequal %}
-
-                                    {% ifequal currency "USD" %}
-                                        $ {{movies.PriceUSD}}
-                                    {% endifequal %}
-                                {% endif %}
+                                {{movies.Price}}
                             </small>
                         </div>
                     </div>

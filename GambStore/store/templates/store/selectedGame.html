@@ -27,18 +27,7 @@
                     <h2 style="color: #27995e;">{{game.Name}}</h2>
                     <div style="color: #27995e;" id="special">
                         <h3>
-                            {% if game.PriceUSD == 0 %}
-                                Free
-                            {% else %}
-                                {% ifequal currency "LBP" %}
-                                    LBP {{game.PriceLBP}}
-                                {% endifequal %}
-
-                                {% ifequal currency "USD" %}
-                                    $ {{game.PriceUSD}}
-                                {% endifequal %}
-                            {% endif %}
-                                
+                            {{game.Price}}
                         </h3>
                         <form method="POST">
                             {%csrf_token%}
@@ -203,17 +192,7 @@
                                 <h3 class="test1-title"><a href="/gameItem/{{games.id}}">{{ games.Name }}</a></h3>
                                 <h3 class="test1-category"><a href="/gameItem/{{games.id}}">{{ games.Genre }}</a></h3>
                                 <small class="price">
-                                    {% if games.PriceUSD == 0 %}
-                                        Free
-                                    {% else %}
-                                        {% ifequal currency "LBP" %}
-                                            LBP {{games.PriceLBP}}
-                                        {% endifequal %}
-
-                                        {% ifequal currency "USD" %}
-                                            $ {{games.PriceUSD}}
-                                        {% endifequal %}
-                                    {% endif %}
+                                    {{games.Price}}
                                 </small>
                             </div>
                         </div>

@@ -27,17 +27,7 @@
                     <h2 style="color: #27995e;">{{app.Name}}</h2>
                     <div style="color: #27995e;" id="special">
                         <h3>
-                            {% if app.PriceUSD == 0 %}
-                                Free
-                            {% else %}
-                                {% ifequal currency "LBP" %}
-                                    LBP {{app.PriceLBP}}
-                                {% endifequal %}
-
-                                {% ifequal currency "USD" %}
-                                    $ {{app.PriceUSD}}
-                                {% endifequal %}
-                            {% endif %}
+                            {{app.Price}}
                         </h3>
                         <form method="POST">
                             {%csrf_token%}
@@ -49,7 +39,7 @@
                             <td class="title">Rating: </td>
                             <td>
                                 {% for i in '12345' %}
-                                    {% if i|add:0 <= books.Rating %}
+                                    {% if i|add:0 <= app.Rating %}
                                         <span class="fa fa-star checked"></span>
                                     {% else %}
                                         <span class="fa fa-star"></span>
@@ -202,17 +192,7 @@
                                 <h3 class="test1-title"><a href="/appItem/{{apps.id}}">{{ apps.Name }}</a></h3>
                                 <h3 class="test1-category"><a href="/appItem/{{apps.id}}">{{ apps.Genre }}</a></h3>
                                 <small class="price">
-                                    {% if apps.PriceUSD == 0 %}
-                                        Free
-                                    {% else %}
-                                        {% ifequal currency "LBP" %}
-                                            LBP {{apps.PriceLBP}}
-                                        {% endifequal %}
-
-                                        {% ifequal currency "USD" %}
-                                            $ {{apps.PriceUSD}}
-                                        {% endifequal %}
-                                    {% endif %}
+                                    {{apps.Price}}
                                 </small>
                             </div>
                         </div>

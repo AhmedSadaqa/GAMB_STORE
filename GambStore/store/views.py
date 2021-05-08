@@ -5,6 +5,7 @@ from .models import Profile, Book, Application, Game, Movie, CastMember, CreditM
 from django.contrib.auth.decorators import login_required
 import re
 import datetime
+import math
 from django.db.models import Q
 from django.http import Http404
 from decimal import *
@@ -12,14 +13,89 @@ from decimal import *
 
 
 def home(request):
-    books = Book.objects.all()
-    applications = Application.objects.all()
-    games = Game.objects.all()
-    movies = Movie.objects.all()
-    context = {"books":books,
-               "applications":applications,
-               "games":games,
-               "movies":movies}
+    allBooks = Book.objects.all()
+    allApplications = Application.objects.all()
+    allGames = Game.objects.all()
+    allMovies = Movie.objects.all()
+    books = []
+    applications = []
+    games = []
+    movies = []
+    for i in range(5):
+        books.append(allBooks[i])
+        applications.append(allApplications[i])
+        games.append(allGames[i])
+        movies.append(allMovies[i])
+    for item in allBooks:
+        pricesplited = item.Price.split(" ")
+        break
+    curr = pricesplited[0]
+    context = {}
+    context["currency"] = curr
+    if request.method == "POST":
+        if 'currency' in request.POST:
+            currency = request.POST.get('currency')
+            context["currency"] = currency
+            for book in allBooks:
+                if book.Price != "Free":
+                    pricesplited = book.Price.split(" ")
+                    if currency == "USD":
+                        number = float(pricesplited[1]) / 1500
+                        number = round(number,2)
+                        book.Price = "USD " + str(number)
+                        book.save()
+                    elif currency == "LBP":
+                        number = float(pricesplited[1]) * 1500
+                        number = round(number,2)
+                        book.Price = "LBP " + str(number)
+                        book.save()
+            for book in allMovies:
+                if book.Price != "Free":
+                    pricesplited = book.Price.split(" ")
+                    if currency == "USD":
+                        number = float(pricesplited[1]) / 1500
+                        number = round(number,2)
+                        book.Price = "USD " + str(number)
+                        book.save()
+                    elif currency == "LBP":
+                        number = float(pricesplited[1]) * 1500
+                        number = round(number,2)
+                        book.Price = "LBP " + str(number)
+                        book.save()
+            for book in allGames:
+                if book.Price != "Free":
+                    pricesplited = book.Price.split(" ")
+                    if currency == "USD":
+                        number = float(pricesplited[1]) / 1500
+                        number = round(number,2)
+                        book.Price = "USD " + str(number)
+                        book.save()
+                    elif currency == "LBP":
+                        number = float(pricesplited[1]) * 1500
+                        number = round(number,2)
+                        book.Price = "LBP " + str(number)
+                        book.save()
+            for book in allApplications:
+                if book.Price != "Free":
+                    pricesplited = book.Price.split(" ")
+                    if currency == "USD":
+                        number = float(pricesplited[1]) / 1500
+                        number = round(number,2)
+                        book.Price = "USD " + str(number)
+                        book.save()
+                    elif currency == "LBP":
+                        number = float(pricesplited[1]) * 1500
+                        number = round(number,2)
+                        book.Price = "LBP " + str(number)
+                        book.save()
+    
+    context["books"] = books
+    context["applications"] = applications
+    context["games"] = games
+    context["movies"] = movies
+    context["LBP"] = "LBP"
+    context["USD"] = "USD"
+
     return render(request, "store/GAMBindex.html", context)
 
 
@@ -136,18 +212,19 @@ def booksRecommendations(request):
 def bookItem(request, book_id):
     current_user = request.user
     book = Book.objects.get(id=book_id)
-    itemVisited = VisitedItems.objects.create(user=current_user,
+    if request.user.is_authenticated:
+        itemVisited = VisitedItems.objects.create(user=current_user,
                                               book_id=book)
     books = Book.objects.get(id=book_id)
     if request.method == "POST":
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
-        elif 'wishlist' in request.POST:
+        elif 'wishlist' in request.POST and request.user.is_authenticated:
             count = WishList.objects.filter(book_id=book).count()
             if count == 0:
                 wishlist = WishList.objects.create(user= request.user,
                                                book_id= book)
-        else:
+        elif request.user.is_authenticated:
             if 'review' in request.POST:
                 review_content = request.POST.get('rev')
                 review_user = request.user
@@ -169,6 +246,8 @@ def bookItem(request, book_id):
                 review.report += 1
                 if review.report >= 10:
                     review.delete()
+        else:
+            return redirect('login')
     try:
         reviews = Review.objects.filter(book_id=books)
         currency = "USD"
@@ -491,6 +570,7 @@ def movieItem(request , movie_id):
     if request.method == "POST":
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+            print(currency)
             
         elif 'wishlist' in request.POST:
             count = WishList.objects.filter(movie_id=movie).count()
