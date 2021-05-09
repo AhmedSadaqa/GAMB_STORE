@@ -35,16 +35,6 @@
                                 {%csrf_token%}
                                 <button name="wishlist" onclick="form.submit()"><b>Add to WishList</b></button>
                             </form>
-                            <br>
-                            <form method="POST">
-                                {%csrf_token%}
-                                <h3 style="display: inline;"><b>Currency:</b></h3>
-                                <select id="items" name="currency" onchange="form.submit()">
-                                    <option value="None" selected disabled>---</option>
-                                    <option id="usd" value="USD">USD</option>
-                                    <option id="lbp" value="LBP">LBP</option>
-                                </select>
-                            </form>
                         </div>
                     </div>
                     <table>
@@ -270,6 +260,5 @@
         }
         document.getElementById("selected")
     </script>
-
 
 {% endblock %}

@@ -35,8 +35,6 @@ urlpatterns = [
     path('topSellingApplications/', views.topSellingApplications, name='topSellingApplications'),
     path('newReleasesApplications/', views.newReleasesApplications, name='newReleasesApplications'),
     path('applicationsRecommendations', views.applicationsRecommendations, name='applicationsRecommendations'),
-
-    path('addRandomReview/<int:rating>/', views.addReviews , name="addReviews"),
     
     path('wishlist/', views.wishlist, name='wishlist'),
     path('search/', views.search, name='search'),

@@ -211,48 +211,65 @@ def booksRecommendations(request):
 
 def bookItem(request, book_id):
     current_user = request.user
-    book = Book.objects.get(id=book_id)
+    books = Book.objects.get(id=book_id)
+
+    #add to visited items of the user
     if request.user.is_authenticated:
         itemVisited = VisitedItems.objects.create(user=current_user,
-                                              book_id=book)
-    books = Book.objects.get(id=book_id)
+                                              book_id=books)
+
+
     if request.method == "POST":
+        # Change currency if requested
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+        # Add to wishlist if requested
         elif 'wishlist' in request.POST and request.user.is_authenticated:
-            count = WishList.objects.filter(book_id=book).count()
+            count = WishList.objects.filter(book_id=books).count()
             if count == 0:
                 wishlist = WishList.objects.create(user= request.user,
-                                               book_id= book)
+                                               book_id= books)
+        
         elif request.user.is_authenticated:
+            # Add review if requested
             if 'review' in request.POST:
                 review_content = request.POST.get('rev')
                 review_user = request.user
                 review_rating = request.POST.get('rating')
                 Review.objects.create(user=review_user , Rating=review_rating, book_id=books, likes=0, dislikes=0, report=0, content=review_content)
+            # Add like if requested
             if 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
                 review.save()
+            # Add dislike if requested
             elif 'dislike' in request.POST:
                 dislike = request.POST.get('dislike')
                 review = Review.objects.get(id=dislike)
                 review.dislikes += 1
                 review.save()
+            # Add report if requested
             elif 'report' in request.POST:
                 report = request.POST.get('report')
                 review = Review.objects.get(id=report)
                 review.report += 1
+                # Delete the review on the tenth report 
                 if review.report >= 10:
                     review.delete()
+                else:
+                    review.save() 
         else:
+            # Get user to login to perform one of the previous actions
             return redirect('login')
     try:
         reviews = Review.objects.filter(book_id=books)
         currency = "USD"
+        # Get similar Books by Genre
         similarBooks = Book.objects.filter(Genre = books.Genre)
         average_rating = 0
+
+        # Compute the average Rating
         if reviews:
             for review in reviews:
                 average_rating += review.Rating
@@ -330,47 +347,64 @@ def applicationsRecommendations(request):
 def applicationItem(request , app_id):
     current_user = request.user
     app = Application.objects.get(id=app_id)
-    itemVisited = VisitedItems.objects.create(user=current_user,
+
+    #add to visited items of the user
+    if request.user.is_authenticated:
+        itemVisited = VisitedItems.objects.create(user=current_user,
                                               application_id=app)
 
-    app = Application.objects.get(id=app_id)
     if request.method == "POST":
+        # Change currency if requested
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+        # Add to wishlist if requested
         elif 'wishlist' in request.POST:
             count = WishList.objects.filter(application_id=app).count()
             if count == 0:
                 wishlist = WishList.objects.create(user= request.user,
                                                application_id= app)
 
-        else:
+        elif request.user.is_authenticated:
+            # Add review if requested
             if 'review' in request.POST:
                 review_content = request.POST.get('rev')
                 review_user = request.user
                 review_rating = request.POST.get('rating')
                 Review.objects.create(user=review_user , Rating=review_rating, app_id=app, likes=0, dislikes=0, report=0, content=review_content)
+            # Add like if requested
             elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
                 review.save()
+            # Add dislike if requested
             elif 'dislike' in request.POST:
                 dislike = request.POST.get('dislike')
                 review = Review.objects.get(id=dislike)
                 review.dislikes += 1
                 review.save()
+            # Add report if requested
             elif 'report' in request.POST:
                 report = request.POST.get('report')
                 review = Review.objects.get(id=report)
                 review.report += 1
+                # Delete the review on the tenth report 
                 if review.report >= 10:
                     review.delete()   
+                else:
+                    review.save() 
+        else:
+            # Get user to login to perform one of the previous actions
+            return redirect('login')
         
     try:
         reviews = Review.objects.filter(application_id=app)
         currency = "USD"
+        # Get similar Applications by Genre
         similarApps = Application.objects.filter(Genre = app.Genre)
         average_rating = 0
+
+        # Compute the average Rating
         if reviews:
             for review in reviews:
                 average_rating += review.Rating
@@ -448,46 +482,63 @@ def gamesRecommendations(request):
 def gameItem(request , game_id):
     current_user = request.user
     game = Game.objects.get(id=game_id)
-    itemVisited = VisitedItems.objects.create(user=current_user,
-                                              game_id=game)
 
-    game = Game.objects.get(id=game_id)
+    #add to visited items of the user
+    if request.user.is_authenticated:
+        itemVisited = VisitedItems.objects.create(user=current_user,
+                                              game_id=game)
+                                            
     if request.method == "POST":
+        # Change currency if requested
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
+        # Add to wishlist if requested
         elif 'wishlist' in request.POST:
             count = WishList.objects.filter(game_id=game).count()
             if(count == 0):
                 wishlist = WishList.objects.create(user= request.user,
                                                game_id= game)
-        else:
+        elif request.user.is_authenticated:
+            # Add review if requested
             if 'review' in request.POST:
                 review_content = request.POST.get('rev')
                 review_user = request.user
                 review_rating = request.POST.get('rating')
                 Review.objects.create(user=review_user , Rating=review_rating, game_id=game, likes=0, dislikes=0, report=0, content=review_content)
+            # Add like if requested
             elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
                 review.save()
+            # Add dislike if requested
             elif 'dislike' in request.POST:
                 dislike = request.POST.get('dislike')
                 review = Review.objects.get(id=dislike)
                 review.dislikes += 1
                 review.save()
+            # Add report if requested
             elif 'report' in request.POST:
                 report = request.POST.get('report')
                 review = Review.objects.get(id=report)
                 review.report += 1
+                # Delete the review on the tenth report
                 if review.report >= 10:
-                    review.delete()   
+                    review.delete()  
+                else:
+                    review.save()  
+        else:
+            # Get user to login to perform one of the previous actions
+            return redirect('login')
         
     try:
         reviews = Review.objects.filter(game_id=game)
         currency = "USD"
+        # Get similar Games by Genre
         similarGames = Game.objects.filter(Genre = game.Genre)
         average_rating = 0
+
+        # Compute the average Rating
         if reviews:
             for review in reviews:
                 average_rating += review.Rating
@@ -565,49 +616,68 @@ def moviesRecommendations(request):
 def movieItem(request , movie_id):
     current_user = request.user
     movie = Movie.objects.get(id=movie_id)
-    itemVisited = VisitedItems.objects.create(user=current_user,
+
+    #add to visited items of the user
+    if request.user.is_authenticated:
+        itemVisited = VisitedItems.objects.create(user=current_user,
                                               movie_id=movie)
+                                              
     if request.method == "POST":
+        # Change currency if requested
         if 'currency' in request.POST:
             currency = request.POST.get('currency')
             print(currency)
-            
+        # Add to wishlist if requested   
         elif 'wishlist' in request.POST:
             count = WishList.objects.filter(movie_id=movie).count()
             if(count == 0):
                 wishlist = WishList.objects.create(user= request.user,
                                                movie_id= movie)
-        else:
+        elif request.user.is_authenticated:
+            # Add review if requested
             if 'review' in request.POST:
                 review_content = request.POST.get('rev')
                 review_user = request.user
                 review_rating = request.POST.get('rating')
                 Review.objects.create(user=review_user , Rating=review_rating, movie_id=movie, likes=0, dislikes=0, report=0, content=review_content)
+            # Add like if requested
             elif 'like' in request.POST:
                 like = request.POST.get('like')
                 review = Review.objects.get(id=like)
                 review.likes += 1
                 review.save()
+            # Add dislike if requested
             elif 'dislike' in request.POST:
                 dislike = request.POST.get('dislike')
                 review = Review.objects.get(id=dislike)
                 review.dislikes += 1
                 review.save()
+            # Add report if requested
             elif 'report' in request.POST:
                 report = request.POST.get('report')
                 review = Review.objects.get(id=report)
                 review.report += 1
-                review.save()
+                # Delete the review on the tenth report
                 if review.report >= 10:
-                    review.delete()   
+                    review.delete()  
+                else:
+                    review.save() 
+        else:
+            # Get user to login to perform one of the previous actions
+            return redirect('login')
         
     try:
         reviews = Review.objects.filter(movie_id=movie)
         currency = "USD"
+        # Get similar Movies by Genre
         similarMovies = Movie.objects.filter(Genre = movie.Genre)
+        # Get cast of the movie
         cast = CastMember.objects.filter(Movie=movie)
+        # Get credits of the movie
         credit = CreditMemeber.objects.filter(Movie= movie)
         average_rating = 0
+
+        # Compute the average Rating
         if reviews:
             for review in reviews:
                 average_rating += review.Rating
@@ -632,7 +702,7 @@ def movieItem(request , movie_id):
 
     #WishList & Search Options
 def wishlist(request):
-    wishlist = WishList.objects.distinct()
+    wishlist = WishList.objects.filter(user=request.user).distinct()
     context = {"wishlist" : wishlist}
     return render(request, 'store/wishlist.html', context)
 
@@ -664,47 +734,13 @@ def search(request):
     return render(request, 'store/base.html', context)
 
 def visitedItems(request):
-    items = VisitedItems.objects.all().order_by("-id")
+    items = VisitedItems.objects.filter(user=request.user).order_by("-id")
     lastVisited = []
     for i in range(24):
-        lastVisited.append(items[i])
+        if i < items.__len__():
+            lastVisited.append(items[i])
+        else:
+            break
+    
     context = {"lastVisited" : lastVisited}
     return render(request, 'store/visitedItems.html', context)
-
-
-
-def addReviews(request, rating):
-    movies = Movie.objects.all()
-    books = Book.objects.all()
-    apps = Application.objects.all()
-    games = Game.objects.all()
-
-    review = "The website is a great source for affordable books and movies. I have shopped through the website for a few years now and am always pleased. If there is a problem, it is resolved quickly and satisfactorily. I plan to continue to buy books from this site regularly. "
-
-    count = 0
-
-    for movie in movies:
-        if count >= 6:
-            Review.objects.create(user=request.user , movie_id=movie, Rating=rating , content=review, likes=0, dislikes=0, report=0)
-        count += 1
-
-    for book in books:
-        if count >= 6:
-            Review.objects.create(user=request.user , book_id=book, Rating=rating , content=review, likes=0, dislikes=0, report=0)
-        count += 1
-
-    for app in apps:
-        if count >= 6:
-            Review.objects.create(user=request.user , application_id=app, Rating=rating , content=review, likes=0, dislikes=0, report=0)
-        count += 1
-
-    for game in games:
-        if count >= 6:
-            Review.objects.create(user=request.user , game_id=game, Rating=rating , content=review, likes=0, dislikes=0, report=0)
-        count += 1
-
-    context = {"books":books,
-               "applications":apps,
-               "games":games,
-               "movies":movies}
-    return render(request, "store/GAMBindex.html", context)
